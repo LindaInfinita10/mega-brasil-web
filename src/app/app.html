@@ -1,8 +1,441 @@
-<header class="site-header"><div class="header-inner"><a class="brand" href="#inicio" aria-label="Mega Brasil"><img src="/assets/images/hero/hero.transp.png" alt="Mega Brasil Indústria"></a><nav class="main-nav" aria-label="Navegação principal"><a href="#inicio">Início</a><a href="#empresa">Empresa</a><a href="#megashield">MegaShield</a><a href="#produtos">Produtos</a><a href="#contato">Contato</a></nav><a class="header-button" href="#contato">Solicitar orçamento <span>→</span></a></div></header>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="#inicio" aria-label="Mega Brasil"
+      ><img src="/assets/images/hero/hero.transp.png" alt="Mega Brasil Indústria"
+    /></a>
+    <nav class="main-nav" aria-label="Navegação principal">
+      <a href="#inicio">Início</a><a href="#empresa">Empresa</a><a href="#megashield">MegaShield</a
+      ><a href="#produtos">Produtos</a><a href="#contato">Contato</a>
+    </nav>
+    <a class="header-button" href="#contato">Solicitar orçamento <span>→</span></a>
+  </div>
+</header>
 <main>
-  <section id="inicio" class="hero"><div class="hero-background"></div><div class="hero-overlay"></div><div class="hero-content"><div class="hero-text"><p class="eyebrow">MEGASHIELD</p><h1>Onde o fogo <strong>encontra seu limite.</strong></h1><i class="orange-line"></i><h2>Porta corta-fogo</h2><p class="lead">Soluções industriais desenvolvidas para proteção contra incêndios, segurança e alto desempenho.</p><a class="primary-button" href="#megashield">Conheça a MegaShield <span>→</span></a></div></div></section>
-  <section id="empresa" class="empresa-section"><div class="empresa-background" aria-hidden="true"><img class="empresa-slide slide-one" src="/assets/images/empresa/qsomos2.jpeg" alt=""><img class="empresa-slide slide-two" src="/assets/images/empresa/qsomos3.jpeg" alt=""><img class="empresa-slide slide-three" src="/assets/images/empresa/qsomos4.jpeg" alt=""><img class="empresa-slide slide-four" src="/assets/images/empresa/quienesom.jpeg" alt=""></div><div class="empresa-overlay"></div><div class="empresa-content"><div class="empresa-text"><p class="eyebrow">QUEM SOMOS</p><h2>MEGA BRASIL <strong>INDÚSTRIA</strong></h2><i class="orange-line"></i><p>A Mega Brasil Indústria pertence ao Grupo Mega Brasil e é especializada na fabricação, comercialização e instalação de portas corta-fogo e soluções para proteção contra incêndio.</p><p>Credenciada pelo CBMERJ, atuamos com estrutura própria, processos modernos e equipe qualificada para entregar segurança, qualidade e conformidade técnica.</p><p>Desde 1997 desenvolvemos soluções para diversos segmentos, com produção nacional e atendimento em todo o Brasil.</p></div><div class="empresa-cards"><article><div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"/></svg></div><h3>MISSÃO</h3><p>Oferecer soluções contra incêndio com excelência, inovação e compromisso com a vida.</p></article><article><div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg></div><h3>VISÃO</h3><p>Ser referência nacional em soluções contra incêndio, com qualidade, tecnologia e confiança.</p></article><article><div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7l7-4zM9 12l2 2 4-4"/></svg></div><h3>VALORES</h3><p>Ética, excelência, inovação e responsabilidade com a proteção de vidas e patrimônios.</p></article></div></div></section>
-  <section id="megashield" class="megashield-section"><div class="section-wrap"><div class="mega-heading"><p class="eyebrow">PRODUTO EM DESTAQUE</p><h2>MEGASHIELD</h2><p>Porta corta-fogo desenvolvida para ambientes industriais que exigem segurança, resistência e confiabilidade.</p></div><div class="mega-product"><div class="mega-product-image"><img src="/assets/images/hero/megashield.png" alt="Porta corta-fogo MegaShield"></div><div class="mega-product-info"><p class="eyebrow">01 · PROTEÇÃO INDUSTRIAL</p><h3>Proteção contra <strong>o fogo.</strong></h3><p>A MegaShield foi desenvolvida para projetos industriais, comerciais e ambientes que exigem proteção contra incêndios.</p><a class="outline-button" href="#contato">Solicitar orçamento <span>→</span></a></div></div></div></section>
-  <section id="produtos" class="products-section"><div class="section-wrap"><p class="eyebrow">NOSSA LINHA</p><h2>Soluções que protegem o seu projeto.</h2><div class="product-grid"><article><b>01</b><h3>Portas corta-fogo</h3><p>Proteção, resistência e conformidade para diferentes aplicações.</p></article><article><b>02</b><h3>Portas industriais</h3><p>Desempenho para operações que não podem parar.</p></article><article><b>03</b><h3>Projetos especiais</h3><p>Soluções dimensionadas conforme a necessidade da sua obra.</p></article></div></div></section>
-  <section id="contato" class="contact-section"><div class="contact-wrap"><div class="contact-copy"><p class="eyebrow">FALE CONOSCO</p><h2>Solicite seu orçamento.</h2><p>Preencha os dados ao lado. Ao enviar, abriremos uma conversa no WhatsApp com a equipe comercial e as informações do seu pedido.</p><p class="contact-note">✓ Atendimento para todo o Brasil</p></div><form class="quote-form" (ngSubmit)="sendToWhatsapp()" #quoteForm="ngForm"><div class="form-grid"><label>Nome*<input name="name" [(ngModel)]="form.name" required autocomplete="name"></label><label>Empresa*<input name="company" [(ngModel)]="form.company" required autocomplete="organization"></label><label>Telefone*<input name="phone" [(ngModel)]="form.phone" required inputmode="tel" autocomplete="tel"></label><label>E-mail*<input name="email" [(ngModel)]="form.email" required type="email" autocomplete="email"></label></div><label>Informações para o orçamento*<textarea name="budget" [(ngModel)]="form.budget" required rows="5" placeholder="Informe produto, medidas, quantidade, cidade e prazo, se tiver."></textarea></label><button class="primary-button" type="submit" [disabled]="quoteForm.invalid">Enviar pelo WhatsApp <span>→</span></button>@if (feedback()) { <p class="form-feedback" role="status">{{ feedback() }}</p> }</form></div></section>
-</main><footer><div class="footer-main"><a class="footer-brand" href="#inicio" aria-label="Mega Brasil - início"><img src="/assets/images/hero/hero.transp.png" alt="Mega Brasil Indústria"></a><div><h3>Atendimento comercial</h3><a class="footer-whatsapp" href="https://wa.me/5521978715555" target="_blank" rel="noopener noreferrer">WhatsApp: +55 21 97871-5555</a></div><div><h3>Institucional</h3><a href="#empresa">A empresa</a><a href="#produtos">Produtos</a><a href="#contato">Solicitar orçamento</a></div><div><h3>Informações legais</h3><a href="#privacidade">Política de privacidade</a><a href="#termos">Termos e condições</a></div></div><div class="footer-bottom"><span>© {{ 2026 }} Mega Brasil Indústria. Todos os direitos reservados.</span><a href="#inicio">Voltar ao topo ↑</a></div></footer><style>.hero-overlay{background:linear-gradient(90deg,rgba(48,50,52,.68),rgba(48,50,52,.37) 48%,rgba(48,50,52,.04))!important}.empresa-overlay{background:linear-gradient(90deg,rgba(48,50,52,.62),rgba(48,50,52,.32) 50%,rgba(48,50,52,.06))!important}.megashield-section{background:linear-gradient(150deg,#515457,#3f4245)!important}.products-section{background:#56595b!important}.product-grid article{background:#44474a!important}footer{display:block!important;padding:0!important;background:#f7f7f5!important;color:#222!important}.footer-main{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:35px;align-items:start;width:min(1440px,calc(100% - 80px));margin:auto;padding:48px 0 38px}.footer-brand{display:block;width:210px;height:72px}.footer-brand img{width:100%;height:100%;object-fit:contain}.footer-main h3{margin:5px 0 15px;font-size:12px;letter-spacing:.8px;text-transform:uppercase;color:#333}.footer-main div:not(.footer-main) a,.footer-main>div a{display:block;margin:0 0 10px;font-size:13px;color:#555}.footer-main a:hover{color:#f45100}.footer-whatsapp{font-weight:800!important;color:#f45100!important}.footer-bottom{display:flex;justify-content:space-between;width:min(1440px,calc(100% - 80px));margin:auto;padding:18px 0;border-top:1px solid #ddd;color:#686868;font-size:12px}.footer-bottom a{color:#f45100!important;font-weight:bold}@media(max-width:850px){.footer-main{grid-template-columns:1fr 1fr;width:calc(100% - 40px);gap:28px;padding:35px 0}.footer-bottom{width:calc(100% - 40px);gap:15px;flex-direction:column}.footer-brand{width:170px}}</style>
+  <section id="inicio" class="hero">
+    <div class="hero-background"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <p class="eyebrow">MEGASHIELD</p>
+        <h1>Onde o fogo <strong>encontra seu limite.</strong></h1>
+        <i class="orange-line"></i>
+        <h2>Porta corta-fogo</h2>
+        <p class="lead">
+          Soluções industriais desenvolvidas para proteção contra incêndios, segurança e alto
+          desempenho.
+        </p>
+        <a class="primary-button" href="#megashield">Conheça a MegaShield <span>→</span></a>
+      </div>
+    </div>
+  </section>
+  <section id="empresa" class="empresa-section">
+    <div class="empresa-background" aria-hidden="true">
+      <img class="empresa-slide slide-one" src="/assets/images/empresa/qsomos2.jpeg" alt="" /><img
+        class="empresa-slide slide-two"
+        src="/assets/images/empresa/qsomos3.jpeg"
+        alt=""
+      /><img
+        class="empresa-slide slide-three"
+        src="/assets/images/empresa/qsomos4.jpeg"
+        alt=""
+      /><img class="empresa-slide slide-four" src="/assets/images/empresa/quienesom.jpeg" alt="" />
+    </div>
+    <div class="empresa-overlay"></div>
+    <div class="empresa-content">
+      <div class="empresa-text">
+        <p class="eyebrow">QUEM SOMOS</p>
+        <h2>MEGA BRASIL <strong>INDÚSTRIA</strong></h2>
+        <i class="orange-line"></i>
+        <p>
+          A Mega Brasil Indústria pertence ao Grupo Mega Brasil e é especializada na fabricação,
+          comercialização e instalação de portas corta-fogo e soluções para proteção contra
+          incêndio.
+        </p>
+        <p>
+          Credenciada pelo CBMERJ, atuamos com estrutura própria, processos modernos e equipe
+          qualificada para entregar segurança, qualidade e conformidade técnica.
+        </p>
+        <p>
+          Desde 1997 desenvolvemos soluções para diversos segmentos, com produção nacional e
+          atendimento em todo o Brasil.
+        </p>
+      </div>
+      <div class="empresa-cards">
+        <article>
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4" />
+            </svg>
+          </div>
+          <h3>MISSÃO</h3>
+          <p>
+            Oferecer soluções contra incêndio com excelência, inovação e compromisso com a vida.
+          </p>
+        </article>
+        <article>
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="8" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </div>
+          <h3>VISÃO</h3>
+          <p>
+            Ser referência nacional em soluções contra incêndio, com qualidade, tecnologia e
+            confiança.
+          </p>
+        </article>
+        <article>
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7l7-4zM9 12l2 2 4-4" />
+            </svg>
+          </div>
+          <h3>VALORES</h3>
+          <p>
+            Ética, excelência, inovação e responsabilidade com a proteção de vidas e patrimônios.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section id="megashield" class="megashield-section">
+    <div class="section-wrap">
+      <div class="mega-heading">
+        <p class="eyebrow">PRODUTO EM DESTAQUE</p>
+        <h2>MEGASHIELD</h2>
+        <p>
+          Porta corta-fogo desenvolvida para ambientes industriais que exigem segurança, resistência
+          e confiabilidade.
+        </p>
+      </div>
+      <div class="mega-product">
+        <div class="mega-product-image">
+          <img
+            src="/assets/images/hero/megashield-red.png"
+            alt="Porta corta-fogo MegaShield vermelha"
+          />
+        </div>
+        <div class="mega-product-info">
+          <p class="eyebrow">01 · PROTEÇÃO INDUSTRIAL</p>
+          <h3>Proteção contra <strong>o fogo.</strong></h3>
+          <p>
+            A MegaShield foi desenvolvida para projetos industriais, comerciais e ambientes que
+            exigem proteção contra incêndios.
+          </p>
+          <div class="mega-door-heading">
+            <p class="eyebrow">ESCOLHA SUA CLASSIFICAÇÃO</p>
+            <h3>Adicione a porta certa ao orçamento.</h3>
+          </div>
+          <div class="mega-door-options">
+            <article>
+              <img src="/assets/images/products/megashield-60.png" alt="MegaShield P60" />
+              <div>
+                <b>MegaShield P60</b>
+                <h4>Proteção por 60 minutos</h4>
+                <p>Para rotas de fuga, escadas e corredores.</p>
+                <button (click)="addProduct('MegaShield P60')">Adicionar ao orçamento +</button>
+              </div>
+            </article>
+            <article>
+              <img src="/assets/images/products/megashield-90.png" alt="MegaShield P90" />
+              <div>
+                <b>MegaShield P90</b>
+                <h4>Proteção por 90 minutos</h4>
+                <p>Para locais com maior exigência de segurança.</p>
+                <button (click)="addProduct('MegaShield P90')">Adicionar ao orçamento +</button>
+              </div>
+            </article>
+            <article>
+              <img src="/assets/images/products/megashield-120.png" alt="MegaShield P120" />
+              <div>
+                <b>MegaShield P120</b>
+                <h4>Proteção por 120 minutos</h4>
+                <p>Para indústrias e ambientes de alto risco.</p>
+                <button (click)="addProduct('MegaShield P120')">Adicionar ao orçamento +</button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="produtos" class="products-section">
+    <div class="section-wrap">
+      <p class="eyebrow">CATÁLOGO COMERCIAL</p>
+      <h2>Complete seu orçamento.</h2>
+      <p class="products-intro">Inclua produtos complementares no mesmo pedido comercial.</p>
+      <div class="product-grid">
+        <article class="catalog-megashield">
+          <img src="/assets/images/hero/megashield-red.png" alt="Porta corta-fogo MegaShield vermelha" />
+          <div><b>MegaShield</b><h3>Porta corta-fogo</h3><p>Modelos P60, P90 e P120 para selecionar acima.</p><a href="#megashield">Ver classificações →</a></div>
+        </article>
+        <article>
+          <b>MegaHose</b>
+          <h3>Mangueira de incêndio</h3>
+          <p>Para sistemas de combate a incêndio.</p>
+          <button (click)="addProduct('MegaHose')">+ Adicionar</button>
+        </article>
+        <article>
+          <b>MegaPump</b>
+          <h3>Casa de máquinas</h3>
+          <p>Soluções para bombeamento e pressurização.</p>
+          <button (click)="addProduct('MegaPump')">+ Adicionar</button>
+        </article>
+        <article>
+          <b>MegaSensor</b>
+          <h3>Detecção e alarme</h3>
+          <p>Sistemas de detecção e alarme de incêndio.</p>
+          <button (click)="addProduct('MegaSensor')">+ Adicionar</button>
+        </article>
+        <article>
+          <b>MegaVolt</b>
+          <h3>Painéis elétricos</h3>
+          <p>Painéis e comandos para sistemas de segurança.</p>
+          <button (click)="addProduct('MegaVolt')">+ Adicionar</button>
+        </article>
+        <article>
+          <b>MegaTherm</b>
+          <h3>Tinta intumescente</h3>
+          <p>Proteção passiva para estruturas metálicas.</p>
+          <button (click)="addProduct('MegaTherm')">+ Adicionar</button>
+        </article>
+        <article>
+          <b>MegaFoam</b>
+          <h3>Gerador de espuma</h3>
+          <p>Agente para combate a incêndios especiais.</p>
+          <button (click)="addProduct('MegaFoam')">+ Adicionar</button>
+        </article>
+        <article>
+          <b>MegaSprink</b>
+          <h3>Sprinklers</h3>
+          <p>Componentes para redes automáticas.</p>
+          <button (click)="addProduct('MegaSprink')">+ Adicionar</button>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section id="contato" class="contact-section">
+    <div class="contact-wrap">
+      <div class="contact-copy">
+        <p class="eyebrow">FALE CONOSCO</p>
+        <h2>Solicite seu orçamento.</h2>
+        <p>
+          Preencha os dados ao lado. Ao enviar, abriremos uma conversa no WhatsApp com a equipe
+          comercial e as informações do seu pedido.
+        </p>
+        <p class="contact-note">✓ Atendimento para todo o Brasil</p>
+      </div>
+      <form class="quote-form" (ngSubmit)="sendToWhatsapp()" #quoteForm="ngForm">
+        <div class="form-grid">
+          <label
+            >Nome*<input name="name" [(ngModel)]="form.name" required autocomplete="name" /></label
+          ><label
+            >Empresa*<input
+              name="company"
+              [(ngModel)]="form.company"
+              required
+              autocomplete="organization" /></label
+          ><label
+            >Telefone*<input
+              name="phone"
+              [(ngModel)]="form.phone"
+              required
+              inputmode="tel"
+              autocomplete="tel" /></label
+          ><label
+            >E-mail*<input
+              name="email"
+              [(ngModel)]="form.email"
+              required
+              type="email"
+              autocomplete="email"
+          /></label>
+        </div>
+        <label
+          >Informações para o orçamento*<textarea
+            name="budget"
+            [(ngModel)]="form.budget"
+            required
+            rows="5"
+            placeholder="Informe produto, medidas, quantidade, cidade e prazo, se tiver."
+          ></textarea></label
+        ><button class="primary-button" type="submit" [disabled]="quoteForm.invalid">
+          Enviar pelo WhatsApp <span>→</span>
+        </button>
+        @if (feedback()) {
+          <p class="form-feedback" role="status">{{ feedback() }}</p>
+        }
+      </form>
+    </div>
+  </section>
+  <section id="catalogo" class="catalogo-novo">
+    <div class="section-wrap">
+      <p class="eyebrow">ORÇAMENTO FINAL</p>
+      <h2>Revise sua solicitação.</h2>
+      <p class="catalogo-intro">
+        Os produtos selecionados aparecem aqui antes de enviar o pedido por WhatsApp.
+      </p>
+      @if (cart().length) {
+        <div class="orcamento-box">
+          <h3>Seu orçamento</h3>
+          @for (item of cart(); track item.name) {
+            <p>
+              {{ item.name }} <button (click)="changeProduct(item.name, -1)">−</button>
+              {{ item.quantity }} <button (click)="changeProduct(item.name, 1)">+</button>
+            </p>
+          }
+          <input placeholder="Nome" [(ngModel)]="form.name" /><input
+            placeholder="Empresa (opcional)"
+            [(ngModel)]="form.company"
+          /><input placeholder="Telefone" [(ngModel)]="form.phone" /><input
+            placeholder="E-mail"
+            [(ngModel)]="form.email"
+          /><textarea placeholder="Medidas e observações" [(ngModel)]="form.budget"></textarea
+          ><input type="date" [(ngModel)]="form.deadline" /><label
+            ><input type="checkbox" [(ngModel)]="form.consent" /> Aceito o uso dos meus dados para
+            este orçamento, conforme LGPD.</label
+          ><button
+            [disabled]="!form.consent || !form.name || !form.phone || !form.email"
+            (click)="sendQuote()"
+          >
+            Enviar pelo WhatsApp
+          </button>
+        </div>
+      }
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="footer-main">
+    <a class="footer-brand" href="#inicio" aria-label="Mega Brasil - início"
+      ><img src="/assets/images/hero/hero.transp.png" alt="Mega Brasil Indústria"
+    /></a>
+    <div>
+      <h3>Atendimento comercial</h3>
+      <a
+        class="footer-whatsapp"
+        href="https://wa.me/5521978715555"
+        target="_blank"
+        rel="noopener noreferrer"
+        >WhatsApp: +55 21 97871-5555</a
+      >
+    </div>
+    <div>
+      <h3>Institucional</h3>
+      <a href="#empresa">A empresa</a><a href="#produtos">Produtos</a
+      ><a href="#contato">Solicitar orçamento</a>
+    </div>
+    <div>
+      <h3>Informações legais</h3>
+      <a href="#privacidade">Política de privacidade</a><a href="#termos">Termos e condições</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© {{ 2026 }} Mega Brasil Indústria. Todos os direitos reservados.</span
+    ><a href="#inicio">Voltar ao topo ↑</a>
+  </div>
+</footer>
+<style>
+  .hero-overlay {
+    background: linear-gradient(
+      90deg,
+      rgba(48, 50, 52, 0.68),
+      rgba(48, 50, 52, 0.37) 48%,
+      rgba(48, 50, 52, 0.04)
+    ) !important;
+  }
+  .empresa-overlay {
+    background: linear-gradient(
+      90deg,
+      rgba(48, 50, 52, 0.62),
+      rgba(48, 50, 52, 0.32) 50%,
+      rgba(48, 50, 52, 0.06)
+    ) !important;
+  }
+  .megashield-section {
+    background: linear-gradient(150deg, #515457, #3f4245) !important;
+  }
+  .products-section {
+    background: #56595b !important;
+  }
+  .product-grid article {
+    background: #44474a !important;
+  }
+  footer {
+    display: block !important;
+    padding: 0 !important;
+    background: #f7f7f5 !important;
+    color: #222 !important;
+  }
+  .footer-main {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 35px;
+    align-items: start;
+    width: min(1440px, calc(100% - 80px));
+    margin: auto;
+    padding: 48px 0 38px;
+  }
+  .footer-brand {
+    display: block;
+    width: 210px;
+    height: 72px;
+  }
+  .footer-brand img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .footer-main h3 {
+    margin: 5px 0 15px;
+    font-size: 12px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #333;
+  }
+  .footer-main div:not(.footer-main) a,
+  .footer-main > div a {
+    display: block;
+    margin: 0 0 10px;
+    font-size: 13px;
+    color: #555;
+  }
+  .footer-main a:hover {
+    color: #f45100;
+  }
+  .footer-whatsapp {
+    font-weight: 800 !important;
+    color: #f45100 !important;
+  }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    width: min(1440px, calc(100% - 80px));
+    margin: auto;
+    padding: 18px 0;
+    border-top: 1px solid #ddd;
+    color: #686868;
+    font-size: 12px;
+  }
+  .footer-bottom a {
+    color: #f45100 !important;
+    font-weight: bold;
+  }
+  @media (max-width: 850px) {
+    .footer-main {
+      grid-template-columns: 1fr 1fr;
+      width: calc(100% - 40px);
+      gap: 28px;
+      padding: 35px 0;
+    }
+    .footer-bottom {
+      width: calc(100% - 40px);
+      gap: 15px;
+      flex-direction: column;
+    }
+    .footer-brand {
+      width: 170px;
+    }
+  }
+</style>
