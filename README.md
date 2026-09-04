@@ -1,59 +1,74 @@
-# MegaBrasilWeb
+# Mega Brasil Indústria — Site institucional
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.7.
+Site institucional e catálogo comercial desenvolvido em Angular para apresentar a empresa, a linha MegaShield, produtos, fichas técnicas e canais de atendimento.
 
-## Development server
+## Funcionalidades
 
-To start a local development server, run:
+- Catálogo responsivo com fotografias dos produtos.
+- Seleção de produtos e controle de quantidades.
+- Fichas técnicas MegaShield P60, P90 e P120.
+- Explorador visual dos componentes da porta corta-fogo.
+- Formulário comercial com consentimento para tratamento de dados.
+- Geração do pedido para o WhatsApp comercial.
+- Mapa, endereços, redes sociais e canais de atendimento.
+- Layout para celular, tablet, desktop, Full HD e televisores 4K.
 
-```bash
-ng serve
-```
+## Tecnologias
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Angular 21
+- TypeScript 5.9
+- Angular Forms
+- CSS responsivo
+- Vitest
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## Execução local
 
 ```bash
-ng build
+npm install
+npm start
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+A aplicação ficará disponível em `http://localhost:4200`.
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Build de produção
 
 ```bash
-ng test
+npm run build
 ```
 
-## Running end-to-end tests
+Os arquivos otimizados são gerados em `dist/mega-brasil-web/browser`.
 
-For end-to-end (e2e) testing, run:
+## Estrutura
 
-```bash
-ng e2e
+```text
+src/
+├── app/
+│   ├── app.ts        # estado, produtos e orçamento
+│   ├── app.html      # páginas e seções
+│   └── app.css       # sistema visual e responsividade
+├── assets/images/    # imagens institucionais e produtos
+├── main.ts
+└── styles.css        # estilos globais
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Fluxo do orçamento
 
-## Additional Resources
+1. O visitante seleciona produtos e quantidades.
+2. Informa seus dados e aceita o tratamento de dados.
+3. A aplicação abre o WhatsApp comercial com o pedido preenchido.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+O site não armazena os dados do formulário em banco de dados.
+
+## Documentação
+
+- [Publicação e entrega](docs/DEPLOYMENT.md)
+- [Conteúdo e manutenção](docs/CONTENT.md)
+- [Histórico de alterações](CHANGELOG.md)
+
+## Observação legal
+
+Os textos de privacidade precisam ser aprovados pela empresa ou por um profissional responsável antes da publicação definitiva.
+
+## Autoria
+
+Desenvolvido por Pilar Molina.
