@@ -129,30 +129,33 @@
           </div>
           <div class="mega-door-options">
             <article>
-              <img src="/assets/images/products/megashield-60.png" alt="MegaShield P60" />
+              <img src="/assets/images/hero/megashield-red.png" alt="MegaShield P60 em vermelho" />
               <div>
                 <b>MegaShield P60</b>
                 <h4>Proteção por 60 minutos</h4>
                 <p>Para rotas de fuga, escadas e corredores.</p>
-                <button (click)="addProduct('MegaShield P60')">Adicionar ao orçamento +</button>
+                <button class="door-detail-link" type="button" (click)="openDoorDetail('P60')">Ver ficha técnica →</button>
+                <button (click)="addProduct('MegaShield P60')">Adicionar + @if (productQuantity('MegaShield P60')) { <span class="button-quantity">{{ productQuantity('MegaShield P60') }}</span> }</button>
               </div>
             </article>
             <article>
-              <img src="/assets/images/products/megashield-90.png" alt="MegaShield P90" />
+              <img src="/assets/images/hero/megashield-red.png" alt="MegaShield P90 em vermelho" />
               <div>
                 <b>MegaShield P90</b>
                 <h4>Proteção por 90 minutos</h4>
                 <p>Para locais com maior exigência de segurança.</p>
-                <button (click)="addProduct('MegaShield P90')">Adicionar ao orçamento +</button>
+                <button class="door-detail-link" type="button" (click)="openDoorDetail('P90')">Ver ficha técnica →</button>
+                <button (click)="addProduct('MegaShield P90')">Adicionar + @if (productQuantity('MegaShield P90')) { <span class="button-quantity">{{ productQuantity('MegaShield P90') }}</span> }</button>
               </div>
             </article>
             <article>
-              <img src="/assets/images/products/megashield-120.png" alt="MegaShield P120" />
+              <img src="/assets/images/hero/megashield-red.png" alt="MegaShield P120 em vermelho" />
               <div>
                 <b>MegaShield P120</b>
                 <h4>Proteção por 120 minutos</h4>
                 <p>Para indústrias e ambientes de alto risco.</p>
-                <button (click)="addProduct('MegaShield P120')">Adicionar ao orçamento +</button>
+                <button class="door-detail-link" type="button" (click)="openDoorDetail('P120')">Ver ficha técnica →</button>
+                <button (click)="addProduct('MegaShield P120')">Adicionar + @if (productQuantity('MegaShield P120')) { <span class="button-quantity">{{ productQuantity('MegaShield P120') }}</span> }</button>
               </div>
             </article>
           </div>
@@ -166,174 +169,208 @@
       <h2>Complete seu orçamento.</h2>
       <p class="products-intro">Inclua produtos complementares no mesmo pedido comercial.</p>
       <div class="product-grid">
-        <article class="catalog-megashield">
-          <img src="/assets/images/hero/megashield-red.png" alt="Porta corta-fogo MegaShield vermelha" />
-          <div><b>MegaShield</b><h3>Porta corta-fogo</h3><p>Modelos P60, P90 e P120 para selecionar acima.</p><a href="#megashield">Ver classificações →</a></div>
+        <article>
+          <div class="catalog-photo photo-shield" role="img" aria-label="Porta corta-fogo MegaShield vermelha"></div>
+          <div class="catalog-card-copy"><b>MegaShield</b><h3>Porta corta-fogo</h3><p>Modelos P60, P90 e P120 para projetos industriais.</p><a class="catalog-link" href="#megashield">Ver classificações →</a></div>
         </article>
         <article>
-          <b>MegaHose</b>
-          <h3>Mangueira de incêndio</h3>
-          <p>Para sistemas de combate a incêndio.</p>
-          <button (click)="addProduct('MegaHose')">+ Adicionar</button>
+          <div class="catalog-photo photo-hose" role="img" aria-label="Mangueira de incêndio vermelha"></div>
+          <div class="catalog-card-copy"><b>MegaHose</b><h3>Mangueira de incêndio</h3><p>Para sistemas de combate a incêndio.</p><button (click)="addProduct('MegaHose')">+ Adicionar @if (productQuantity('MegaHose')) { <span class="button-quantity">{{ productQuantity('MegaHose') }}</span> }</button></div>
         </article>
         <article>
-          <b>MegaPump</b>
-          <h3>Casa de máquinas</h3>
-          <p>Soluções para bombeamento e pressurização.</p>
-          <button (click)="addProduct('MegaPump')">+ Adicionar</button>
+          <div class="catalog-photo photo-pump" role="img" aria-label="Conjunto industrial de bomba de incêndio"></div>
+          <div class="catalog-card-copy"><b>MegaPump</b><h3>Casa de máquinas</h3><p>Soluções para bombeamento e pressurização.</p><button (click)="addProduct('MegaPump')">+ Adicionar @if (productQuantity('MegaPump')) { <span class="button-quantity">{{ productQuantity('MegaPump') }}</span> }</button></div>
         </article>
         <article>
-          <b>MegaSensor</b>
-          <h3>Detecção e alarme</h3>
-          <p>Sistemas de detecção e alarme de incêndio.</p>
-          <button (click)="addProduct('MegaSensor')">+ Adicionar</button>
+          <div class="catalog-photo photo-sensor" role="img" aria-label="Central, detector e acionador de alarme de incêndio"></div>
+          <div class="catalog-card-copy"><b>MegaSensor</b><h3>Detecção e alarme</h3><p>Sistemas de detecção e alarme de incêndio.</p><button (click)="addProduct('MegaSensor')">+ Adicionar @if (productQuantity('MegaSensor')) { <span class="button-quantity">{{ productQuantity('MegaSensor') }}</span> }</button></div>
         </article>
         <article>
-          <b>MegaVolt</b>
-          <h3>Painéis elétricos</h3>
-          <p>Painéis e comandos para sistemas de segurança.</p>
-          <button (click)="addProduct('MegaVolt')">+ Adicionar</button>
+          <div class="catalog-photo photo-volt" role="img" aria-label="Painel elétrico industrial"></div>
+          <div class="catalog-card-copy"><b>MegaVolt</b><h3>Painéis elétricos</h3><p>Painéis e comandos para sistemas de segurança.</p><button (click)="addProduct('MegaVolt')">+ Adicionar @if (productQuantity('MegaVolt')) { <span class="button-quantity">{{ productQuantity('MegaVolt') }}</span> }</button></div>
         </article>
         <article>
-          <b>MegaTherm</b>
-          <h3>Tinta intumescente</h3>
-          <p>Proteção passiva para estruturas metálicas.</p>
-          <button (click)="addProduct('MegaTherm')">+ Adicionar</button>
+          <div class="catalog-photo photo-therm" role="img" aria-label="Aplicação de tinta intumescente em viga de aço"></div>
+          <div class="catalog-card-copy"><b>MegaTherm</b><h3>Tinta intumescente</h3><p>Proteção passiva para estruturas metálicas.</p><button (click)="addProduct('MegaTherm')">+ Adicionar @if (productQuantity('MegaTherm')) { <span class="button-quantity">{{ productQuantity('MegaTherm') }}</span> }</button></div>
         </article>
         <article>
-          <b>MegaFoam</b>
-          <h3>Gerador de espuma</h3>
-          <p>Agente para combate a incêndios especiais.</p>
-          <button (click)="addProduct('MegaFoam')">+ Adicionar</button>
+          <div class="catalog-photo photo-foam" role="img" aria-label="Gerador de espuma para combate a incêndio"></div>
+          <div class="catalog-card-copy"><b>MegaFoam</b><h3>Gerador de espuma</h3><p>Agente para combate a incêndios especiais.</p><button (click)="addProduct('MegaFoam')">+ Adicionar @if (productQuantity('MegaFoam')) { <span class="button-quantity">{{ productQuantity('MegaFoam') }}</span> }</button></div>
         </article>
         <article>
-          <b>MegaSprink</b>
-          <h3>Sprinklers</h3>
-          <p>Componentes para redes automáticas.</p>
-          <button (click)="addProduct('MegaSprink')">+ Adicionar</button>
+          <div class="catalog-photo photo-sprink" role="img" aria-label="Sprinklers para rede automática"></div>
+          <div class="catalog-card-copy"><b>MegaSprink</b><h3>Sprinklers</h3><p>Componentes para redes automáticas.</p><button (click)="addProduct('MegaSprink')">+ Adicionar @if (productQuantity('MegaSprink')) { <span class="button-quantity">{{ productQuantity('MegaSprink') }}</span> }</button></div>
         </article>
       </div>
     </div>
   </section>
-  <section id="contato" class="contact-section">
-    <div class="contact-wrap">
-      <div class="contact-copy">
-        <p class="eyebrow">FALE CONOSCO</p>
-        <h2>Solicite seu orçamento.</h2>
-        <p>
-          Preencha os dados ao lado. Ao enviar, abriremos uma conversa no WhatsApp com a equipe
-          comercial e as informações do seu pedido.
-        </p>
-        <p class="contact-note">✓ Atendimento para todo o Brasil</p>
-      </div>
-      <form class="quote-form" (ngSubmit)="sendToWhatsapp()" #quoteForm="ngForm">
-        <div class="form-grid">
-          <label
-            >Nome*<input name="name" [(ngModel)]="form.name" required autocomplete="name" /></label
-          ><label
-            >Empresa*<input
-              name="company"
-              [(ngModel)]="form.company"
-              required
-              autocomplete="organization" /></label
-          ><label
-            >Telefone*<input
-              name="phone"
-              [(ngModel)]="form.phone"
-              required
-              inputmode="tel"
-              autocomplete="tel" /></label
-          ><label
-            >E-mail*<input
-              name="email"
-              [(ngModel)]="form.email"
-              required
-              type="email"
-              autocomplete="email"
-          /></label>
-        </div>
-        <label
-          >Informações para o orçamento*<textarea
-            name="budget"
-            [(ngModel)]="form.budget"
-            required
-            rows="5"
-            placeholder="Informe produto, medidas, quantidade, cidade e prazo, se tiver."
-          ></textarea></label
-        ><button class="primary-button" type="submit" [disabled]="quoteForm.invalid">
-          Enviar pelo WhatsApp <span>→</span>
-        </button>
-        @if (feedback()) {
-          <p class="form-feedback" role="status">{{ feedback() }}</p>
-        }
-      </form>
-    </div>
-  </section>
-  <section id="catalogo" class="catalogo-novo">
+  <section id="contato" class="catalog-contact-section">
     <div class="section-wrap">
-      <p class="eyebrow">ORÇAMENTO FINAL</p>
-      <h2>Revise sua solicitação.</h2>
-      <p class="catalogo-intro">
-        Os produtos selecionados aparecem aqui antes de enviar o pedido por WhatsApp.
-      </p>
-      @if (cart().length) {
-        <div class="orcamento-box">
-          <h3>Seu orçamento</h3>
-          @for (item of cart(); track item.name) {
-            <p>
-              {{ item.name }} <button (click)="changeProduct(item.name, -1)">−</button>
-              {{ item.quantity }} <button (click)="changeProduct(item.name, 1)">+</button>
-            </p>
-          }
-          <input placeholder="Nome" [(ngModel)]="form.name" /><input
-            placeholder="Empresa (opcional)"
-            [(ngModel)]="form.company"
-          /><input placeholder="Telefone" [(ngModel)]="form.phone" /><input
-            placeholder="E-mail"
-            [(ngModel)]="form.email"
-          /><textarea placeholder="Medidas e observações" [(ngModel)]="form.budget"></textarea
-          ><input type="date" [(ngModel)]="form.deadline" /><label
-            ><input type="checkbox" [(ngModel)]="form.consent" /> Aceito o uso dos meus dados para
-            este orçamento, conforme LGPD.</label
-          ><button
-            [disabled]="!form.consent || !form.name || !form.phone || !form.email"
-            (click)="sendQuote()"
-          >
-            Enviar pelo WhatsApp
-          </button>
+      <div class="contact-section-heading"><div><p class="eyebrow">CONTATO COMERCIAL</p><h2>Conte o que seu projeto precisa.</h2></div><p>Selecione os produtos ao lado e envie sua solicitação diretamente para nossa equipe pelo WhatsApp.</p></div>
+      <div class="catalog-contact-layout">
+        <div class="contact-products-panel">
+          <div class="contact-products-title"><h3>Produtos de interesse</h3><span>{{ selectedCount() }} selecionado(s)</span></div>
+          <div class="contact-products-grid">
+            @for (product of contactProducts; track product.name) {
+              <article [class.selected]="productQuantity(product.name) > 0">
+                <img [src]="product.image" [alt]="product.name + ' — ' + product.title" />
+                <div><b>{{ product.name }}</b><span>{{ product.title }}</span></div>
+                <button type="button" (click)="addProduct(product.name)" [attr.aria-label]="'Adicionar ' + product.name">+ @if (productQuantity(product.name)) { <strong>{{ productQuantity(product.name) }}</strong> }</button>
+              </article>
+            }
+          </div>
         </div>
-      }
+        <form class="contact-commercial-form" (ngSubmit)="sendQuote()" #contactForm="ngForm">
+          <p class="eyebrow">SOLICITE SEU ORÇAMENTO</p><h3>Fale com um especialista.</h3>
+          <div class="form-grid"><label>Nome completo*<input name="contactName" [(ngModel)]="form.name" required autocomplete="name" /></label><label>Telefone*<input name="contactPhone" [(ngModel)]="form.phone" required inputmode="tel" autocomplete="tel" /></label><label>E-mail*<input name="contactEmail" [(ngModel)]="form.email" required type="email" autocomplete="email" /></label><label>Empresa<input name="contactCompany" [(ngModel)]="form.company" autocomplete="organization" /></label></div>
+          <label>Mensagem<textarea name="contactMessage" [(ngModel)]="form.budget" rows="5" placeholder="Medidas, cidade, prazo e outras informações do projeto."></textarea></label>
+          <details class="contact-privacy"><summary>Como usamos seus dados</summary><p>Utilizamos as informações somente para responder ao contato e elaborar o orçamento solicitado.</p></details>
+          <label class="contact-consent"><input name="contactConsent" type="checkbox" [(ngModel)]="form.consent" required /><span>Li e aceito a Política de Privacidade e autorizo o contato comercial sobre esta solicitação.</span></label>
+          <button class="contact-submit" type="submit" [disabled]="contactForm.invalid || !cart().length">Enviar pelo WhatsApp <span>→</span></button>
+          @if (!cart().length) { <small>Selecione pelo menos um produto para enviar o orçamento.</small> }
+        </form>
+      </div>
+      <div class="contact-channels">
+        <div class="channel-side">
+          <div class="channel-heading"><p class="eyebrow">CANAIS DE ATENDIMENTO</p><h3>Estamos prontos para atender.</h3><p>Escolha o canal de sua preferência ou encontre nossas unidades.</p></div>
+          <div class="channel-grid">
+            <a class="channel-card whatsapp" href="https://wa.me/5521978715555" target="_blank" rel="noopener noreferrer"><span class="channel-icon" aria-hidden="true">W</span><small>WhatsApp</small><strong>+55 21 97871-5555</strong><em>Toque para conversar →</em></a>
+            <a class="channel-card" href="tel:+552135142414"><span class="channel-icon" aria-hidden="true">T</span><small>Telefone</small><strong>+55 21 3514-2414</strong><em>Toque para ligar →</em></a>
+            <a class="channel-card" href="mailto:comercial@megabrasilindustria.net"><span class="channel-icon" aria-hidden="true">@</span><small>E-mail</small><strong>comercial@megabrasilindustria.net</strong><em>Enviar mensagem →</em></a>
+            <div class="channel-card"><span class="channel-icon" aria-hidden="true">BR</span><small>Atendimento</small><strong>Projetos em todo o Brasil</strong><em>Equipe comercial especializada</em></div>
+          </div>
+          <div class="address-cards"><a href="https://www.google.com/maps/search/?api=1&query=Rua+Teixeira+de+Souza+116+Vila+Maria+Helena+Duque+de+Caxias+RJ" target="_blank" rel="noopener noreferrer"><small>Matriz</small><strong>Rua Teixeira de Souza, 116</strong><span>Vila Maria Helena · Duque de Caxias — RJ</span><em>Abrir no Google Maps →</em></a><a href="https://www.google.com/maps/search/?api=1&query=Avenida+das+Am%C3%A9ricas+12900+Barra+da+Tijuca+Rio+de+Janeiro+RJ" target="_blank" rel="noopener noreferrer"><small>Área administrativa</small><strong>Avenida das Américas, 12.900</strong><span>Barra da Tijuca · Rio de Janeiro — RJ</span><em>Abrir no Google Maps →</em></a></div>
+        </div>
+        <div class="contact-map"><iframe title="Mapa da matriz Mega Brasil Indústria" src="https://www.google.com/maps?q=Rua%20Teixeira%20de%20Souza%20116%20Duque%20de%20Caxias%20RJ&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><a href="https://www.google.com/maps/search/?api=1&query=Rua+Teixeira+de+Souza+116+Vila+Maria+Helena+Duque+de+Caxias+RJ" target="_blank" rel="noopener noreferrer">Ver rota até a matriz <span>→</span></a></div>
+      </div>
     </div>
   </section>
 </main>
+
+@if (cart().length && !quotePage() && !selectedDoor()) {
+  <aside class="selection-tray" aria-live="polite">
+    <div><span class="selection-count">{{ selectedCount() }}</span><p><strong>{{ selectedCount() === 1 ? 'produto selecionado' : 'produtos selecionados' }}</strong><small>Revise quantidades e envie seu pedido.</small></p></div>
+    <button type="button" (click)="openQuotePage()">Continuar orçamento <span>→</span></button>
+  </aside>
+}
+
+@if (selectedDoor(); as model) {
+  <section class="door-page" aria-labelledby="door-title">
+    <header class="site-header quote-page-header">
+      <div class="header-inner">
+        <button class="brand brand-button" type="button" (click)="backToMegaShield()"><img src="/assets/images/hero/hero.transp.png" alt="Mega Brasil Indústria" /></button>
+        <nav class="main-nav" aria-label="Navegação da ficha técnica">
+          <button type="button" (click)="backToMegaShield()">MegaShield</button>
+          <a href="https://wa.me/5521978715555" target="_blank" rel="noopener noreferrer">Contato</a>
+        </nav>
+        <button class="header-button quote-back-button" type="button" (click)="backToMegaShield()">Voltar aos modelos <span>→</span></button>
+      </div>
+    </header>
+    <main class="door-detail-wrap">
+      <section class="door-detail-hero">
+        <div class="door-detail-copy">
+          <p class="eyebrow">PORTA CORTA-FOGO · MEGASHIELD {{ model }}</p>
+          <h1 id="door-title">Proteção por <strong>{{ doorDetails[model].minutes }} minutos.</strong></h1>
+          <p class="door-lead">{{ doorDetails[model].use }}</p>
+          <p>Projetada para unir tecnologia, resistência e conformidade técnica, ajudando a proteger rotas de fuga, controlar a propagação do fogo e preservar vidas e patrimônios.</p>
+          <div class="door-actions"><button type="button" class="primary-button" (click)="addProduct('MegaShield ' + model)">Adicionar ao orçamento <span>+</span></button><span>{{ productQuantity('MegaShield ' + model) }} selecionada(s)</span></div>
+        </div>
+        <div class="door-detail-image"><img [src]="doorDetails[model].image" [alt]="'Porta corta-fogo MegaShield ' + model" /></div>
+      </section>
+      <section class="door-benefits" aria-label="Benefícios"><article><b>Resistência ao fogo</b><span>{{ doorDetails[model].minutes }} minutos de proteção</span></article><article><b>Controle de fumaça</b><span>Vedação para reduzir a passagem de fumaça e gases</span></article><article><b>Rotas de fuga</b><span>Abertura segura com barra antipânico</span></article><article><b>Proteção patrimonial</b><span>Estrutura reforçada e acabamento resistente</span></article></section>
+      <section class="technical-section">
+        <div class="technical-heading"><p class="eyebrow">ENGENHARIA E COMPONENTES</p><h2>Detalhes que elevam o desempenho.</h2><p>Cada componente tem uma função. O conjunto é o que garante robustez, operação segura e durabilidade.</p></div>
+        <div class="component-explorer">
+          <div class="component-list" role="tablist" aria-label="Componentes da porta">
+            @for (component of doorComponents; track component.title; let index = $index) {
+              <button type="button" role="tab" [attr.aria-selected]="selectedComponent() === index" [class.active]="selectedComponent() === index" (click)="selectComponent(index)"><span>{{ (index + 1).toString().padStart(2, '0') }}</span>{{ component.title }}</button>
+            }
+          </div>
+          <div class="annotated-door">
+            <img src="/assets/images/hero/megashield-red.png" alt="Porta MegaShield com pontos de seus componentes" />
+            @for (component of doorComponents; track component.title; let index = $index) {
+              <button type="button" class="component-hotspot" [class.active]="selectedComponent() === index" [style.left.%]="component.x" [style.top.%]="component.y" [attr.aria-label]="'Ver ' + component.title" (click)="selectComponent(index)">{{ index + 1 }}</button>
+            }
+          </div>
+          <article class="component-zoom" aria-live="polite">
+            <div class="component-zoom-image" [style.background-position]="doorComponents[selectedComponent()].zoom" role="img" [attr.aria-label]="'Ampliação: ' + doorComponents[selectedComponent()].title"></div>
+            <p>COMPONENTE {{ (selectedComponent() + 1).toString().padStart(2, '0') }}</p>
+            <h3>{{ doorComponents[selectedComponent()].title }}</h3>
+            <span>{{ doorComponents[selectedComponent()].text }}</span>
+          </article>
+        </div>
+      </section>
+      <section class="performance-strip"><div><b>Precisão dimensional</b><span>Componentes fabricados com rigor técnico para ajuste perfeito.</span></div><div><b>Robustez estrutural</b><span>Materiais de alta resistência para proteção e durabilidade.</span></div><div><b>Operação segura</b><span>Sistemas confiáveis para resposta rápida e eficiente.</span></div><div><b>Acabamento resistente</b><span>Pintura e acabamento para proteção contra corrosão e desgaste.</span></div></section>
+    </main>
+  </section>
+}
+
+@if (quotePage()) {
+  <section class="quote-page" aria-labelledby="quote-title">
+    <header class="site-header quote-page-header">
+      <div class="header-inner">
+        <a class="brand" href="#inicio" aria-label="Mega Brasil" (click)="closeQuotePage()"><img src="/assets/images/hero/hero.transp.png" alt="Mega Brasil Indústria" /></a>
+        <nav class="main-nav" aria-label="Navegação principal">
+          <a href="#inicio" (click)="closeQuotePage()">Início</a>
+          <a href="#empresa" (click)="closeQuotePage()">Empresa</a>
+          <a href="#megashield" (click)="closeQuotePage()">MegaShield</a>
+          <a href="#produtos" (click)="closeQuotePage()">Produtos</a>
+          <a href="https://wa.me/5521978715555" target="_blank" rel="noopener noreferrer">Contato</a>
+        </nav>
+        <button class="header-button quote-back-button" type="button" (click)="backToProducts()">Voltar aos produtos <span>→</span></button>
+      </div>
+    </header>
+    <div class="quote-page-wrap">
+      <div class="quote-summary">
+        <p class="eyebrow">SEU PEDIDO</p><h1 id="quote-title">Finalize seu orçamento.</h1>
+        <p>Confira os produtos e informe seus dados. O pedido será aberto no WhatsApp comercial.</p>
+        <div class="selected-list">
+          @for (item of cart(); track item.name) {
+            <div><span>{{ item.name }}</span><span class="quantity-control"><button type="button" (click)="changeProduct(item.name, -1)" [attr.aria-label]="'Diminuir ' + item.name">−</button><b>{{ item.quantity }}</b><button type="button" (click)="changeProduct(item.name, 1)" [attr.aria-label]="'Aumentar ' + item.name">+</button></span></div>
+          }
+        </div>
+        <strong class="summary-total">{{ selectedCount() }} {{ selectedCount() === 1 ? 'produto' : 'produtos' }} no pedido</strong>
+      </div>
+      <form class="customer-form" (ngSubmit)="sendQuote()" #budgetForm="ngForm">
+        <h2>Dados do cliente</h2>
+        <div class="form-grid">
+          <label>Nome completo*<input name="quoteName" [(ngModel)]="form.name" required autocomplete="name" /></label>
+          <label>Telefone*<input name="quotePhone" [(ngModel)]="form.phone" required inputmode="tel" autocomplete="tel" /></label>
+          <label>E-mail*<input name="quoteEmail" [(ngModel)]="form.email" required type="email" autocomplete="email" /></label>
+          <label>Empresa<input name="quoteCompany" [(ngModel)]="form.company" autocomplete="organization" /></label>
+        </div>
+        <label>Mensagem<textarea name="quoteMessage" [(ngModel)]="form.budget" rows="5" placeholder="Informe medidas, cidade, prazo ou outras observações."></textarea></label>
+        <details id="politica-privacidade" class="privacy-policy"><summary>Política de Privacidade e tratamento de dados</summary><p>Os dados informados serão utilizados pela Mega Brasil exclusivamente para responder à solicitação, elaborar o orçamento e realizar o atendimento comercial. O cliente poderá solicitar acesso, correção ou exclusão dos seus dados pelos canais oficiais da empresa.</p></details>
+        <label class="consent-field"><input name="quoteConsent" type="checkbox" [(ngModel)]="form.consent" required /><span>Li e aceito a <a href="#politica-privacidade">Política de Privacidade</a> e autorizo o tratamento dos meus dados pessoais para contato e elaboração deste orçamento, conforme a LGPD.</span></label>
+        <button class="whatsapp-submit" type="submit" [disabled]="budgetForm.invalid || !cart().length">Enviar pedido pelo WhatsApp <span>→</span></button>
+        <small>Ao continuar, uma conversa será aberta com o comercial: +55 21 97871-5555.</small>
+      </form>
+    </div>
+  </section>
+}
 <footer>
   <div class="footer-main">
-    <a class="footer-brand" href="#inicio" aria-label="Mega Brasil - início"
-      ><img src="/assets/images/hero/hero.transp.png" alt="Mega Brasil Indústria"
-    /></a>
-    <div>
-      <h3>Atendimento comercial</h3>
-      <a
-        class="footer-whatsapp"
-        href="https://wa.me/5521978715555"
-        target="_blank"
-        rel="noopener noreferrer"
-        >WhatsApp: +55 21 97871-5555</a
-      >
+    <div class="footer-identity"><a class="footer-brand" href="#inicio" aria-label="Mega Brasil - início"><img src="/assets/images/hero/hero.transp.png" alt="Mega Brasil Indústria" /></a><p>Soluções em proteção contra incêndio para projetos industriais e comerciais.</p><div class="footer-socials"><a href="https://www.instagram.com/megabrasil_industria?igsi=ZGZzYTBwMTJ3M2Rj" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram da Mega Brasil"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle class="social-dot" cx="17.4" cy="6.7" r="1"></circle></svg></a><a href="https://www.linkedin.com/company/grupo-mega-brasil/" target="_blank" rel="noopener noreferrer" aria-label="Abrir LinkedIn da Mega Brasil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9v10M6 5.5v.2M10.5 19V9m0 4.3c.7-2.7 6.5-3.2 6.5 1.1V19M3 3h18v18H3z"></path></svg></a><a href="https://www.facebook.com/share/18PdYGjxpk/" target="_blank" rel="noopener noreferrer" aria-label="Abrir Facebook da Mega Brasil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 21v-8h3l.5-4H14V7c0-1.2.5-2 2.3-2H18V1.5c-.7-.1-1.7-.2-2.8-.2-3.3 0-5.4 2-5.4 5.6V9H7v4h2.8v8"></path></svg></a></div></div>
+    <div class="footer-contact">
+      <h3>Contato comercial</h3>
+      <a class="footer-whatsapp" href="https://wa.me/5521978715555" target="_blank" rel="noopener noreferrer">+55 21 97871-5555</a>
+      <a href="mailto:comercial@megabrasilindustria.net">comercial@megabrasilindustria.net</a>
     </div>
-    <div>
+    <address class="footer-addresses"><div><h3>Matriz</h3><a href="https://www.google.com/maps/search/?api=1&query=Rua+Teixeira+de+Souza+116+Vila+Maria+Helena+Duque+de+Caxias+RJ" target="_blank" rel="noopener noreferrer">Rua Teixeira de Souza, 116<br />Vila Maria Helena<br />Duque de Caxias — RJ</a></div><div><h3>Área administrativa</h3><a href="https://www.google.com/maps/search/?api=1&query=Avenida+das+Am%C3%A9ricas+12900+Barra+da+Tijuca+Rio+de+Janeiro+RJ" target="_blank" rel="noopener noreferrer">Avenida das Américas, 12.900<br />Barra da Tijuca<br />Rio de Janeiro — RJ</a></div></address>
+    <div class="footer-navigation">
       <h3>Institucional</h3>
       <a href="#empresa">A empresa</a><a href="#produtos">Produtos</a
       ><a href="#contato">Solicitar orçamento</a>
     </div>
-    <div>
+    <div class="footer-legal-links">
       <h3>Informações legais</h3>
-      <a href="#privacidade">Política de privacidade</a><a href="#termos">Termos e condições</a>
+      <a href="#contato">Política de privacidade</a><a href="#contato">Tratamento de dados — LGPD</a><a href="#contato">Termos e condições</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© {{ 2026 }} Mega Brasil Indústria. Todos os direitos reservados.</span
-    ><a href="#inicio">Voltar ao topo ↑</a>
+    <span>© {{ 2026 }} Mega Brasil Indústria. Todos os direitos reservados.</span>
+    <a class="developer-credit" href="https://wa.me/5521992877821?text=Ol%C3%A1%20Pilar%2C%20vi%20o%20site%20da%20Mega%20Brasil%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" rel="noopener noreferrer">Site desenvolvido por <strong>Pilar Molina</strong></a>
+    <a href="#inicio">Voltar ao topo ↑</a>
   </div>
 </footer>
 <style>
@@ -370,7 +407,7 @@
   }
   .footer-main {
     display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    grid-template-columns: 1.35fr 1fr 1.25fr .8fr .9fr;
     gap: 35px;
     align-items: start;
     width: min(1440px, calc(100% - 80px));
@@ -395,7 +432,8 @@
     color: #333;
   }
   .footer-main div:not(.footer-main) a,
-  .footer-main > div a {
+  .footer-main > div a,
+  .footer-main address a {
     display: block;
     margin: 0 0 10px;
     font-size: 13px;
@@ -408,6 +446,16 @@
     font-weight: 800 !important;
     color: #f45100 !important;
   }
+  .footer-identity p { max-width: 280px; margin: 15px 0 18px; color: #666; font-size: 13px; line-height: 1.5; }
+  .footer-socials { display: flex; flex-wrap: wrap; gap: 8px; }
+  .footer-socials a { width: 42px; height: 42px; margin: 0 !important; padding: 9px; display: grid !important; place-items: center; border: 1px solid #ccc; border-radius: 50%; color: #444 !important; }
+  .footer-socials a:hover { border-color: #f45100; background: #f45100; color: #fff !important; transform: translateY(-2px); }
+  .footer-socials svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .footer-socials .social-dot { fill: currentColor; stroke: none; }
+  .footer-main address { font-style: normal; }
+  .footer-main address a { line-height: 1.55; }
+  .footer-addresses { display: grid; gap: 22px; }
+  .footer-addresses h3 { margin-bottom: 8px; }
   .footer-bottom {
     display: flex;
     justify-content: space-between;
@@ -422,6 +470,9 @@
     color: #f45100 !important;
     font-weight: bold;
   }
+  .footer-bottom .developer-credit { color: #686868 !important; font-weight: 400; }
+  .footer-bottom .developer-credit strong { color: #f45100; }
+  .footer-bottom .developer-credit:hover { color: #f45100 !important; }
   @media (max-width: 850px) {
     .footer-main {
       grid-template-columns: 1fr 1fr;
@@ -437,5 +488,18 @@
     .footer-brand {
       width: 170px;
     }
+  }
+  @media (min-width: 1600px) {
+    .footer-main,
+    .footer-bottom { width: min(1680px, calc(100% - 128px)); }
+    .footer-main { gap: 50px; padding: 62px 0 48px; }
+    .footer-main h3 { font-size: 14px; }
+    .footer-main div:not(.footer-main) a,
+    .footer-main > div a,
+    .footer-main address a,
+    .footer-identity p { font-size: 15px; }
+  }
+  @media (max-width: 1150px) and (min-width: 851px) {
+    .footer-main { grid-template-columns: 1.2fr 1fr 1.2fr; }
   }
 </style>
