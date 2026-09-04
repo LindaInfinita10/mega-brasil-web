@@ -13,3 +13,4 @@
 - Footer com redes sociais, unidades e autoria.
 - Layout responsivo até resolução 4K.
 - Documentação de instalação, manutenção e publicação.
+- Endereços completos das três unidades da empresa.

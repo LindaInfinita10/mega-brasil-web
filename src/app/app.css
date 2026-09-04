@@ -1364,7 +1364,7 @@ footer a {
 .channel-card strong { margin: 7px 0; font-size: 18px; overflow-wrap: anywhere; }
 .channel-card em,
 .address-cards em { margin-top: auto; color: #d94b05; font-size: 13px; font-style: normal; font-weight: 800; }
-.address-cards { margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; background: #1e2022; }
+.address-cards { margin-top: 12px; display: grid; grid-template-columns: repeat(3, 1fr); background: #1e2022; }
 .address-cards a { min-height: 155px; padding: 24px; display: flex; flex-direction: column; gap: 5px; border-right: 1px solid rgba(255,255,255,.13); }
 .address-cards strong { font-size: 18px; }
 .address-cards span { color: #bbb; font-size: 14px; }

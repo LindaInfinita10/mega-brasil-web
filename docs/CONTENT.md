@@ -6,7 +6,8 @@
 - Telefone: `+55 21 3514-2414`
 - E-mail: `comercial@megabrasilindustria.net`
 - Matriz: Rua Teixeira de Souza, 116 — Vila Maria Helena — Duque de Caxias/RJ
-- Área administrativa: Avenida das Américas, 12.900 — Barra da Tijuca — Rio de Janeiro/RJ
+- Unidade 2 — Área administrativa: Avenida das Américas, 12.900 — Américas Avenue Business Square — Ala Brasil — Salas 212, 213, 214 e 215 — Barra da Tijuca/RJ
+- Unidade 3: Avenida Juscelino Kubitscheck, 1.455 — Edifício The City — São Paulo/SP
 
 Os dados devem ser confirmados pela empresa antes da publicação.
 
