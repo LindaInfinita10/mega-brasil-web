@@ -1,13 +1,34 @@
-<header class="site-header">
+<header class="site-header primary-header">
   <div class="header-inner">
-    <a class="brand" href="#inicio" aria-label="Mega Brasil"
+    <a class="brand" href="#inicio" aria-label="Mega Brasil" (click)="closeMobileMenu()"
       ><img src="/assets/images/hero/hero.transp.png" alt="Mega Brasil Indústria"
     /></a>
-    <nav class="main-nav" aria-label="Navegação principal">
-      <a href="#inicio">Início</a><a href="#empresa">Empresa</a><a href="#megashield">MegaShield</a
-      ><a href="#produtos">Produtos</a><a href="#contato">Contato</a>
+    <nav
+      id="primary-navigation"
+      class="main-nav"
+      [class.open]="mobileMenuOpen()"
+      aria-label="Navegação principal"
+    >
+      <a href="#inicio" (click)="closeMobileMenu()">Início</a
+      ><a href="#empresa" (click)="closeMobileMenu()">Empresa</a
+      ><a href="#megashield" (click)="closeMobileMenu()">MegaShield</a
+      ><a href="#produtos" (click)="closeMobileMenu()">Produtos</a
+      ><a href="#contato" (click)="closeMobileMenu()">Contato</a>
     </nav>
-    <a class="header-button" href="#contato">Solicitar orçamento <span>→</span></a>
+    <button
+      class="menu-toggle"
+      type="button"
+      [class.open]="mobileMenuOpen()"
+      [attr.aria-expanded]="mobileMenuOpen()"
+      aria-controls="primary-navigation"
+      [attr.aria-label]="mobileMenuOpen() ? 'Fechar menu' : 'Abrir menu'"
+      (click)="toggleMobileMenu()"
+    >
+      <span></span><span></span><span></span>
+    </button>
+    <a class="header-button" href="#contato" (click)="closeMobileMenu()"
+      ><span class="header-button-label">Solicitar orçamento</span> <span>→</span></a
+    >
   </div>
 </header>
 <main>

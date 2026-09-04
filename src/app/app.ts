@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 export class App {
   readonly commercialWhatsapp = '5521978715555';
   protected readonly feedback = signal('');
+  protected readonly mobileMenuOpen = signal(false);
   protected form = {
     name: '',
     company: '',
@@ -22,6 +23,14 @@ export class App {
   protected cart = signal<{ name: string; quantity: number }[]>([]);
   protected quotePage = signal(false);
   protected selectedDoor = signal<'P60' | 'P90' | 'P120' | null>(null);
+
+  protected toggleMobileMenu(): void {
+    this.mobileMenuOpen.update((isOpen) => !isOpen);
+  }
+
+  protected closeMobileMenu(): void {
+    this.mobileMenuOpen.set(false);
+  }
   protected readonly doorDetails = {
     P60: { minutes: 60, use: 'Indicada para rotas de fuga, escadas e corredores.', image: '/assets/images/hero/megashield-red.png' },
     P90: { minutes: 90, use: 'Ideal para locais com maior exigência de segurança.', image: '/assets/images/hero/megashield-red.png' },
