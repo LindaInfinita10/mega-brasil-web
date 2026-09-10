@@ -32,12 +32,12 @@ export class App {
     this.mobileMenuOpen.set(false);
   }
   protected readonly doorDetails = {
-    P60: { minutes: 60, use: 'Indicada para rotas de fuga, escadas e corredores.', image: '/assets/images/hero/megashield-red.png' },
+    P60: { minutes: 60, use: 'Indicada para casas de máquinas, com fechadura de maçaneta e opção de barra conforme o projeto.', image: '/assets/images/hero/megashield-macaneta.png' },
     P90: { minutes: 90, use: 'Ideal para locais com maior exigência de segurança.', image: '/assets/images/hero/megashield-red.png' },
     P120: { minutes: 120, use: 'Indicada para áreas industriais e ambientes de alto risco.', image: '/assets/images/hero/megashield-red.png' },
   };
   protected readonly allContactProducts = [
-    { name: 'MegaShield P60', title: 'Porta corta-fogo · 60 min', image: '/assets/images/hero/megashield-red.png' },
+    { name: 'MegaShield P60', title: 'Porta corta-fogo · 60 min', image: '/assets/images/hero/megashield-macaneta.png' },
     { name: 'MegaShield P90', title: 'Porta corta-fogo · 90 min', image: '/assets/images/hero/megashield-red.png' },
     { name: 'MegaShield P120', title: 'Porta corta-fogo · 120 min', image: '/assets/images/hero/megashield-red.png' },
     { name: 'MegaHose', title: 'Mangueira de incêndio', image: '/assets/images/products/megahose-hd.png' },
@@ -50,16 +50,29 @@ export class App {
   ];
   protected readonly contactProducts = this.allContactProducts.filter(product => product.name.startsWith('MegaShield '));
   protected readonly showFullCatalog = false;
-  protected readonly doorComponents = [
+  protected readonly baseDoorComponents: { title: string; text: string; x: number; y: number; zoom: string; image?: string; size?: string }[] = [
     { title: 'Folha metálica reforçada', text: 'Chapa de aço de alta resistência que garante integridade estrutural e proteção ao fogo.', x: 52, y: 35, zoom: '54% 38%' },
     { title: 'Batente de aço', text: 'Estrutura robusta que assegura alinhamento, fixação e vedação eficiente da porta.', x: 78, y: 20, zoom: '78% 22%' },
     { title: 'Dobradiças de alto desempenho', text: 'Projetadas para suportar uso intenso e garantir abertura suave e segura por longos períodos.', x: 73, y: 31, zoom: '74% 31%' },
-    { title: 'Barra antipânico', text: 'Dispositivo de abertura rápida e segura, em conformidade com as normas técnicas.', x: 52, y: 58, zoom: '52% 58%' },
-    { title: 'Fechadura e acessórios', text: 'Conjunto de fechadura, cilindro e acessórios de alta qualidade para segurança e confiabilidade.', x: 27, y: 58, zoom: '30% 58%' },
+    { title: 'Barra antipânico', text: 'O cliente pode escolher o tipo de barra antipânico conforme a aplicação e as especificações do projeto.', x: 52, y: 58, zoom: '52% 58%' },
+    { title: 'Fechadura com maçaneta', text: 'Fechadura com maçaneta tipo alavanca para portas de casa de máquinas. O cliente pode optar por barra antipânico e escolher o tipo conforme as especificações do projeto.', x: 30, y: 52, zoom: '23% 56%', image: '/assets/images/hero/megashield-macaneta.png', size: '280%' },
     { title: 'Vedação e acabamento', text: 'Vedações intumescentes e acabamentos que garantem estanqueidade e proteção eficaz.', x: 74, y: 74, zoom: '75% 74%' },
-    { title: 'Sinalização', text: 'Identificação clara e conforme as normas para orientação e segurança dos usuários.', x: 52, y: 44, zoom: '52% 44%' },
+    { title: 'Sinalização', text: 'Placa de identificação: PORTA CORTA-FOGO — MANTENHA FECHADA. Orienta os usuários a manter a porta fechada.', x: 50, y: 35, zoom: 'center', image: '/assets/images/products/sinalizacao-porta.svg', size: '92%' },
     { title: 'Fixação e instalação técnica', text: 'Sistema de fixação seguro e orientações técnicas para instalação correta e duradoura.', x: 76, y: 88, zoom: '76% 88%' },
   ];
+  protected get doorComponents() {
+    if (this.selectedDoor() === 'P60') return this.baseDoorComponents;
+    return this.baseDoorComponents.map((component, index) => index === 4
+      ? { title: 'Fechadura e acessórios', text: 'Conjunto de fechamento e acessórios compatíveis com a barra antipânico dos modelos P90 e P120.', x: 27, y: 58, zoom: '30% 58%', image: '/assets/images/hero/megashield-red.png', size: '330%' }
+      : component);
+  }
+
+  protected componentDoorImage(): string {
+    return this.selectedDoor() === 'P60' && this.selectedComponent() !== 3
+      ? '/assets/images/hero/megashield-macaneta.png'
+      : '/assets/images/hero/megashield-red.png';
+  }
+
   protected selectedComponent = signal(0);
 
   protected selectComponent(index: number): void {

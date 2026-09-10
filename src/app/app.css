@@ -552,8 +552,7 @@ footer a {
 }
 .mega-product-image img,
 .mega-door-options img {
-  filter: sepia(0.64) saturate(2.7) hue-rotate(330deg) brightness(1.16) contrast(1.08)
-    drop-shadow(0 25px 22px rgba(0, 0, 0, 0.42));
+  filter: drop-shadow(0 25px 22px rgba(0, 0, 0, 0.42));
 }
 .mega-door-heading {
   margin-top: 70px;
@@ -799,8 +798,7 @@ footer a {
   min-height: 154px;
   padding: 13px;
   object-fit: contain;
-  filter: sepia(0.5) saturate(2.1) hue-rotate(330deg) brightness(1.22) contrast(1.06)
-    drop-shadow(0 12px 12px rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(0 12px 12px rgba(0, 0, 0, 0.35));
 }
 .mega-door-options article > div {
   padding: 17px 20px;
@@ -1528,3 +1526,5 @@ footer a {
 .address-cards[hidden] { display: none; }
 .product-grid { grid-template-columns: minmax(0, 560px); justify-content: center; }
 .main-nav a[hidden] { display: none; }
+
+.component-zoom-image { background-color: #f7f7f5; }

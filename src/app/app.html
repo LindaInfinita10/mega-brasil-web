@@ -150,11 +150,11 @@
           </div>
           <div class="mega-door-options">
             <article>
-              <img src="/assets/images/hero/megashield-red.png" alt="MegaShield P60 em vermelho" />
+              <img src="/assets/images/hero/megashield-macaneta.png" alt="MegaShield P60 vermelha com maçaneta" />
               <div>
                 <b>MegaShield P60</b>
                 <h4>Proteção por 60 minutos</h4>
-                <p>Para rotas de fuga, escadas e corredores.</p>
+                <p>Para casas de máquinas, com opção de barra.</p>
                 <button class="door-detail-link" type="button" (click)="openDoorDetail('P60')">Ver ficha técnica →</button>
                 <button (click)="addProduct('MegaShield P60')">Adicionar + @if (productQuantity('MegaShield P60')) { <span class="button-quantity">{{ productQuantity('MegaShield P60') }}</span> }</button>
               </div>
@@ -300,7 +300,7 @@
         </div>
         <div class="door-detail-image"><img [src]="doorDetails[model].image" [alt]="'Porta corta-fogo MegaShield ' + model" /></div>
       </section>
-      <section class="door-benefits" aria-label="Benefícios"><article><b>Resistência ao fogo</b><span>{{ doorDetails[model].minutes }} minutos de proteção</span></article><article><b>Controle de fumaça</b><span>Vedação para reduzir a passagem de fumaça e gases</span></article><article><b>Rotas de fuga</b><span>Abertura segura com barra antipânico</span></article><article><b>Proteção patrimonial</b><span>Estrutura reforçada e acabamento resistente</span></article></section>
+      <section class="door-benefits" aria-label="Benefícios"><article><b>Resistência ao fogo</b><span>{{ doorDetails[model].minutes }} minutos de proteção</span></article><article><b>Controle de fumaça</b><span>Vedação para reduzir a passagem de fumaça e gases</span></article><article><b>{{ model === 'P60' ? 'Casa de máquinas' : 'Rotas de fuga' }}</b><span>{{ model === 'P60' ? 'Maçaneta com opção de barra conforme o projeto' : 'Abertura segura com barra antipânico' }}</span></article><article><b>Proteção patrimonial</b><span>Estrutura reforçada e acabamento resistente</span></article></section>
       <section class="technical-section">
         <div class="technical-heading"><p class="eyebrow">ENGENHARIA E COMPONENTES</p><h2>Detalhes que elevam o desempenho.</h2><p>Cada componente tem uma função. O conjunto é o que garante robustez, operação segura e durabilidade.</p></div>
         <div class="component-explorer">
@@ -310,13 +310,13 @@
             }
           </div>
           <div class="annotated-door">
-            <img src="/assets/images/hero/megashield-red.png" alt="Porta MegaShield com pontos de seus componentes" />
+            <img [src]="componentDoorImage()" alt="Ilustração da porta MegaShield com pontos de seus componentes" />
             @for (component of doorComponents; track component.title; let index = $index) {
               <button type="button" class="component-hotspot" [class.active]="selectedComponent() === index" [style.left.%]="component.x" [style.top.%]="component.y" [attr.aria-label]="'Ver ' + component.title" (click)="selectComponent(index)">{{ index + 1 }}</button>
             }
           </div>
           <article class="component-zoom" aria-live="polite">
-            <div class="component-zoom-image" [style.background-position]="doorComponents[selectedComponent()].zoom" role="img" [attr.aria-label]="'Ampliação: ' + doorComponents[selectedComponent()].title"></div>
+            <div class="component-zoom-image" [style.background-position]="doorComponents[selectedComponent()].zoom" [style.background-image]="'url(' + (doorComponents[selectedComponent()].image || componentDoorImage()) + ')'" [style.background-size]="doorComponents[selectedComponent()].size || '330%'" role="img" [attr.aria-label]="'Ampliação: ' + doorComponents[selectedComponent()].title"></div>
             <p>COMPONENTE {{ (selectedComponent() + 1).toString().padStart(2, '0') }}</p>
             <h3>{{ doorComponents[selectedComponent()].title }}</h3>
             <span>{{ doorComponents[selectedComponent()].text }}</span>
