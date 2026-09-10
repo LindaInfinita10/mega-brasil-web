@@ -49,7 +49,7 @@ export class App {
     { name: 'MegaSprink', title: 'Sprinklers', image: '/assets/images/products/megasprink-hd.png' },
   ];
   protected readonly contactProducts = this.allContactProducts.filter(product => product.name.startsWith('MegaShield '));
-  protected readonly showComplementaryProducts = false;
+  protected readonly showFullCatalog = false;
   protected readonly doorComponents = [
     { title: 'Folha metálica reforçada', text: 'Chapa de aço de alta resistência que garante integridade estrutural e proteção ao fogo.', x: 52, y: 35, zoom: '54% 38%' },
     { title: 'Batente de aço', text: 'Estrutura robusta que assegura alinhamento, fixação e vedação eficiente da porta.', x: 78, y: 20, zoom: '78% 22%' },
@@ -100,8 +100,8 @@ export class App {
   protected backToProducts(): void {
     this.closeQuotePage();
     window.setTimeout(() => {
-      document.getElementById('produtos')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      window.history.replaceState(null, '', '#produtos');
+      document.getElementById('megashield')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.history.replaceState(null, '', '#megashield');
     });
   }
 

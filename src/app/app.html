@@ -12,7 +12,7 @@
       <a href="#inicio" (click)="closeMobileMenu()">Início</a
       ><a href="#empresa" (click)="closeMobileMenu()">Empresa</a
       ><a href="#megashield" (click)="closeMobileMenu()">MegaShield</a
-      ><a href="#produtos" (click)="closeMobileMenu()">Produtos</a
+      ><a href="#produtos" [hidden]="!showFullCatalog" (click)="closeMobileMenu()">Produtos</a
       ><a href="#contato" (click)="closeMobileMenu()">Contato</a>
     </nav>
     <button
@@ -184,6 +184,7 @@
       </div>
     </div>
   </section>
+  @if (showFullCatalog) {
   <section id="produtos" class="products-section">
     <div class="section-wrap">
       <p class="eyebrow">CATÁLOGO COMERCIAL</p>
@@ -194,7 +195,6 @@
           <div class="catalog-photo photo-shield" role="img" aria-label="Porta corta-fogo MegaShield vermelha"></div>
           <div class="catalog-card-copy"><b>MegaShield</b><h3>Porta corta-fogo</h3><p>Modelos P60, P90 e P120 para projetos industriais.</p><a class="catalog-link" href="#megashield">Ver classificações →</a></div>
         </article>
-        @if (showComplementaryProducts) {
         <article>
           <div class="catalog-photo photo-hose" role="img" aria-label="Mangueira de incêndio vermelha"></div>
           <div class="catalog-card-copy"><b>MegaHose</b><h3>Mangueira de incêndio</h3><p>Para sistemas de combate a incêndio.</p><button (click)="addProduct('MegaHose')">+ Adicionar @if (productQuantity('MegaHose')) { <span class="button-quantity">{{ productQuantity('MegaHose') }}</span> }</button></div>
@@ -223,10 +223,10 @@
           <div class="catalog-photo photo-sprink" role="img" aria-label="Sprinklers para rede automática"></div>
           <div class="catalog-card-copy"><b>MegaSprink</b><h3>Sprinklers</h3><p>Componentes para redes automáticas.</p><button (click)="addProduct('MegaSprink')">+ Adicionar @if (productQuantity('MegaSprink')) { <span class="button-quantity">{{ productQuantity('MegaSprink') }}</span> }</button></div>
         </article>
-        }
       </div>
     </div>
   </section>
+  }
   <section id="contato" class="catalog-contact-section">
     <div class="section-wrap">
       <div class="contact-section-heading"><div><p class="eyebrow">CONTATO COMERCIAL</p><h2>Conte o que seu projeto precisa.</h2></div><p>Selecione os produtos ao lado e envie sua solicitação diretamente para nossa equipe pelo WhatsApp.</p></div>
@@ -337,7 +337,7 @@
           <a href="#inicio" (click)="closeQuotePage()">Início</a>
           <a href="#empresa" (click)="closeQuotePage()">Empresa</a>
           <a href="#megashield" (click)="closeQuotePage()">MegaShield</a>
-          <a href="#produtos" (click)="closeQuotePage()">Produtos</a>
+          <a href="#megashield" (click)="closeQuotePage()">Produtos</a>
           <a href="https://wa.me/5521978715555" target="_blank" rel="noopener noreferrer">Contato</a>
         </nav>
         <button class="header-button quote-back-button" type="button" (click)="backToProducts()">Voltar aos produtos <span>→</span></button>
@@ -373,7 +373,7 @@
 }
 <footer>
   <div class="footer-main">
-    <div class="footer-identity"><a class="footer-brand" href="#inicio" aria-label="Mega Brasil - início"><img src="/assets/images/hero/hero.transp.png" alt="Mega Brasil Indústria" /></a><p>Soluções em proteção contra incêndio para projetos industriais e comerciais.</p><div class="footer-socials"><a href="https://www.instagram.com/megabrasil_industria?igsi=ZGZzYTBwMTJ3M2Rj" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram da Mega Brasil"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle class="social-dot" cx="17.4" cy="6.7" r="1"></circle></svg></a><a href="https://www.linkedin.com/company/grupo-mega-brasil/" target="_blank" rel="noopener noreferrer" aria-label="Abrir LinkedIn da Mega Brasil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9v10M6 5.5v.2M10.5 19V9m0 4.3c.7-2.7 6.5-3.2 6.5 1.1V19M3 3h18v18H3z"></path></svg></a><a href="https://www.facebook.com/share/18PdYGjxpk/" target="_blank" rel="noopener noreferrer" aria-label="Abrir Facebook da Mega Brasil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 21v-8h3l.5-4H14V7c0-1.2.5-2 2.3-2H18V1.5c-.7-.1-1.7-.2-2.8-.2-3.3 0-5.4 2-5.4 5.6V9H7v4h2.8v8"></path></svg></a></div></div>
+    <div class="footer-identity"><a class="footer-brand" href="#inicio" aria-label="Mega Brasil - início"><img src="/assets/images/hero/hero.transp.png" alt="Mega Brasil Indústria" /></a><p>Soluções em proteção contra incêndio para projetos industriais e comerciais.</p><div class="footer-socials"><a class="social-instagram" href="https://www.instagram.com/megabrasil_industria?igsi=ZGZzYTBwMTJ3M2Rj" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram da Mega Brasil"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle class="social-dot" cx="17.4" cy="6.7" r="1"></circle></svg></a><a class="social-linkedin" href="https://www.linkedin.com/company/grupo-mega-brasil/" target="_blank" rel="noopener noreferrer" aria-label="Abrir LinkedIn da Mega Brasil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 2H3.55C2.69 2 2 2.68 2 3.52v16.96c0 .84.69 1.52 1.55 1.52h16.9c.86 0 1.55-.68 1.55-1.52V3.52c0-.84-.69-1.52-1.55-1.52ZM7.93 18.75H4.98V9.2h2.95v9.55ZM6.45 7.9a1.71 1.71 0 1 1 0-3.42 1.71 1.71 0 0 1 0 3.42ZM19 18.75h-2.95V14.1c0-1.11-.02-2.54-1.55-2.54-1.55 0-1.79 1.21-1.79 2.46v4.73H9.76V9.2h2.83v1.31h.04c.39-.75 1.36-1.55 2.8-1.55 2.99 0 3.57 1.97 3.57 4.53v5.26Z"></path></svg></a><a class="social-facebook" href="https://www.facebook.com/share/18PdYGjxpk/" target="_blank" rel="noopener noreferrer" aria-label="Abrir Facebook da Mega Brasil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.23.2 2.23.2v2.46h-1.25c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12Z"></path></svg></a></div></div>
     <div class="footer-contact">
       <h3>Contato comercial</h3>
       <a class="footer-whatsapp" href="https://wa.me/5521978715555" target="_blank" rel="noopener noreferrer">+55 21 97871-5555</a>
@@ -382,7 +382,7 @@
     <address class="footer-addresses"><div><h3>Unidade 1 · Matriz</h3><a href="https://www.google.com/maps/search/?api=1&query=Rua+Teixeira+de+Souza+116+Vila+Maria+Helena+Duque+de+Caxias+RJ" target="_blank" rel="noopener noreferrer">Rua Teixeira de Souza, 116<br />Vila Maria Helena<br />Duque de Caxias — RJ</a></div><div><h3>Unidade 2 · Área administrativa</h3><a href="https://www.google.com/maps/search/?api=1&query=Avenida+das+Am%C3%A9ricas+12900+Americas+Avenue+Business+Square+Barra+da+Tijuca+RJ" target="_blank" rel="noopener noreferrer">Avenida das Américas, 12.900<br />Américas Avenue Business Square<br />Ala Brasil · Salas 212, 213, 214 e 215<br />Barra da Tijuca — RJ</a></div><div><h3>Unidade 3 · São Paulo</h3><a href="https://www.google.com/maps/search/?api=1&query=Avenida+Juscelino+Kubitscheck+1455+Edificio+The+City+Sao+Paulo+SP" target="_blank" rel="noopener noreferrer">Avenida Juscelino Kubitscheck, 1.455<br />Edifício The City<br />São Paulo — SP</a></div></address>
     <div class="footer-navigation">
       <h3>Institucional</h3>
-      <a href="#empresa">A empresa</a><a href="#produtos">Produtos</a
+      <a href="#empresa">A empresa</a><a href="#megashield">Produtos</a
       ><a href="#contato">Solicitar orçamento</a>
     </div>
     <div class="footer-legal-links">
@@ -439,12 +439,13 @@
   }
   .footer-brand {
     display: block;
-    width: 210px;
-    height: 72px;
+    width: 240px;
+    height: auto;
   }
   .footer-brand img {
+    display: block;
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: contain;
   }
   .footer-main h3 {
@@ -470,10 +471,17 @@
     color: #f45100 !important;
   }
   .footer-identity p { max-width: 280px; margin: 15px 0 18px; color: #666; font-size: 13px; line-height: 1.5; }
-  .footer-socials { display: flex; flex-wrap: wrap; gap: 8px; }
-  .footer-socials a { width: 42px; height: 42px; margin: 0 !important; padding: 9px; display: grid !important; place-items: center; border: 1px solid #ccc; border-radius: 50%; color: #444 !important; }
-  .footer-socials a:hover { border-color: #f45100; background: #f45100; color: #fff !important; transform: translateY(-2px); }
-  .footer-socials svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .footer-identity { min-width: 0; }
+  .footer-brand { max-width: 100%; }
+  .footer-socials { display: flex; flex-wrap: wrap; gap: 12px; }
+  .footer-socials a { width: 52px; height: 52px; margin: 0 !important; padding: 12px; display: grid !important; place-items: center; border: 0; border-radius: 12px; color: #fff !important; box-shadow: 0 3px 8px #0002; transition: transform .2s; }
+  .footer-socials a:hover { transform: translateY(-3px); }
+  .footer-socials a:focus-visible { outline: 3px solid #222; outline-offset: 4px; }
+  .footer-socials .social-instagram { background: radial-gradient(circle at 25% 110%, #ffdc80 0%, #f77737 30%, #e1306c 55%, #833ab4 85%); }
+  .footer-socials .social-linkedin { background: #0a66c2; }
+  .footer-socials .social-facebook { background: #0866ff; }
+  .footer-socials .social-linkedin svg, .footer-socials .social-facebook svg { fill: currentColor; stroke: none; }
+  .footer-socials svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
   .footer-socials .social-dot { fill: currentColor; stroke: none; }
   .footer-main address { font-style: normal; }
   .footer-main address a { line-height: 1.55; }
@@ -525,4 +533,5 @@
   @media (max-width: 1150px) and (min-width: 851px) {
     .footer-main { grid-template-columns: 1.2fr 1fr 1.2fr; }
   }
+@media (max-width: 540px) { .footer-main { grid-template-columns: minmax(0, 1fr); } .footer-brand { width: 220px; } }
 </style>

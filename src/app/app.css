@@ -1527,9 +1527,4 @@ footer a {
 /* Temporarily show only MegaShield while retaining the full catalog in source. */
 .address-cards[hidden] { display: none; }
 .product-grid { grid-template-columns: minmax(0, 560px); justify-content: center; }
-.footer-brand { display: inline-block; max-width: 100%; }
-footer .footer-brand img { width: 260px; max-width: 100%; height: auto; }
-.footer-socials { display: flex; gap: 14px; align-items: center; margin-top: 18px; }
-.footer-socials a { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid currentColor; border-radius: 50%; }
-.footer-socials svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.footer-socials .social-dot { fill: currentColor; stroke: none; }
+.main-nav a[hidden] { display: none; }
