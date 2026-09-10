@@ -26,6 +26,7 @@
               {
                 "glob": "**/*",
                 "input": "src/assets",
+                "ignore": ["images/empresa/qsomos2.jpeg", "images/empresa/qsomos3.jpeg", "images/empresa/qsomos4.jpeg", "images/hero/hero3.jpg"],
                 "output": "assets"
               }
             ],

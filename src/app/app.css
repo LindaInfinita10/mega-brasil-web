@@ -134,7 +134,7 @@ footer img {
   inset: 0;
 }
 .hero-background {
-  background: url('/assets/images/hero/hero3.jpg') center/cover no-repeat;
+  background: url('/assets/images/hero/hero3-suave.png') center/cover no-repeat;
   animation: zoom 9s ease-out both;
 }
 .hero-overlay {
@@ -695,7 +695,7 @@ footer a {
 .selection-tray > button:hover { background: #ff6a20; }
 
 .quote-page { position: fixed; inset: 0; z-index: 100; overflow-y: auto; background: #3f4244; color: #fff; isolation: isolate; }
-.quote-page::before { content: ''; position: fixed; inset: 0; z-index: -2; background: url('/assets/images/empresa/qsomos3.jpeg') center/cover no-repeat; filter: grayscale(.35); }
+.quote-page::before { content: ''; position: fixed; inset: 0; z-index: -2; background: url('/assets/images/empresa/qsomos3-suave.png') center/cover no-repeat; filter: grayscale(.35); }
 .quote-page::after { content: ''; position: fixed; inset: 0; z-index: -1; background: linear-gradient(110deg, rgba(31,33,34,.96), rgba(54,57,59,.91)); }
 .quote-page-header { height: 82px; padding: 0 max(24px, calc((100vw - 1180px)/2)); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.16); background: rgba(32,34,36,.8); backdrop-filter: blur(12px); }
 .quote-page-header img { width: 155px; max-height: 52px; object-fit: contain; }
@@ -893,7 +893,7 @@ footer a {
   content: '';
   position: absolute;
   inset: -30px;
-  background: url('/assets/images/hero/hero3.jpg') center/cover no-repeat;
+  background: url('/assets/images/hero/hero3-suave.png') center/cover no-repeat;
   filter: blur(18px) brightness(0.72);
   transform: scale(1.08);
   z-index: 0;
