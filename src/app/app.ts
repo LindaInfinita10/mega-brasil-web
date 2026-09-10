@@ -36,7 +36,7 @@ export class App {
     P90: { minutes: 90, use: 'Ideal para locais com maior exigência de segurança.', image: '/assets/images/hero/megashield-red.png' },
     P120: { minutes: 120, use: 'Indicada para áreas industriais e ambientes de alto risco.', image: '/assets/images/hero/megashield-red.png' },
   };
-  protected readonly contactProducts = [
+  protected readonly allContactProducts = [
     { name: 'MegaShield P60', title: 'Porta corta-fogo · 60 min', image: '/assets/images/hero/megashield-red.png' },
     { name: 'MegaShield P90', title: 'Porta corta-fogo · 90 min', image: '/assets/images/hero/megashield-red.png' },
     { name: 'MegaShield P120', title: 'Porta corta-fogo · 120 min', image: '/assets/images/hero/megashield-red.png' },
@@ -48,6 +48,8 @@ export class App {
     { name: 'MegaFoam', title: 'Gerador de espuma', image: '/assets/images/products/megafoam-hd.png' },
     { name: 'MegaSprink', title: 'Sprinklers', image: '/assets/images/products/megasprink-hd.png' },
   ];
+  protected readonly contactProducts = this.allContactProducts.filter(product => product.name.startsWith('MegaShield '));
+  protected readonly showComplementaryProducts = false;
   protected readonly doorComponents = [
     { title: 'Folha metálica reforçada', text: 'Chapa de aço de alta resistência que garante integridade estrutural e proteção ao fogo.', x: 52, y: 35, zoom: '54% 38%' },
     { title: 'Batente de aço', text: 'Estrutura robusta que assegura alinhamento, fixação e vedação eficiente da porta.', x: 78, y: 20, zoom: '78% 22%' },
@@ -111,6 +113,7 @@ export class App {
     });
   }
   protected addProduct(name: string): void {
+    if (!this.contactProducts.some(product => product.name === name)) return;
     const found = this.cart().find((item) => item.name === name);
     this.cart.set(
       found

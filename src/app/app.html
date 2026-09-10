@@ -194,6 +194,7 @@
           <div class="catalog-photo photo-shield" role="img" aria-label="Porta corta-fogo MegaShield vermelha"></div>
           <div class="catalog-card-copy"><b>MegaShield</b><h3>Porta corta-fogo</h3><p>Modelos P60, P90 e P120 para projetos industriais.</p><a class="catalog-link" href="#megashield">Ver classificações →</a></div>
         </article>
+        @if (showComplementaryProducts) {
         <article>
           <div class="catalog-photo photo-hose" role="img" aria-label="Mangueira de incêndio vermelha"></div>
           <div class="catalog-card-copy"><b>MegaHose</b><h3>Mangueira de incêndio</h3><p>Para sistemas de combate a incêndio.</p><button (click)="addProduct('MegaHose')">+ Adicionar @if (productQuantity('MegaHose')) { <span class="button-quantity">{{ productQuantity('MegaHose') }}</span> }</button></div>
@@ -222,6 +223,7 @@
           <div class="catalog-photo photo-sprink" role="img" aria-label="Sprinklers para rede automática"></div>
           <div class="catalog-card-copy"><b>MegaSprink</b><h3>Sprinklers</h3><p>Componentes para redes automáticas.</p><button (click)="addProduct('MegaSprink')">+ Adicionar @if (productQuantity('MegaSprink')) { <span class="button-quantity">{{ productQuantity('MegaSprink') }}</span> }</button></div>
         </article>
+        }
       </div>
     </div>
   </section>
@@ -260,7 +262,7 @@
             <a class="channel-card" href="mailto:comercial@megabrasilindustria.net"><span class="channel-icon" aria-hidden="true">@</span><small>E-mail</small><strong>comercial@megabrasilindustria.net</strong><em>Enviar mensagem →</em></a>
             <div class="channel-card"><span class="channel-icon" aria-hidden="true">BR</span><small>Atendimento</small><strong>Projetos em todo o Brasil</strong><em>Equipe comercial especializada</em></div>
           </div>
-          <div class="address-cards"><a href="https://www.google.com/maps/search/?api=1&query=Rua+Teixeira+de+Souza+116+Vila+Maria+Helena+Duque+de+Caxias+RJ" target="_blank" rel="noopener noreferrer"><small>Unidade 1 · Matriz</small><strong>Rua Teixeira de Souza, 116</strong><span>Vila Maria Helena · Duque de Caxias — RJ</span><em>Abrir no Google Maps →</em></a><a href="https://www.google.com/maps/search/?api=1&query=Avenida+das+Am%C3%A9ricas+12900+Americas+Avenue+Business+Square+Barra+da+Tijuca+RJ" target="_blank" rel="noopener noreferrer"><small>Unidade 2 · Área administrativa</small><strong>Avenida das Américas, 12.900</strong><span>Américas Avenue Business Square · Ala Brasil · Salas 212, 213, 214 e 215 · Barra da Tijuca — RJ</span><em>Abrir no Google Maps →</em></a><a href="https://www.google.com/maps/search/?api=1&query=Avenida+Juscelino+Kubitscheck+1455+Edificio+The+City+Sao+Paulo+SP" target="_blank" rel="noopener noreferrer"><small>Unidade 3 · São Paulo</small><strong>Avenida Juscelino Kubitscheck, 1.455</strong><span>Edifício The City · São Paulo — SP</span><em>Abrir no Google Maps →</em></a></div>
+          <div class="address-cards" hidden><a href="https://www.google.com/maps/search/?api=1&query=Rua+Teixeira+de+Souza+116+Vila+Maria+Helena+Duque+de+Caxias+RJ" target="_blank" rel="noopener noreferrer"><small>Unidade 1 · Matriz</small><strong>Rua Teixeira de Souza, 116</strong><span>Vila Maria Helena · Duque de Caxias — RJ</span><em>Abrir no Google Maps →</em></a><a href="https://www.google.com/maps/search/?api=1&query=Avenida+das+Am%C3%A9ricas+12900+Americas+Avenue+Business+Square+Barra+da+Tijuca+RJ" target="_blank" rel="noopener noreferrer"><small>Unidade 2 · Área administrativa</small><strong>Avenida das Américas, 12.900</strong><span>Américas Avenue Business Square · Ala Brasil · Salas 212, 213, 214 e 215 · Barra da Tijuca — RJ</span><em>Abrir no Google Maps →</em></a><a href="https://www.google.com/maps/search/?api=1&query=Avenida+Juscelino+Kubitscheck+1455+Edificio+The+City+Sao+Paulo+SP" target="_blank" rel="noopener noreferrer"><small>Unidade 3 · São Paulo</small><strong>Avenida Juscelino Kubitscheck, 1.455</strong><span>Edifício The City · São Paulo — SP</span><em>Abrir no Google Maps →</em></a></div>
         </div>
         <div class="contact-map"><iframe title="Mapa da matriz Mega Brasil Indústria" src="https://www.google.com/maps?q=Rua%20Teixeira%20de%20Souza%20116%20Duque%20de%20Caxias%20RJ&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><a href="https://www.google.com/maps/search/?api=1&query=Rua+Teixeira+de+Souza+116+Vila+Maria+Helena+Duque+de+Caxias+RJ" target="_blank" rel="noopener noreferrer">Ver rota até a matriz <span>→</span></a></div>
       </div>
