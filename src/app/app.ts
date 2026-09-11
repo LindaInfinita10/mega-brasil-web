@@ -1,9 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { QuoteFieldDirective } from './quote-field.directive';
+import { normalizeQuoteField, quoteFieldError, quoteFields } from './quote-validation';
 
 @Component({
   selector: 'app-root',
-  imports: [FormsModule],
+  imports: [FormsModule, QuoteFieldDirective],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
@@ -128,6 +130,7 @@ export class App {
   protected addProduct(name: string): void {
     if (!this.contactProducts.some(product => product.name === name)) return;
     const found = this.cart().find((item) => item.name === name);
+    if (found && !Number.isSafeInteger(found.quantity + 1)) return;
     this.cart.set(
       found
         ? this.cart().map((item) =>
@@ -137,6 +140,9 @@ export class App {
     );
   }
   protected changeProduct(name: string, amount: number): void {
+    if (amount !== 1 && amount !== -1) return;
+    const current = this.productQuantity(name);
+    if (!Number.isSafeInteger(current + amount)) return;
     this.cart.set(
       this.cart().flatMap((item) =>
         item.name === name && item.quantity + amount <= 0
@@ -146,7 +152,10 @@ export class App {
     );
   }
   protected sendQuote(): void {
-    if (!this.form.consent || !this.form.name || !this.form.phone || !this.form.email) return;
+    if (!this.form.consent || quoteFields.some(field => quoteFieldError(field, this.form[field])) ||
+      !this.cart().length || this.cart().some(item => !Number.isSafeInteger(item.quantity) || item.quantity <= 0 ||
+        !this.contactProducts.some(product => product.name === item.name))) return;
+    for (const field of quoteFields) this.form[field] = normalizeQuoteField(field, this.form[field]);
     const items = this.cart()
       .map((item) => `• ${item.name}: ${item.quantity} unidade(s)`)
       .join('\n');
@@ -158,21 +167,4 @@ export class App {
     );
   }
 
-  protected sendToWhatsapp(): void {
-    const message = [
-      '*Novo pedido de orçamento — Mega Brasil*',
-      '',
-      `*Nome:* ${this.form.name}`,
-      `*Empresa:* ${this.form.company}`,
-      `*Telefone:* ${this.form.phone}`,
-      `*E-mail:* ${this.form.email}`,
-      `*Orçamento / necessidade:* ${this.form.budget}`,
-    ].join('\n');
-    window.open(
-      `https://wa.me/${this.commercialWhatsapp}?text=${encodeURIComponent(message)}`,
-      '_blank',
-      'noopener,noreferrer',
-    );
-    this.feedback.set('Abrindo o WhatsApp com os dados do seu orçamento.');
-  }
 }

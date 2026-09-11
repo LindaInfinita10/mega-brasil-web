@@ -1528,3 +1528,10 @@ footer a {
 .main-nav a[hidden] { display: none; }
 
 .component-zoom-image { background-color: #f7f7f5; }
+
+.contact-commercial-form .field-error, .customer-form .field-error {
+  display: block; margin-top: 6px; color: #a82418; font-size: 13px;
+  line-height: 1.4; font-weight: 500; text-transform: none; letter-spacing: normal;
+}
+.customer-form .field-error { color: #ffb3aa; }
+input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: #c63022; }
