@@ -11,11 +11,23 @@ Consultar os [requisitos funcionais e não funcionais](REQUIREMENTS.md) para os 
 
 ## Processo de publicação
 
-1. Executar `npm install`.
+1. Usar a versão aprovada da branch `main` e executar `npm ci`.
 2. Executar `npm run build`.
 3. Publicar `dist/mega-brasil-web/browser`.
 4. Configurar o domínio e HTTPS.
 5. Configurar fallback para `index.html` em rotas da aplicação.
+
+## Configuração do provedor
+
+- Branch de produção: `main`. Continuar o desenvolvimento em `develop` e integrar somente versões revisadas.
+- Diretório do projeto: raiz do repositório.
+- Instalação: `npm ci`.
+- Build: `npm run build`.
+- Diretório a publicar: `dist/mega-brasil-web/browser`.
+- Hospedagem estática; não executar `ng serve` em produção nem publicar `node_modules` ou a pasta `.git`.
+- A configuração atual considera o site na raiz do domínio. Publicação em subpasta exige revisar os caminhos das imagens e a base da aplicação.
+
+A presença da branch `main` no GitHub não publica o site automaticamente. O provedor e o domínio ainda precisam ser configurados, e as verificações manuais abaixo continuam pendentes até seu registro.
 
 ## Checklist funcional
 
