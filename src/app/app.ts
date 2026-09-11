@@ -53,7 +53,7 @@ export class App {
   protected readonly contactProducts = this.allContactProducts.filter(product => product.name.startsWith('MegaShield '));
   protected readonly showFullCatalog = false;
   protected readonly baseDoorComponents: { title: string; text: string; x: number; y: number; zoom: string; image?: string; size?: string }[] = [
-    { title: 'Folha metálica reforçada', text: 'Chapa de aço de alta resistência que garante integridade estrutural e proteção ao fogo.', x: 52, y: 18, zoom: '54% 38%' },
+    { title: 'Folha metálica reforçada', text: 'Chapa de aço de alta resistência que garante integridade estrutural e proteção ao fogo.', x: 52, y: 18, zoom: '52% 18%', size: '600%' },
     { title: 'Batente de aço', text: 'Estrutura robusta que assegura alinhamento, fixação e vedação eficiente da porta.', x: 78, y: 20, zoom: '78% 22%' },
     { title: 'Dobradiças de alto desempenho', text: 'Projetadas para suportar uso intenso e garantir abertura suave e segura por longos períodos.', x: 73, y: 31, zoom: '74% 31%' },
     { title: 'Barra antipânico', text: 'O cliente pode escolher o tipo de barra antipânico conforme a aplicação e as especificações do projeto.', x: 52, y: 58, zoom: '52% 58%' },
