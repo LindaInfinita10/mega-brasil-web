@@ -61,6 +61,7 @@ O site não armazena os dados do formulário em banco de dados.
 
 ## Documentação
 
+- [Requisitos funcionais e não funcionais](docs/REQUIREMENTS.md)
 - [Publicação e entrega](docs/DEPLOYMENT.md)
 - [Conteúdo e manutenção](docs/CONTENT.md)
 - [Histórico de alterações](CHANGELOG.md)

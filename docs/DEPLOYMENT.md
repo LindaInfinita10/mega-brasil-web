@@ -1,5 +1,7 @@
 # Publicação e entrega
 
+Consultar os [requisitos funcionais e não funcionais](REQUIREMENTS.md) para os critérios de aceitação, evidências e verificações pendentes. Este checklist deve ser preenchido para a versão que será publicada.
+
 ## Pré-requisitos
 
 - Domínio e provedor de DNS confirmados.
