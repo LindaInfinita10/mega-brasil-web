@@ -29,6 +29,20 @@ Consultar os [requisitos funcionais e não funcionais](REQUIREMENTS.md) para os 
 
 A presença da branch `main` no GitHub não publica o site automaticamente. O provedor e o domínio ainda precisam ser configurados, e as verificações manuais abaixo continuam pendentes até seu registro.
 
+## Upload manual no domínio
+
+O pacote local `dist/mega-brasil-site.zip` contém os arquivos de produção na raiz do ZIP, incluindo imagens e os dois PDFs. Ele é gerado após o build e não é versionado no Git.
+
+1. Fazer backup dos arquivos existentes na pasta pública do domínio.
+2. Enviar e extrair o ZIP na pasta pública indicada pelo provedor (por exemplo, `public_html`). O `index.html` deve ficar diretamente nessa pasta, sem uma pasta `browser` intermediária.
+3. Ativar HTTPS no provedor. Preservar registros de e-mail (MX/TXT) ao configurar o DNS.
+4. Conferir a página inicial, `#megashield`, os detalhes de P90/P120 e os links `/documents/memorial-descritivo-p90.pdf` e `/documents/memorial-descritivo-p120.pdf`.
+5. Testar o formulário e o retorno aos modelos. A navegação atual usa âncoras; não requer regras de reescrita para essas seções.
+
+O pacote considera instalação na raiz do domínio. Domínio, provedor, DNS e HTTPS ainda dependem dos dados da hospedagem; não estão configurados por este preparo.
+
+Verificação local em 14/09/2026: build de produção e 75 testes aprovados; marcadores P90/P120 ajustados à imagem, com revisão visual de P120 em desktop e celular. Essa verificação não substitui o teste no domínio após o upload.
+
 ## Checklist funcional
 
 - [ ] Build concluído sem erros.
