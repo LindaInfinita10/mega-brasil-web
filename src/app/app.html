@@ -153,19 +153,20 @@
               <img src="/assets/images/hero/megashield-macaneta.png" alt="MegaShield P60 vermelha com maçaneta" />
               <div>
                 <b>MegaShield P60</b>
-                <h4>Proteção por 60 minutos</h4>
-                <p>Para casas de máquinas, com opção de barra.</p>
+                <h4>Modelo P60</h4>
+                <p class="production-notice">Fora de produção no momento.</p>
                 <button class="door-detail-link" type="button" (click)="openDoorDetail('P60')">Ver ficha técnica →</button>
-                <button (click)="addProduct('MegaShield P60')">Adicionar + @if (productQuantity('MegaShield P60')) { <span class="button-quantity">{{ productQuantity('MegaShield P60') }}</span> }</button>
+                <button type="button" disabled>Indisponível para orçamento</button>
               </div>
             </article>
             <article>
               <img src="/assets/images/hero/megashield-red.png" alt="MegaShield P90 em vermelho" />
               <div>
                 <b>MegaShield P90</b>
-                <h4>Proteção por 90 minutos</h4>
-                <p>Para locais com maior exigência de segurança.</p>
-                <button class="door-detail-link" type="button" (click)="openDoorDetail('P90')">Ver ficha técnica →</button>
+                <h4>Classificação pretendida P90</h4>
+                <p>Folha galvanizada com núcleo de fibra cerâmica.</p>
+                <a class="door-detail-link" [href]="doorMemorials.P90.url" target="_blank" rel="noopener noreferrer">Ver ficha técnica (PDF) ↗</a>
+                <button class="door-detail-link" type="button" (click)="openDoorDetail('P90')">Ver detalhes e componentes →</button>
                 <button (click)="addProduct('MegaShield P90')">Adicionar + @if (productQuantity('MegaShield P90')) { <span class="button-quantity">{{ productQuantity('MegaShield P90') }}</span> }</button>
               </div>
             </article>
@@ -173,9 +174,10 @@
               <img src="/assets/images/hero/megashield-red.png" alt="MegaShield P120 em vermelho" />
               <div>
                 <b>MegaShield P120</b>
-                <h4>Proteção por 120 minutos</h4>
-                <p>Para indústrias e ambientes de alto risco.</p>
-                <button class="door-detail-link" type="button" (click)="openDoorDetail('P120')">Ver ficha técnica →</button>
+                <h4>Classificação pretendida P120</h4>
+                <p>Galvanizada sem pintura, conforme memorial técnico.</p>
+                <a class="door-detail-link" [href]="doorMemorials.P120.url" target="_blank" rel="noopener noreferrer">Ver ficha técnica (PDF) ↗</a>
+                <button class="door-detail-link" type="button" (click)="openDoorDetail('P120')">Ver detalhes e componentes →</button>
                 <button (click)="addProduct('MegaShield P120')">Adicionar + @if (productQuantity('MegaShield P120')) { <span class="button-quantity">{{ productQuantity('MegaShield P120') }}</span> }</button>
               </div>
             </article>
@@ -293,27 +295,33 @@
       <section class="door-detail-hero">
         <div class="door-detail-copy">
           <p class="eyebrow">PORTA CORTA-FOGO · MEGASHIELD {{ model }}</p>
-          <h1 id="door-title">Proteção por <strong>{{ doorDetails[model].minutes }} minutos.</strong></h1>
+          <h1 id="door-title">MegaShield <strong>{{ model }}</strong></h1>
           <p class="door-lead">{{ doorDetails[model].use }}</p>
-          <p>Projetada para unir tecnologia, resistência e conformidade técnica, ajudando a proteger rotas de fuga, controlar a propagação do fogo e preservar vidas e patrimônios.</p>
-          <div class="door-actions"><button type="button" class="primary-button" (click)="addProduct('MegaShield ' + model)">Adicionar ao orçamento <span>+</span></button><span>{{ productQuantity('MegaShield ' + model) }} selecionada(s)</span></div>
+          @if (model === 'P60') {
+            <p class="production-notice">Fora de produção no momento. Consulte os modelos P90 e P120 para orçamento.</p>
+          } @else {
+            <p>Classificação pretendida {{ model }}, conforme o memorial descritivo do fabricante.</p>
+            <a class="door-detail-link" [href]="doorMemorials[model].url" target="_blank" rel="noopener noreferrer">Ver ficha técnica (PDF) ↗</a>
+          }
+          <div class="door-actions"><button type="button" class="primary-button" [disabled]="model === 'P60'" (click)="addProduct('MegaShield ' + model)">{{ model === 'P60' ? 'Indisponível para orçamento' : 'Adicionar ao orçamento' }}</button>@if (model !== 'P60') { <span>{{ productQuantity('MegaShield ' + model) }} selecionada(s)</span> }</div>
         </div>
         <div class="door-detail-image"><img [src]="doorDetails[model].image" [alt]="'Porta corta-fogo MegaShield ' + model" /></div>
       </section>
-      <section class="door-benefits" aria-label="Benefícios"><article><b>Resistência ao fogo</b><span>{{ doorDetails[model].minutes }} minutos de proteção</span></article><article><b>Controle de fumaça</b><span>Vedação para reduzir a passagem de fumaça e gases</span></article><article><b>{{ model === 'P60' ? 'Casa de máquinas' : 'Rotas de fuga' }}</b><span>{{ model === 'P60' ? 'Maçaneta com opção de barra conforme o projeto' : 'Abertura segura com barra antipânico' }}</span></article><article><b>Proteção patrimonial</b><span>Estrutura reforçada e acabamento resistente</span></article></section>
       <section class="technical-section">
-        <div class="technical-heading"><p class="eyebrow">ENGENHARIA E COMPONENTES</p><h2>Detalhes que elevam o desempenho.</h2><p>Cada componente tem uma função. O conjunto é o que garante robustez, operação segura e durabilidade.</p></div>
+        <div class="technical-heading"><p class="eyebrow">ENGENHARIA E COMPONENTES · ILUSTRAÇÃO</p><h2>Detalhes que elevam o desempenho.</h2><p>Cada componente tem uma função. O conjunto é o que garante robustez, operação segura e durabilidade.</p></div>
         <div class="component-explorer">
           <div class="component-list" role="tablist" aria-label="Componentes da porta">
             @for (component of doorComponents; track component.title; let index = $index) {
               <button type="button" role="tab" [attr.aria-selected]="selectedComponent() === index" [class.active]="selectedComponent() === index" (click)="selectComponent(index)"><span>{{ (index + 1).toString().padStart(2, '0') }}</span>{{ component.title }}</button>
             }
           </div>
-          <div class="annotated-door">
+          <div class="annotated-door" [class.legacy-map]="model === 'P60'">
+            <div class="door-image-map">
             <img [src]="componentDoorImage()" alt="Ilustração da porta MegaShield com pontos de seus componentes" />
             @for (component of doorComponents; track component.title; let index = $index) {
               <button type="button" class="component-hotspot" [class.active]="selectedComponent() === index" [style.left.%]="component.x" [style.top.%]="component.y" [attr.aria-label]="'Ver ' + component.title" (click)="selectComponent(index)">{{ index + 1 }}</button>
             }
+            </div>
           </div>
           <article class="component-zoom" aria-live="polite">
             <div class="component-zoom-image" [style.background-position]="doorComponents[selectedComponent()].zoom" [style.background-image]="'url(' + (doorComponents[selectedComponent()].image || componentDoorImage()) + ')'" [style.background-size]="doorComponents[selectedComponent()].size || '330%'" role="img" [attr.aria-label]="'Ampliação: ' + doorComponents[selectedComponent()].title"></div>

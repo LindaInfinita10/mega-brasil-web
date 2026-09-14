@@ -1,12 +1,12 @@
 # Requisitos do site Mega Brasil Indústria
 
-Data da revisão: 11/09/2026. Referência da implementação: commit `492e18b`.
+Data da revisão: 11/09/2026. Base inicial: commit `492e18b`. Escopo atualizado com os memoriais P90/P120 e suspensão de produção de P60; ver docs/CONTENT.md.
 
 Este documento reúne o escopo atual, os critérios de aceitação e as verificações pendentes para a primeira publicação. Os critérios ainda não verificados são uma proposta de aceite; não representam aprovação da empresa nem certificação de qualidade.
 
 ## Objetivo e escopo
 
-Apresentar a Mega Brasil Indústria e seus canais comerciais, permitir a consulta dos modelos MegaShield e preparar solicitações de orçamento pelo WhatsApp. Nesta etapa, somente MegaShield P60, P90 e P120 ficam disponíveis; os demais produtos permanecem no código para futura reativação.
+Apresentar a Mega Brasil Indústria e seus canais comerciais, permitir a consulta dos modelos MegaShield e preparar solicitações de orçamento pelo WhatsApp. Nesta etapa, somente MegaShield P90 e P120 ficam disponíveis para orçamento. P60 permanece visível, fora de produção e com inclusão no orçamento bloqueada. Os demais produtos permanecem no código para futura reativação.
 
 Não fazem parte do escopo atual: pagamento on-line, cadastro de clientes, painel administrativo, controle automático de estoque, banco de dados de pedidos ou envio automático de e-mail. O visitante confirma o envio da mensagem no WhatsApp; abrir o aplicativo não comprova a entrega do pedido. A seleção e o formulário não têm persistência garantida após recarregar a página.
 
@@ -21,8 +21,8 @@ Não fazem parte do escopo atual: pagamento on-line, cadastro de clientes, paine
 | ID | Requisito | Critério de aceitação | Estado e verificação pendente |
 | --- | --- | --- | --- |
 | RF-01 | Apresentar a empresa e suas unidades. | Exibir apresentação, imagens e os endereços das três unidades, com dados aprovados pela empresa. | Implementado; aprovação comercial pendente. |
-| RF-02 | Limitar a oferta aos modelos MegaShield. | Exibir P60, P90 e P120; ocultar os demais produtos e impedir sua inclusão no orçamento. Preservar o catálogo completo no código. | Implementado; bloqueio de produtos ocultos testado; conferir apresentação manualmente. |
-| RF-03 | Consultar detalhes e componentes das portas. | Abrir cada modelo, mostrar sua imagem e informações correspondentes, alternar os componentes e retornar à seção MegaShield. | Implementado; revisão visual e aprovação das especificações pendentes. |
+| RF-02 | Limitar a oferta aos modelos MegaShield. | Exibir P90 e P120 com memoriais técnicos em PDF; manter P60 visível como fora de produção, com botões desabilitados e bloqueio na lógica do orçamento. Ocultar os demais produtos e impedir sua inclusão no orçamento. Preservar o catálogo completo no código. | Implementado; bloqueio de produtos ocultos testado; conferir apresentação manualmente. |
+| RF-03 | Consultar detalhes e componentes das portas. | Em P90 e P120, “Ver ficha técnica (PDF)” abre diretamente o PDF correspondente em outra aba. Manter acesso separado a detalhes e componentes, com imagem, alternância de componentes e retorno à seção MegaShield, sem bloco de documentação técnica na página. | Implementado; revisão visual e aprovação das especificações pendentes. |
 | RF-04 | Montar o orçamento. | Adicionar modelos disponíveis, incrementar e reduzir quantidades, remover o item ao chegar a zero e atualizar a contagem. Impedir quantidades inválidas e orçamento vazio no envio. | Regras testadas; conferir interação em celular e computador. |
 | RF-05 | Coletar e validar os dados de contato. | Exigir nome, telefone e e-mail válidos segundo as regras abaixo; apresentar erros e impedir a preparação do pedido com dados inválidos. | Validação e bloqueio de envio testados; conferir mensagens e foco na interface. |
 | RF-06 | Solicitar consentimento. | Disponibilizar o texto de privacidade no fluxo de orçamento e impedir o envio sem a confirmação do usuário. | Bloqueio testado; conteúdo e apresentação final pendentes de aprovação. |
