@@ -11,8 +11,68 @@ describe('Quote submission', () => {
     app['form'] = { name: 'João D’Ávila', phone: '+55 (21) 98765-4321', email: 'joao+obra@example.com', company: 'Aço & Cia', budget: 'Porta 90 × 210\nObra #2 & acesso + instalação', deadline: '', consent: true };
     app['addProduct']('MegaShield P90');
     open = vi.spyOn(window, 'open').mockImplementation(() => null);
+    vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
   });
-  afterEach(() => { vi.restoreAllMocks(); document.body.classList.remove('quote-open'); });
+  afterEach(() => { vi.restoreAllMocks(); document.body.classList.remove('quote-open'); window.history.replaceState(null, '', '/'); });
+
+  it('shows the final quote step and returns home only when requested', () => {
+    app['quotePage'].set(true);
+    app['selectedDoor'].set('P120');
+    document.body.classList.add('quote-open');
+    app['sendQuote']();
+    expect(app['selectedCount']()).toBe(0);
+    expect(app['quotePage']()).toBe(true);
+    expect(app['selectedDoor']()).toBeNull();
+    expect(document.body.classList.contains('quote-open')).toBe(true);
+    expect(window.location.hash).not.toBe('#inicio');
+    expect(window.scrollTo).not.toHaveBeenCalled();
+    expect(app['form'].name).toBe('');
+    expect(app['form'].consent).toBe(false);
+    expect(app['feedback']()).toContain('Confirme o envio');
+    expect(app['quoteWhatsappUrl']()).toBe(open.mock.calls[0][0]);
+    app['sendQuote']();
+    expect(open).toHaveBeenCalledTimes(1);
+    app['finishQuote']();
+    expect(app['quotePage']()).toBe(false);
+    expect(document.body.classList.contains('quote-open')).toBe(false);
+    expect(window.location.hash).toBe('#inicio');
+    expect(window.scrollTo).toHaveBeenLastCalledWith({ top: 0, behavior: 'instant' });
+    expect(app['feedback']()).toBe('');
+    expect(app['quoteWhatsappUrl']()).toBe('');
+  });
+
+  it('renders the completion inside the quote page instead of the form or floating tray', async () => {
+    const fixture = TestBed.createComponent(App);
+    const instance = fixture.componentInstance;
+    instance['form'] = { ...app['form'] };
+    instance['addProduct']('MegaShield P120');
+    fixture.detectChanges();
+    await fixture.whenStable();
+    instance['sendQuote']();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    const page: HTMLElement = fixture.nativeElement;
+    expect(page.querySelector('.quote-page .quote-completion h1')?.textContent).toContain('Seu pedido está preparado');
+    expect(page.querySelector('.customer-form')).toBeNull();
+    expect(page.querySelector('.selection-tray')).toBeNull();
+    expect(page.querySelector('.quote-feedback')).toBeNull();
+    (page.querySelector('.quote-completion button') as HTMLButtonElement).click();
+    fixture.detectChanges();
+    expect(page.querySelector('.quote-page')).toBeNull();
+    expect(page.querySelector('.selection-tray')).toBeNull();
+    expect(window.location.hash).toBe('#inicio');
+  });
+
+  it('preserves the request if opening WhatsApp throws', () => {
+    app['quotePage'].set(true);
+    open.mockImplementation(() => { throw new Error('Browser refused'); });
+    app['sendQuote']();
+    expect(app['selectedCount']()).toBe(1);
+    expect(app['quotePage']()).toBe(true);
+    expect(app['form'].name).toContain('João');
+    expect(app['feedback']()).toContain('Seu pedido foi mantido');
+    expect(window.scrollTo).not.toHaveBeenCalled();
+  });
 
   it.each([
     ['name', '   '], ['name', 'João123'], ['name', '<script>'],

@@ -1,5 +1,5 @@
-import { Component, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, ElementRef, QueryList, ViewChild, ViewChildren, signal } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 import { QuoteFieldDirective } from './quote-field.directive';
 import { normalizeQuoteField, quoteFieldError, quoteFields } from './quote-validation';
 
@@ -12,6 +12,25 @@ import { normalizeQuoteField, quoteFieldError, quoteFields } from './quote-valid
 export class App {
   readonly commercialWhatsapp = '5521978715555';
   protected readonly feedback = signal('');
+  protected readonly quoteWhatsappUrl = signal('');
+  @ViewChildren(NgForm) private quoteForms!: QueryList<NgForm>;
+  @ViewChild('quoteCompletion') private set completionHeading(heading: ElementRef<HTMLElement> | undefined) {
+    if (!heading) return;
+    heading.nativeElement.focus();
+    const page = heading.nativeElement.closest('.quote-page');
+    if (page) page.scrollTop = 0;
+  }
+
+  protected finishQuote(): void {
+    this.closeQuotePage();
+    window.history.replaceState(null, '', '#inicio');
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  protected dismissFeedback(): void {
+    this.feedback.set('');
+    this.quoteWhatsappUrl.set('');
+  }
   protected readonly mobileMenuOpen = signal(false);
   protected form = {
     name: '',
@@ -151,6 +170,7 @@ export class App {
 
   protected closeQuotePage(): void {
     this.quotePage.set(false);
+    this.dismissFeedback();
     document.body.classList.remove('quote-open');
   }
 
@@ -171,6 +191,7 @@ export class App {
   }
   protected addProduct(name: string): void {
     if (!this.contactProducts.some(product => product.name === name)) return;
+    this.dismissFeedback();
     const found = this.cart().find((item) => item.name === name);
     if (found && !Number.isSafeInteger(found.quantity + 1)) return;
     this.cart.set(
@@ -202,11 +223,24 @@ export class App {
       .map((item) => `• ${item.name}: ${item.quantity} unidade(s)`)
       .join('\n');
     const message = `*Pedido de orçamento — Mega Brasil*\n\n*Produtos selecionados:*\n${items}\n\n*Nome:* ${this.form.name}\n*Empresa:* ${this.form.company || 'Não informada'}\n*Telefone:* ${this.form.phone}\n*E-mail:* ${this.form.email}\n*Mensagem:* ${this.form.budget || 'Sem observações'}\n*Prazo:* ${this.form.deadline || 'A definir'}\n\n*Consentimento:* o cliente aceitou a Política de Privacidade e autorizou o tratamento dos dados para atendimento deste orçamento.`;
-    window.open(
-      `https://wa.me/${this.commercialWhatsapp}?text=${encodeURIComponent(message)}`,
-      '_blank',
-      'noopener,noreferrer',
-    );
+    const url = `https://wa.me/${this.commercialWhatsapp}?text=${encodeURIComponent(message)}`;
+    try {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    } catch {
+      this.feedback.set('Não foi possível abrir o WhatsApp. Seu pedido foi mantido. Tente novamente.');
+      return;
+    }
+    // Opening a wa.me link cannot confirm delivery. Keep a retry link because
+    // noopener may return null even when the browser successfully opens the tab.
+    this.quoteWhatsappUrl.set(url);
+    this.feedback.set('Pedido preparado! Confirme o envio da mensagem no WhatsApp para concluir sua solicitação.');
+    this.cart.set([]);
+    this.closeDoorDetail();
+    this.closeMobileMenu();
+    this.quotePage.set(true);
+    document.body.classList.add('quote-open');
+    this.form = { name: '', company: '', phone: '', email: '', budget: '', deadline: '', consent: false };
+    this.quoteForms?.forEach(form => form.resetForm(this.form));
   }
 
 }

@@ -38,6 +38,7 @@ O pacote local `dist/mega-brasil-site.zip` contém os arquivos de produção na 
 3. Ativar HTTPS no provedor. Preservar registros de e-mail (MX/TXT) ao configurar o DNS.
 4. Conferir a página inicial, `#megashield`, os detalhes de P90/P120 e os links `/documents/memorial-descritivo-p90.pdf` e `/documents/memorial-descritivo-p120.pdf`.
 5. Testar o formulário e o retorno aos modelos. A navegação atual usa âncoras; não requer regras de reescrita para essas seções.
+6. Ao abrir o pedido no WhatsApp, verificar a etapa final dentro da tela de orçamento, com carrinho e formulário limpos. O botão “Voltar ao início” fecha essa etapa e retorna a `#inicio`, sem bandeja de orçamento. O envio deve ser confirmado no WhatsApp; o site não confirma entrega. A etapa final permite reabrir o mesmo pedido se a nova aba for bloqueada.
 
 O pacote considera instalação na raiz do domínio. Domínio, provedor, DNS e HTTPS ainda dependem dos dados da hospedagem; não estão configurados por este preparo.
 

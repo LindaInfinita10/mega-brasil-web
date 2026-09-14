@@ -1,3 +1,14 @@
+@if (feedback() && !quoteWhatsappUrl()) {
+  <aside class="quote-feedback" aria-label="Status do pedido">
+    <div>
+      <p role="status">{{ feedback() }}</p>
+      @if (quoteWhatsappUrl()) {
+        <a [href]="quoteWhatsappUrl()" target="_blank" rel="noopener noreferrer">O WhatsApp não abriu? Abrir novamente ↗</a>
+      }
+    </div>
+    <button type="button" aria-label="Fechar aviso" (click)="dismissFeedback()">×</button>
+  </aside>
+}
 <header class="site-header primary-header">
   <div class="header-inner">
     <a class="brand" href="#inicio" aria-label="Mega Brasil" (click)="closeMobileMenu()"
@@ -348,9 +359,26 @@
           <a href="#megashield" (click)="closeQuotePage()">Produtos</a>
           <a href="https://wa.me/5521978715555" target="_blank" rel="noopener noreferrer">Contato</a>
         </nav>
-        <button class="header-button quote-back-button" type="button" (click)="backToProducts()">Voltar aos produtos <span>→</span></button>
+        @if (quoteWhatsappUrl()) {
+          <button class="header-button quote-back-button" type="button" (click)="finishQuote()">Voltar ao início <span>→</span></button>
+        } @else {
+          <button class="header-button quote-back-button" type="button" (click)="backToProducts()">Voltar aos produtos <span>→</span></button>
+        }
       </div>
     </header>
+    @if (quoteWhatsappUrl()) {
+      <div class="quote-completion">
+        <div class="quote-completion-card">
+          <span class="quote-completion-icon" aria-hidden="true">✓</span>
+          <p class="eyebrow">SEU PEDIDO · ETAPA FINAL</p>
+          <h1 id="quote-title" #quoteCompletion tabindex="-1">Seu pedido está preparado!</h1>
+          <p>Confirme o envio da mensagem no WhatsApp para concluir sua solicitação de orçamento.</p>
+          <p class="quote-completion-note">Após o envio, nossa equipe comercial dará continuidade ao atendimento pelo WhatsApp.</p>
+          <button class="primary-button" type="button" (click)="finishQuote()">Voltar ao início <span>→</span></button>
+          <a [href]="quoteWhatsappUrl()" target="_blank" rel="noopener noreferrer">O WhatsApp não abriu? Abrir novamente ↗</a>
+        </div>
+      </div>
+    } @else {
     <div class="quote-page-wrap">
       <div class="quote-summary">
         <p class="eyebrow">SEU PEDIDO</p><h1 id="quote-title">Finalize seu orçamento.</h1>
@@ -377,6 +405,7 @@
         <small>Ao continuar, uma conversa será aberta com o comercial: +55 21 97871-5555.</small>
       </form>
     </div>
+    }
   </section>
 }
 <footer>
