@@ -773,3 +773,20 @@ textarea.form-control {
     padding: 22px;
   }
 }
+
+/* Keyboard focus remains visible against both light and dark sections. */
+body.quote-open { overflow: hidden; }
+
+:focus-visible {
+  outline: 3px solid #111 !important;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px #fff !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

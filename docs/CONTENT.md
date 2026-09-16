@@ -28,6 +28,8 @@ Os dados ficam em `src/app/app.ts` e as imagens em `src/assets/images/products`.
 
 ## Privacidade
 
+O texto compartilhado está em `src/app/privacy-policy.component.ts`. Ele descreve formulário, WhatsApp, mapa e fontes externas com base no comportamento atual; não representa aprovação da empresa. A empresa ainda precisa confirmar o canal de atendimento aos titulares e suas práticas após receber as mensagens.
+
 O formulário solicita nome, telefone, e-mail, empresa e mensagem. Os dados são encaminhados ao WhatsApp e não são persistidos pela aplicação. A empresa deve aprovar a Política de Privacidade, a finalidade do tratamento e o canal para solicitações relacionadas à LGPD.
 
 ## Fluxo recomendado

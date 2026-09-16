@@ -1,5 +1,13 @@
 # Publicação e entrega
 
+## Atualização de 16/09/2026
+
+O build agora pré-renderiza a homepage e executa a geração SEO. Antes da publicação definitiva, configurar a variável `SITE_URL` com a origem HTTPS aprovada, conforme [SEO.md](SEO.md). Sem ela, o build é de revisão e mantém `noindex`.
+
+Após build, testes e `npm run verify:site`, executar `npm run package:release` para gerar o ZIP definitivo e seu manifesto SHA256. Para revisão sem domínio, usar `npm run package:release -- --preview`; o resultado é `dist/mega-brasil-preview.zip`, que não deve ser confundido com o pacote definitivo. `npm run build` sozinho não atualiza o ZIP.
+
+Ver [ROADMAP.md](ROADMAP.md) e [VALIDATION.md](VALIDATION.md) para o estado atual. Dados de domínio, hosting e aprovações empresariais continuam indisponíveis. As verificações de 11/09 e 14/09 abaixo são históricas.
+
 Consultar os [requisitos funcionais e não funcionais](REQUIREMENTS.md) para os critérios de aceitação, evidências e verificações pendentes. Este checklist deve ser preenchido para a versão que será publicada.
 
 ## Pré-requisitos
@@ -15,7 +23,7 @@ Consultar os [requisitos funcionais e não funcionais](REQUIREMENTS.md) para os 
 2. Executar `npm run build`.
 3. Publicar `dist/mega-brasil-web/browser`.
 4. Configurar o domínio e HTTPS.
-5. Configurar fallback para `index.html` em rotas da aplicação.
+5. Configurar a página `404.html` com status HTTP 404 para URLs inexistentes. A navegação atual usa âncoras; não é necessário fallback de todas as URLs para `index.html`.
 
 ## Configuração do provedor
 

@@ -4,7 +4,7 @@ Site institucional e catálogo comercial desenvolvido em Angular para apresentar
 
 ## Funcionalidades
 
-- Catálogo responsivo com fotografias dos produtos.
+- Catálogo responsivo MegaShield P90/P120; P60 visível e indisponível para orçamento.
 - Seleção de produtos e controle de quantidades.
 - Fichas técnicas MegaShield P60, P90 e P120.
 - Explorador visual dos componentes da porta corta-fogo.
@@ -12,6 +12,8 @@ Site institucional e catálogo comercial desenvolvido em Angular para apresentar
 - Geração do pedido para o WhatsApp comercial.
 - Mapa, endereços, redes sociais e canais de atendimento.
 - Layout para celular, tablet, desktop, Full HD e televisores 4K.
+- HTML estático pré-renderizado, imagens WebP e configuração SEO por domínio.
+- Política de privacidade compartilhada entre formulários e navegação dos painéis por teclado.
 
 ## Tecnologias
 
@@ -38,6 +40,18 @@ npm run build
 
 Os arquivos otimizados são gerados em `dist/mega-brasil-web/browser`.
 
+Sem a variável `SITE_URL`, o build é uma versão de revisão com `noindex`. Para o lançamento, configurar a origem HTTPS aprovada e seguir [SEO e publicação](docs/SEO.md). Não é necessário executar um servidor Node em produção.
+
+## Verificação e pacote
+
+```bash
+npm test -- --watch=false
+npm run test:seo
+npm run verify:site
+```
+
+`npm run package:release -- --preview` gera o ZIP de revisão após o build. `npm run package:release` exige um build com domínio configurado. Os pacotes acompanham manifesto com hashes e identificação do estado do código.
+
 ## Estrutura
 
 ```text
@@ -61,6 +75,8 @@ O site não armazena os dados do formulário em banco de dados.
 
 ## Documentação
 
+- [Roadmap e revisão de lançamento](docs/ROADMAP.md)
+- [SEO e configuração do domínio](docs/SEO.md)
 - [Requisitos funcionais e não funcionais](docs/REQUIREMENTS.md)
 - [Publicação e entrega](docs/DEPLOYMENT.md)
 - [Conteúdo e manutenção](docs/CONTENT.md)

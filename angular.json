@@ -17,6 +17,8 @@
           "builder": "@angular/build:application",
           "options": {
             "browser": "src/main.ts",
+            "server": "src/main.server.ts",
+            "outputMode": "static",
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
@@ -26,7 +28,7 @@
               {
                 "glob": "**/*",
                 "input": "src/assets",
-                "ignore": ["images/empresa/qsomos2.jpeg", "images/empresa/qsomos3.jpeg", "images/empresa/qsomos4.jpeg", "images/hero/hero3.jpg"],
+                "ignore": ["**/*.png", "**/*.jpeg", "**/*.jpg"],
                 "output": "assets"
               }
             ],

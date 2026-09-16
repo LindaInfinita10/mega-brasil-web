@@ -1,11 +1,13 @@
 import { Component, ElementRef, QueryList, ViewChild, ViewChildren, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { QuoteFieldDirective } from './quote-field.directive';
+import { PanelFocusDirective } from './panel-focus.directive';
+import { PrivacyPolicyComponent } from './privacy-policy.component';
 import { normalizeQuoteField, quoteFieldError, quoteFields } from './quote-validation';
 
 @Component({
   selector: 'app-root',
-  imports: [FormsModule, QuoteFieldDirective],
+  imports: [FormsModule, QuoteFieldDirective, PanelFocusDirective, PrivacyPolicyComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
@@ -53,9 +55,9 @@ export class App {
     this.mobileMenuOpen.set(false);
   }
   protected readonly doorDetails = {
-    P60: { minutes: 60, use: 'Modelo fora de produção no momento. Indisponível para orçamento.', image: '/assets/images/hero/megashield-macaneta.png' },
-    P90: { minutes: 90, use: 'Conjunto simples com folha galvanizada e núcleo de fibra cerâmica, conforme memorial MD 01 PF 90.', image: '/assets/images/hero/megashield-red.png' },
-    P120: { minutes: 120, use: 'Conjunto simples com folha galvanizada sem pintura e núcleo de fibra cerâmica, conforme memorial MD 01 PF 120.', image: '/assets/images/hero/megashield-red.png' },
+    P60: { minutes: 60, use: 'Modelo fora de produção no momento. Indisponível para orçamento.', image: '/assets/images/hero/megashield-macaneta.webp' },
+    P90: { minutes: 90, use: 'Conjunto simples com folha galvanizada e núcleo de fibra cerâmica, conforme memorial MD 01 PF 90.', image: '/assets/images/hero/megashield-red.webp' },
+    P120: { minutes: 120, use: 'Conjunto simples com folha galvanizada sem pintura e núcleo de fibra cerâmica, conforme memorial MD 01 PF 120.', image: '/assets/images/hero/megashield-red.webp' },
   };
   protected readonly doorMemorials = {
     P90: {
@@ -74,16 +76,16 @@ export class App {
     },
   };
   protected readonly allContactProducts = [
-    { name: 'MegaShield P60', title: 'Porta corta-fogo · 60 min', image: '/assets/images/hero/megashield-macaneta.png' },
-    { name: 'MegaShield P90', title: 'Porta corta-fogo · 90 min', image: '/assets/images/hero/megashield-red.png' },
-    { name: 'MegaShield P120', title: 'Porta corta-fogo · 120 min', image: '/assets/images/hero/megashield-red.png' },
-    { name: 'MegaHose', title: 'Mangueira de incêndio', image: '/assets/images/products/megahose-hd.png' },
-    { name: 'MegaPump', title: 'Casa de máquinas', image: '/assets/images/products/megapump-hd.png' },
-    { name: 'MegaSensor', title: 'Detecção e alarme', image: '/assets/images/products/megasensor-hd.png' },
-    { name: 'MegaVolt', title: 'Painéis elétricos', image: '/assets/images/products/megavolt-hd.png' },
-    { name: 'MegaTherm', title: 'Tinta intumescente', image: '/assets/images/products/megatherm-hd.png' },
-    { name: 'MegaFoam', title: 'Gerador de espuma', image: '/assets/images/products/megafoam-hd.png' },
-    { name: 'MegaSprink', title: 'Sprinklers', image: '/assets/images/products/megasprink-hd.png' },
+    { name: 'MegaShield P60', title: 'Porta corta-fogo · 60 min', image: '/assets/images/hero/megashield-macaneta.webp' },
+    { name: 'MegaShield P90', title: 'Classificação pretendida P90', image: '/assets/images/hero/megashield-red.webp' },
+    { name: 'MegaShield P120', title: 'Classificação pretendida P120', image: '/assets/images/hero/megashield-red.webp' },
+    { name: 'MegaHose', title: 'Mangueira de incêndio', image: '/assets/images/products/megahose-hd.webp' },
+    { name: 'MegaPump', title: 'Casa de máquinas', image: '/assets/images/products/megapump-hd.webp' },
+    { name: 'MegaSensor', title: 'Detecção e alarme', image: '/assets/images/products/megasensor-hd.webp' },
+    { name: 'MegaVolt', title: 'Painéis elétricos', image: '/assets/images/products/megavolt-hd.webp' },
+    { name: 'MegaTherm', title: 'Tinta intumescente', image: '/assets/images/products/megatherm-hd.webp' },
+    { name: 'MegaFoam', title: 'Gerador de espuma', image: '/assets/images/products/megafoam-hd.webp' },
+    { name: 'MegaSprink', title: 'Sprinklers', image: '/assets/images/products/megasprink-hd.webp' },
   ];
   protected readonly contactProducts = this.allContactProducts.filter(product => ['MegaShield P90', 'MegaShield P120'].includes(product.name));
   protected readonly showFullCatalog = false;
@@ -92,13 +94,15 @@ export class App {
     { title: 'Batente de aço', text: 'Estrutura robusta que assegura alinhamento, fixação e vedação eficiente da porta.', x: 78, y: 20, zoom: '78% 22%' },
     { title: 'Dobradiças de alto desempenho', text: 'Projetadas para suportar uso intenso e garantir abertura suave e segura por longos períodos.', x: 73, y: 31, zoom: '74% 31%' },
     { title: 'Barra antipânico', text: 'O cliente pode escolher o tipo de barra antipânico conforme a aplicação e as especificações do projeto.', x: 52, y: 58, zoom: '52% 58%' },
-    { title: 'Fechadura com maçaneta', text: 'Fechadura com maçaneta tipo alavanca para portas de casa de máquinas. O cliente pode optar por barra antipânico e escolher o tipo conforme as especificações do projeto.', x: 30, y: 52, zoom: '23% 56%', image: '/assets/images/hero/megashield-macaneta.png', size: '280%' },
+    { title: 'Fechadura com maçaneta', text: 'Fechadura com maçaneta tipo alavanca para portas de casa de máquinas. O cliente pode optar por barra antipânico e escolher o tipo conforme as especificações do projeto.', x: 30, y: 52, zoom: '23% 56%', image: '/assets/images/hero/megashield-macaneta.webp', size: '280%' },
     { title: 'Vedação e acabamento', text: 'Vedações intumescentes e acabamentos que garantem estanqueidade e proteção eficaz.', x: 74, y: 74, zoom: '75% 74%' },
     { title: 'Sinalização', text: 'Placa de identificação: PORTA CORTA-FOGO — MANTENHA FECHADA. Orienta os usuários a manter a porta fechada.', x: 50, y: 35, zoom: 'center', image: '/assets/images/products/sinalizacao-porta.svg', size: '92%' },
     { title: 'Fixação e instalação técnica', text: 'Sistema de fixação seguro e orientações técnicas para instalação correta e duradoura.', x: 76, y: 88, zoom: '76% 88%' },
   ];
   protected get doorComponents() {
-    if (this.selectedDoor() === 'P60') return this.baseDoorComponents;
+    if (this.selectedDoor() === 'P60') return this.baseDoorComponents.map(component => ({
+      ...component, text: 'Componente ilustrativo do modelo P60, atualmente fora de produção. Configuração e especificações dependem de confirmação da equipe técnica.',
+    }));
     const memorial = this.doorMemorials[this.selectedDoor() === 'P120' ? 'P120' : 'P90'];
     const texts = [
       'Chapa galvanizada #24, espessura de 0,65 mm. Bandejas rebitadas e soldadas. Folha para ensaio: 90 × 210 × 5 cm; massa de 48,7 kg, ou 50,5 kg com acessórios (seção 03a).',
@@ -124,7 +128,7 @@ export class App {
       const zoom = `${(scale * point.x - 50) / (scale - 1)}% ${(verticalScale * point.y - 50) / (verticalScale - 1)}%`;
       return { ...component, ...point, text: texts[index],
         zoom: index === 6 ? 'center' : zoom,
-        ...(index === 4 ? { title: 'Fechadura de sobrepor', image: '/assets/images/hero/megashield-red.png', size: '330%' } : {}),
+        ...(index === 4 ? { title: 'Fechadura de sobrepor', image: '/assets/images/hero/megashield-red.webp', size: '330%' } : {}),
         ...(index === 5 ? { title: 'Acabamento e folgas' } : {}),
       };
     });
@@ -132,14 +136,35 @@ export class App {
 
   protected componentDoorImage(): string {
     return this.selectedDoor() === 'P60' && this.selectedComponent() !== 3
-      ? '/assets/images/hero/megashield-macaneta.png'
-      : '/assets/images/hero/megashield-red.png';
+      ? '/assets/images/hero/megashield-macaneta.webp'
+      : '/assets/images/hero/megashield-red.webp';
   }
 
   protected selectedComponent = signal(0);
 
   protected selectComponent(index: number): void {
     this.selectedComponent.set(index);
+  }
+
+  protected onComponentKey(event: KeyboardEvent, index: number): void {
+    let next = index;
+    if (event.key === 'ArrowDown' || event.key === 'ArrowRight') next = (index + 1) % this.doorComponents.length;
+    else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') next = (index + this.doorComponents.length - 1) % this.doorComponents.length;
+    else if (event.key === 'Home') next = 0;
+    else if (event.key === 'End') next = this.doorComponents.length - 1;
+    else return;
+    event.preventDefault();
+    this.selectComponent(next);
+    document.getElementById(`component-tab-${next}`)?.focus();
+  }
+
+  protected showPrivacy(event: Event, id: string): void {
+    event.preventDefault();
+    const policy = document.getElementById(id) as HTMLDetailsElement | null;
+    if (!policy) return;
+    policy.open = true;
+    policy.querySelector('summary')?.focus();
+    policy.scrollIntoView({ behavior: 'auto', block: 'nearest' });
   }
 
   protected openDoorDetail(model: 'P60' | 'P90' | 'P120'): void {
