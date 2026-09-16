@@ -18,6 +18,8 @@
 
 ### Pendências que permanecem
 
+Critérios de aceite e dependências: [backlog de lançamento](BACKLOG.md). Escopo funcional: [histórias de usuário](USER_STORIES.md).
+
 - [ ] Empresa aprovar contatos, conteúdo, alegação CBMERJ, especificações dos memoriais e política de privacidade (L-01/L-03 e aceites de L-02/L-04).
 - [ ] Confirmar domínio/hosting; configurar SITE_URL, DNS, HTTPS, redirects, cache e página 404 com status correto.
 - [ ] Testar recebimento real de orçamento com a equipe comercial; os testes locais não comprovam entrega.

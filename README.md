@@ -75,6 +75,10 @@ O site não armazena os dados do formulário em banco de dados.
 
 ## Documentação
 
+- [Backlog de lançamento](docs/BACKLOG.md)
+- [Histórias de usuário](docs/USER_STORIES.md)
+- [Fluxo develop → main e contribuição](CONTRIBUTING.md)
+- [Índice preparado para a Wiki](docs/wiki/Home.md)
 - [Roadmap e revisão de lançamento](docs/ROADMAP.md)
 - [SEO e configuração do domínio](docs/SEO.md)
 - [Requisitos funcionais e não funcionais](docs/REQUIREMENTS.md)
