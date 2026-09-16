@@ -55,7 +55,7 @@ export class App {
     this.mobileMenuOpen.set(false);
   }
   protected readonly doorDetails = {
-    P60: { minutes: 60, use: 'Modelo fora de produção no momento. Indisponível para orçamento.', image: '/assets/images/hero/megashield-macaneta.webp' },
+    P60: { minutes: 60, use: 'Modelo fora de produção no momento. Indisponível para orçamento.', image: '/assets/images/hero/megashield-macaneta-sem-placa.webp' },
     P90: { minutes: 90, use: 'Conjunto simples com folha galvanizada e núcleo de fibra cerâmica, conforme memorial MD 01 PF 90.', image: '/assets/images/hero/megashield-red.webp' },
     P120: { minutes: 120, use: 'Conjunto simples com folha galvanizada sem pintura e núcleo de fibra cerâmica, conforme memorial MD 01 PF 120.', image: '/assets/images/hero/megashield-red.webp' },
   };
@@ -76,7 +76,7 @@ export class App {
     },
   };
   protected readonly allContactProducts = [
-    { name: 'MegaShield P60', title: 'Porta corta-fogo · 60 min', image: '/assets/images/hero/megashield-macaneta.webp' },
+    { name: 'MegaShield P60', title: 'Porta corta-fogo · 60 min', image: '/assets/images/hero/megashield-macaneta-sem-placa.webp' },
     { name: 'MegaShield P90', title: 'Classificação pretendida P90', image: '/assets/images/hero/megashield-red.webp' },
     { name: 'MegaShield P120', title: 'Classificação pretendida P120', image: '/assets/images/hero/megashield-red.webp' },
     { name: 'MegaHose', title: 'Mangueira de incêndio', image: '/assets/images/products/megahose-hd.webp' },
@@ -94,7 +94,7 @@ export class App {
     { title: 'Batente de aço', text: 'Estrutura robusta que assegura alinhamento, fixação e vedação eficiente da porta.', x: 78, y: 20, zoom: '78% 22%' },
     { title: 'Dobradiças de alto desempenho', text: 'Projetadas para suportar uso intenso e garantir abertura suave e segura por longos períodos.', x: 73, y: 31, zoom: '74% 31%' },
     { title: 'Barra antipânico', text: 'O cliente pode escolher o tipo de barra antipânico conforme a aplicação e as especificações do projeto.', x: 52, y: 58, zoom: '52% 58%' },
-    { title: 'Fechadura com maçaneta', text: 'Fechadura com maçaneta tipo alavanca para portas de casa de máquinas. O cliente pode optar por barra antipânico e escolher o tipo conforme as especificações do projeto.', x: 30, y: 52, zoom: '23% 56%', image: '/assets/images/hero/megashield-macaneta.webp', size: '280%' },
+    { title: 'Fechadura com maçaneta', text: 'Fechadura com maçaneta tipo alavanca para portas de casa de máquinas. O cliente pode optar por barra antipânico e escolher o tipo conforme as especificações do projeto.', x: 30, y: 52, zoom: '23% 56%', image: '/assets/images/hero/megashield-macaneta-sem-placa.webp', size: '280%' },
     { title: 'Vedação e acabamento', text: 'Vedações intumescentes e acabamentos que garantem estanqueidade e proteção eficaz.', x: 74, y: 74, zoom: '75% 74%' },
     { title: 'Sinalização', text: 'Placa de identificação: PORTA CORTA-FOGO — MANTENHA FECHADA. Orienta os usuários a manter a porta fechada.', x: 50, y: 35, zoom: 'center', image: '/assets/images/products/sinalizacao-porta.svg', size: '92%' },
     { title: 'Fixação e instalação técnica', text: 'Sistema de fixação seguro e orientações técnicas para instalação correta e duradoura.', x: 76, y: 88, zoom: '76% 88%' },
@@ -136,7 +136,7 @@ export class App {
 
   protected componentDoorImage(): string {
     return this.selectedDoor() === 'P60' && this.selectedComponent() !== 3
-      ? '/assets/images/hero/megashield-macaneta.webp'
+      ? '/assets/images/hero/megashield-macaneta-sem-placa.webp'
       : '/assets/images/hero/megashield-red.webp';
   }
 
