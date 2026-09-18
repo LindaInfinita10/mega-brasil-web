@@ -1,3 +1,20 @@
+<ng-template #doorCart>
+  <div class="door-cart-heading"><h3>Seu carrinho</h3><span>{{ selectedCount() }} porta(s)</span></div>
+  @if (!cart().length) { <p class="cart-empty">Escolha o modelo, a medida e o acionamento para adicionar sua primeira porta.</p> }
+  <div class="configured-cart-items">
+    @for (item of cart(); track itemKey(item)) {
+      <article class="configured-cart-item">
+        <h4>{{ item.name }}</h4><p>{{ configurationText(item) }}</p>
+        <small>Acabamento: {{ item.configuration?.model === 'P120' ? 'galvanizado sem pintura' : 'galvanizado' }}</small>
+        <div class="cart-item-actions"><span class="quantity-control"><button type="button" (click)="changeProduct(itemKey(item), -1)" [attr.aria-label]="'Diminuir quantidade: ' + item.name + ', ' + configurationText(item)">−</button><b aria-live="polite">{{ item.quantity }}</b><button type="button" (click)="changeProduct(itemKey(item), 1)" [disabled]="item.quantity >= 999" [attr.aria-label]="'Aumentar quantidade: ' + item.name + ', ' + configurationText(item)">+</button></span><button class="cart-text-button" type="button" (click)="editDoor(item)" [attr.aria-label]="'Editar ' + item.name + ', ' + configurationText(item)">Editar</button><button class="cart-text-button" type="button" (click)="removeDoor(itemKey(item))" [attr.aria-label]="'Remover ' + item.name + ', ' + configurationText(item)">Remover</button></div>
+      </article>
+    }
+  </div>
+  <button type="button" class="primary-button cart-checkout" [hidden]="quotePage()" [disabled]="!cart().length" (click)="openQuotePage()">Finalizar orçamento →</button>
+  @if (quotePage()) { <button type="button" class="cart-text-button" (click)="backToProducts()">＋ Adicionar outra porta</button> }
+  <small class="cart-helper">Você pode incluir portas com medidas e acionamentos diferentes no mesmo pedido.</small>
+</ng-template>
+
 @if (feedback() && !quoteWhatsappUrl()) {
   <aside class="quote-feedback" aria-label="Status do pedido">
     <div>
@@ -9,7 +26,7 @@
     <button type="button" aria-label="Fechar aviso" (click)="dismissFeedback()">×</button>
   </aside>
 }
-<header class="site-header primary-header" [attr.inert]="quotePage() || selectedDoor() ? '' : null">
+<header class="site-header primary-header" [attr.inert]="quotePage() ? '' : null">
   <div class="header-inner">
     <a class="brand" href="#inicio" aria-label="Mega Brasil" (click)="closeMobileMenu()"
       ><img width="1225" height="1284" src="/assets/images/hero/hero.transp.webp" alt="Mega Brasil Indústria"
@@ -42,7 +59,7 @@
     >
   </div>
 </header>
-<main [attr.inert]="quotePage() || selectedDoor() ? '' : null">
+<main [attr.inert]="quotePage() ? '' : null">
   <section id="inicio" class="hero">
     <div class="hero-background"></div>
     <div class="hero-overlay"></div>
@@ -62,13 +79,13 @@
   </section>
   <section id="empresa" class="empresa-section">
     <div class="empresa-background" aria-hidden="true">
-      <img width="1086" height="1448" loading="lazy" decoding="async" class="empresa-slide slide-one" src="/assets/images/empresa/qsomos2-suave.webp" alt="" /><img width="1156" height="1360"
+      <img width="1086" height="1448" loading="lazy" decoding="async" class="empresa-slide slide-one" src="/assets/images/empresa/qsomos2-ia.webp" alt="" /><img width="1156" height="1360"
         loading="lazy" decoding="async" class="empresa-slide slide-two"
-        src="/assets/images/empresa/qsomos3-suave.webp"
+        src="/assets/images/empresa/qsomos3-ia.webp"
         alt=""
       /><img width="1086" height="1448"
         loading="lazy" decoding="async" class="empresa-slide slide-three"
-        src="/assets/images/empresa/qsomos4-suave.webp"
+        src="/assets/images/empresa/qsomos4-ia.webp"
         alt=""
       /><img width="900" height="1600" loading="lazy" decoding="async" class="empresa-slide slide-four" src="/assets/images/empresa/quienesom.webp" alt="" />
     </div>
@@ -134,67 +151,37 @@
   <section id="megashield" class="megashield-section">
     <div class="section-wrap">
       <div class="mega-heading">
-        <p class="eyebrow">PRODUTO EM DESTAQUE</p>
         <h2 tabindex="-1">MEGASHIELD</h2>
         <p>
           Porta corta-fogo desenvolvida para ambientes industriais que exigem segurança, resistência
           e confiabilidade.
         </p>
       </div>
-      <div class="mega-product">
-        <div class="mega-product-image">
-          <img width="1086" height="1448"
-            loading="lazy" decoding="async" src="/assets/images/hero/megashield-red.webp"
-            alt="Porta corta-fogo MegaShield vermelha"
-          />
-        </div>
-        <div class="mega-product-info">
-          <p class="eyebrow">01 · PROTEÇÃO INDUSTRIAL</p>
-          <h3>Proteção contra <strong>o fogo.</strong></h3>
-          <p>
-            A MegaShield foi desenvolvida para projetos industriais, comerciais e ambientes que
-            exigem proteção contra incêndios.
-          </p>
-          <div class="mega-door-heading">
-            <p class="eyebrow">ESCOLHA SUA CLASSIFICAÇÃO</p>
-            <h3>Adicione a porta certa ao orçamento.</h3>
+      <div class="door-shopping-layout" id="door-configurator">
+        <form class="door-configurator" (ngSubmit)="saveDoor()">
+          <div class="door-config-heading"><div><p class="eyebrow">MONTE SUA PORTA</p><h3>Do seu jeito. No seu orçamento.</h3></div><span>P60 fora de produção</span></div>
+          <div class="door-config-body">
+            <div class="door-config-image"><img width="1086" height="1448" [src]="draft.hardware === 'Fechadura de sobrepor' ? '/assets/images/hero/megashield-macaneta-sem-placa.webp' : '/assets/images/hero/megashield-red.webp'" alt="Ilustração da porta MegaShield e opção de acionamento" /><small>Imagem ilustrativa. Acabamento conforme o modelo.</small></div>
+            <div class="door-config-fields">
+              <label for="door-model">1. Modelo<select id="door-model" name="doorModel" [ngModel]="draft.model" (ngModelChange)="changeDoorModel($event)"><option value="P90">MegaShield P90</option><option value="P120">MegaShield P120</option></select></label>
+              <label for="door-size">2. Medida do vão livre (largura × altura)<select id="door-size" name="doorSize" [ngModel]="draft.size" (ngModelChange)="changeDoorSize($event)"><option value="standard">{{ doorSizes[draft.model].width }} × {{ doorSizes[draft.model].height }} cm — padrão {{ draft.model }}</option><option value="custom">Outra medida — sob consulta</option></select></label>
+              @if (draft.size === 'custom') {
+                <div class="door-custom-size"><label>Largura (cm)<input name="doorWidth" type="number" min="0.1" max="1000" step="0.1" required [(ngModel)]="draft.width" /></label><label>Altura (cm)<input name="doorHeight" type="number" min="0.1" max="1000" step="0.1" required [(ngModel)]="draft.height" /></label></div>
+                <small>A equipe confirma a viabilidade da medida solicitada.</small>
+              } @else { <small>Vão livre conforme padrão de fabricação. Folha indicada: 90 × 210 cm. Medidas de instalação sujeitas à confirmação técnica.</small> }
+              <fieldset><legend>3. Acionamento</legend><div class="hardware-options">@for (hardware of hardwareOptions; track hardware) { <label [class.chosen]="draft.hardware === hardware"><input type="radio" name="doorHardware" [value]="hardware" [ngModel]="draft.hardware" (ngModelChange)="changeDoorHardware($event)" required /><span>{{ hardware }}</span></label> }</div></fieldset>
+              <label class="door-quantity">4. Quantidade<input name="doorQuantity" type="number" min="1" max="999" step="1" required [(ngModel)]="draft.quantity" /></label>
+              <p class="door-finish">Acabamento: {{ draft.model === 'P120' ? 'galvanizado sem pintura' : 'galvanizado' }}.</p>
+              <p class="door-components">Componentes: {{ draft.components.lock }}; {{ draft.components.hinges }}.</p>
+              <button type="submit" class="primary-button" [disabled]="!draftValid()">{{ editingKey ? 'Salvar alterações' : 'Adicionar ao carrinho' }} <span>＋</span></button>
+              @if (editingKey) { <button type="button" class="cart-text-button" (click)="cancelDoorEdit()">Cancelar edição</button> }
+              <p class="cart-notice" role="status">{{ cartNotice() }}</p>
+            </div>
           </div>
-          <div class="mega-door-options">
-            <article>
-              <img width="1086" height="1448" loading="lazy" decoding="async" src="/assets/images/hero/megashield-macaneta-sem-placa.webp" alt="MegaShield P60 vermelha com maçaneta" />
-              <div>
-                <b>MegaShield P60</b>
-                <h4>Modelo P60</h4>
-                <p class="production-notice">Fora de produção no momento.</p>
-                <button class="door-detail-link" type="button" (click)="openDoorDetail('P60')">Ver ficha técnica →</button>
-                <button type="button" disabled>Indisponível para orçamento</button>
-              </div>
-            </article>
-            <article>
-              <img width="1086" height="1448" loading="lazy" decoding="async" src="/assets/images/hero/megashield-red.webp" alt="MegaShield P90 em vermelho" />
-              <div>
-                <b>MegaShield P90</b>
-                <h4>Classificação pretendida P90</h4>
-                <p>Folha galvanizada com núcleo de fibra cerâmica.</p>
-                <a class="door-detail-link" [href]="doorMemorials.P90.url" target="_blank" rel="noopener noreferrer">Ver ficha técnica (PDF) ↗</a>
-                <button class="door-detail-link" type="button" (click)="openDoorDetail('P90')">Ver detalhes e componentes →</button>
-                <button (click)="addProduct('MegaShield P90')">Adicionar + @if (productQuantity('MegaShield P90')) { <span class="button-quantity">{{ productQuantity('MegaShield P90') }}</span> }</button>
-              </div>
-            </article>
-            <article>
-              <img width="1086" height="1448" loading="lazy" decoding="async" src="/assets/images/hero/megashield-red.webp" alt="MegaShield P120 em vermelho" />
-              <div>
-                <b>MegaShield P120</b>
-                <h4>Classificação pretendida P120</h4>
-                <p>Galvanizada sem pintura, conforme memorial técnico.</p>
-                <a class="door-detail-link" [href]="doorMemorials.P120.url" target="_blank" rel="noopener noreferrer">Ver ficha técnica (PDF) ↗</a>
-                <button class="door-detail-link" type="button" (click)="openDoorDetail('P120')">Ver detalhes e componentes →</button>
-                <button (click)="addProduct('MegaShield P120')">Adicionar + @if (productQuantity('MegaShield P120')) { <span class="button-quantity">{{ productQuantity('MegaShield P120') }}</span> }</button>
-              </div>
-            </article>
-          </div>
-        </div>
+        </form>
+        <aside class="door-cart-panel" aria-label="Carrinho de orçamento"><ng-container *ngTemplateOutlet="doorCart" /></aside>
       </div>
+
     </div>
   </section>
   @if (showFullCatalog) {
@@ -242,30 +229,7 @@
   }
   <section id="contato" class="catalog-contact-section">
     <div class="section-wrap">
-      <div class="contact-section-heading"><div><p class="eyebrow">CONTATO COMERCIAL</p><h2>Conte o que seu projeto precisa.</h2></div><p>Selecione os produtos ao lado e envie sua solicitação diretamente para nossa equipe pelo WhatsApp.</p></div>
-      <div class="catalog-contact-layout">
-        <div class="contact-products-panel">
-          <div class="contact-products-title"><h3>Produtos de interesse</h3><span>{{ selectedCount() }} selecionado(s)</span></div>
-          <div class="contact-products-grid">
-            @for (product of contactProducts; track product.name) {
-              <article [class.selected]="productQuantity(product.name) > 0">
-                <img loading="lazy" decoding="async" [src]="product.image" [alt]="product.name + ' — ' + product.title" />
-                <div><b>{{ product.name }}</b><span>{{ product.title }}</span></div>
-                <button type="button" (click)="addProduct(product.name)" [attr.aria-label]="'Adicionar ' + product.name">+ @if (productQuantity(product.name)) { <strong>{{ productQuantity(product.name) }}</strong> }</button>
-              </article>
-            }
-          </div>
-        </div>
-        <form class="contact-commercial-form" (ngSubmit)="sendQuote()" #contactForm="ngForm">
-          <p class="eyebrow">SOLICITE SEU ORÇAMENTO</p><h3>Fale com um especialista.</h3>
-          <div class="form-grid"><label>Nome completo*<input name="contactName" [(ngModel)]="form.name" required autocomplete="name" quoteField="name" #contactNameControl="ngModel" [attr.aria-invalid]="contactNameControl.touched && contactNameControl.invalid" aria-describedby="contactNameError" />@if (contactNameControl.touched && contactNameControl.invalid) { <small class="field-error" id="contactNameError" role="status">{{ contactNameControl.errors?.['quoteField'] }}</small> }</label><label>Telefone*<input name="contactPhone" [(ngModel)]="form.phone" required inputmode="tel" autocomplete="tel" quoteField="phone" #contactPhoneControl="ngModel" [attr.aria-invalid]="contactPhoneControl.touched && contactPhoneControl.invalid" aria-describedby="contactPhoneError" type="tel" />@if (contactPhoneControl.touched && contactPhoneControl.invalid) { <small class="field-error" id="contactPhoneError" role="status">{{ contactPhoneControl.errors?.['quoteField'] }}</small> }</label><label>E-mail*<input name="contactEmail" [(ngModel)]="form.email" required type="email" autocomplete="email" quoteField="email" #contactEmailControl="ngModel" [attr.aria-invalid]="contactEmailControl.touched && contactEmailControl.invalid" aria-describedby="contactEmailError" autocapitalize="none" spellcheck="false" />@if (contactEmailControl.touched && contactEmailControl.invalid) { <small class="field-error" id="contactEmailError" role="status">{{ contactEmailControl.errors?.['quoteField'] }}</small> }</label><label>Empresa<input name="contactCompany" [(ngModel)]="form.company" autocomplete="organization" quoteField="company" #contactCompanyControl="ngModel" [attr.aria-invalid]="contactCompanyControl.touched && contactCompanyControl.invalid" aria-describedby="contactCompanyError" />@if (contactCompanyControl.touched && contactCompanyControl.invalid) { <small class="field-error" id="contactCompanyError" role="status">{{ contactCompanyControl.errors?.['quoteField'] }}</small> }</label></div>
-          <label>Mensagem<textarea name="contactMessage" [(ngModel)]="form.budget" rows="5" placeholder="Medidas, cidade, prazo e outras informações do projeto." quoteField="budget" #contactMessageControl="ngModel" [attr.aria-invalid]="contactMessageControl.touched && contactMessageControl.invalid" aria-describedby="contactMessageError"></textarea>@if (contactMessageControl.touched && contactMessageControl.invalid) { <small class="field-error" id="contactMessageError" role="status">{{ contactMessageControl.errors?.['quoteField'] }}</small> }</label>
-          <app-privacy-policy policyId="contact-privacy" />
-          <label class="contact-consent"><input name="contactConsent" type="checkbox" [(ngModel)]="form.consent" required /><span>Li e aceito a <a href="#contact-privacy" (click)="showPrivacy($event, 'contact-privacy')">Política de Privacidade</a> e autorizo o contato comercial sobre esta solicitação.</span></label>
-          <button class="contact-submit" type="submit" [disabled]="contactForm.invalid || !cart().length">Enviar pelo WhatsApp <span>→</span></button>
-          @if (!cart().length) { <small>Selecione pelo menos um produto para enviar o orçamento.</small> }
-        </form>
-      </div>
+      <div class="contact-section-heading"><div><p class="eyebrow">CONTATO COMERCIAL</p><h2>Conte o que seu projeto precisa.</h2></div><p>Revise as portas do seu carrinho, informe o CNPJ e seus dados para solicitar uma proposta pelo WhatsApp.</p></div>
       <div class="contact-channels">
         <div class="channel-side">
           <div class="channel-heading"><p class="eyebrow">CANAIS DE ATENDIMENTO</p><h3>Estamos prontos para atender.</h3><p>Escolha o canal de sua preferência ou encontre nossas unidades.</p></div>
@@ -283,70 +247,6 @@
   </section>
 </main>
 
-@if (cart().length && !quotePage() && !selectedDoor()) {
-  <aside class="selection-tray" aria-live="polite">
-    <div><span class="selection-count">{{ selectedCount() }}</span><p><strong>{{ selectedCount() === 1 ? 'produto selecionado' : 'produtos selecionados' }}</strong><small>Revise quantidades e envie seu pedido.</small></p></div>
-    <button type="button" (click)="openQuotePage()">Continuar orçamento <span>→</span></button>
-  </aside>
-}
-
-@if (selectedDoor(); as model) {
-  <section class="door-page" aria-labelledby="door-title" panelFocus (panelClose)="backToMegaShield()">
-    <header class="site-header quote-page-header">
-      <div class="header-inner">
-        <button class="brand brand-button" type="button" (click)="backToMegaShield()"><img width="1225" height="1284" src="/assets/images/hero/hero.transp.webp" alt="Mega Brasil Indústria" /></button>
-        <nav class="main-nav" aria-label="Navegação da ficha técnica">
-          <button type="button" (click)="backToMegaShield()">MegaShield</button>
-          <a href="https://wa.me/5521978715555" target="_blank" rel="noopener noreferrer">Contato</a>
-        </nav>
-        <button class="header-button quote-back-button" type="button" (click)="backToMegaShield()">Voltar aos modelos <span>→</span></button>
-      </div>
-    </header>
-    <main class="door-detail-wrap">
-      <section class="door-detail-hero">
-        <div class="door-detail-copy">
-          <p class="eyebrow">PORTA CORTA-FOGO · MEGASHIELD {{ model }}</p>
-          <h1 id="door-title" tabindex="-1">MegaShield <strong>{{ model }}</strong></h1>
-          <p class="door-lead">{{ doorDetails[model].use }}</p>
-          @if (model === 'P60') {
-            <p class="production-notice">Fora de produção no momento. Consulte os modelos P90 e P120 para orçamento.</p>
-          } @else {
-            <p>Classificação pretendida {{ model }}, conforme o memorial descritivo do fabricante.</p>
-            <a class="door-detail-link" [href]="doorMemorials[model].url" target="_blank" rel="noopener noreferrer">Ver ficha técnica (PDF) ↗</a>
-          }
-          <div class="door-actions"><button type="button" class="primary-button" [disabled]="model === 'P60'" (click)="addProduct('MegaShield ' + model)">{{ model === 'P60' ? 'Indisponível para orçamento' : 'Adicionar ao orçamento' }}</button>@if (model !== 'P60') { <span>{{ productQuantity('MegaShield ' + model) }} selecionada(s)</span> }</div>
-        </div>
-        <div class="door-detail-image"><img [src]="doorDetails[model].image" [alt]="'Porta corta-fogo MegaShield ' + model" /></div>
-      </section>
-      <section class="technical-section">
-        <div class="technical-heading"><p class="eyebrow">ENGENHARIA E COMPONENTES · ILUSTRAÇÃO</p><h2>Detalhes que elevam o desempenho.</h2><p>Cada componente tem uma função. O conjunto é o que garante robustez, operação segura e durabilidade.</p></div>
-        <div class="component-explorer">
-          <div class="component-list" role="tablist" aria-orientation="vertical" aria-label="Componentes da porta">
-            @for (component of doorComponents; track component.title; let index = $index) {
-              <button type="button" role="tab" [id]="'component-tab-' + index" aria-controls="component-panel" [attr.tabindex]="selectedComponent() === index ? 0 : -1" (keydown)="onComponentKey($event, index)" [attr.aria-selected]="selectedComponent() === index" [class.active]="selectedComponent() === index" (click)="selectComponent(index)"><span>{{ (index + 1).toString().padStart(2, '0') }}</span>{{ component.title }}</button>
-            }
-          </div>
-          <div class="annotated-door" [class.legacy-map]="model === 'P60'">
-            <div class="door-image-map">
-            <img [src]="componentDoorImage()" alt="Ilustração da porta MegaShield com pontos de seus componentes" />
-            @for (component of doorComponents; track component.title; let index = $index) {
-              <button type="button" class="component-hotspot" [class.active]="selectedComponent() === index" [style.left.%]="component.x" [style.top.%]="component.y" [attr.aria-label]="'Ver ' + component.title" (click)="selectComponent(index)">{{ index + 1 }}</button>
-            }
-            </div>
-          </div>
-          <article class="component-zoom" id="component-panel" role="tabpanel" [attr.aria-labelledby]="'component-tab-' + selectedComponent()" aria-live="polite">
-            <div class="component-zoom-image" [style.background-position]="doorComponents[selectedComponent()].zoom" [style.background-image]="'url(' + (doorComponents[selectedComponent()].image || componentDoorImage()) + ')'" [style.background-size]="doorComponents[selectedComponent()].size || '330%'" role="img" [attr.aria-label]="'Ampliação: ' + doorComponents[selectedComponent()].title"></div>
-            <p>COMPONENTE {{ (selectedComponent() + 1).toString().padStart(2, '0') }}</p>
-            <h3>{{ doorComponents[selectedComponent()].title }}</h3>
-            <span>{{ doorComponents[selectedComponent()].text }}</span>
-          </article>
-        </div>
-      </section>
-      <section class="performance-strip"><div><b>Precisão dimensional</b><span>Componentes fabricados com rigor técnico para ajuste perfeito.</span></div><div><b>Robustez estrutural</b><span>Materiais de alta resistência para proteção e durabilidade.</span></div><div><b>Operação segura</b><span>Sistemas confiáveis para resposta rápida e eficiente.</span></div><div><b>Acabamento resistente</b><span>Acabamento conforme o memorial do modelo. Imagens e acessórios ilustrativos.</span></div></section>
-    </main>
-  </section>
-}
-
 @if (quotePage()) {
   <section class="quote-page" aria-labelledby="quote-title" panelFocus (panelClose)="quoteWhatsappUrl() ? finishQuote() : backToProducts()">
     <header class="site-header quote-page-header">
@@ -356,7 +256,6 @@
           <a href="#inicio" (click)="closeQuotePage()">Início</a>
           <a href="#empresa" (click)="closeQuotePage()">Empresa</a>
           <a href="#megashield" (click)="closeQuotePage()">MegaShield</a>
-          <a href="#megashield" (click)="closeQuotePage()">Produtos</a>
           <a href="https://wa.me/5521978715555" target="_blank" rel="noopener noreferrer">Contato</a>
         </nav>
         @if (quoteWhatsappUrl()) {
@@ -371,10 +270,8 @@
         <div class="quote-completion-card">
           <span class="quote-completion-icon" aria-hidden="true">✓</span>
           <p class="eyebrow">SEU PEDIDO · ETAPA FINAL</p>
-          <h1 id="quote-title" #quoteCompletion tabindex="-1">Seu pedido está preparado!</h1>
-          <p>Confirme o envio da mensagem no WhatsApp para concluir sua solicitação de orçamento.</p>
-          <p class="quote-completion-note">Após o envio, nossa equipe comercial dará continuidade ao atendimento pelo WhatsApp.</p>
-          <button class="primary-button" type="button" (click)="finishQuote()">Voltar ao início <span>→</span></button>
+          <h1 id="quote-title" #quoteCompletion tabindex="-1">Seu orçamento foi enviado com sucesso!</h1>
+          <p>Nossa equipe comercial receberá sua solicitação e entrará em contato.</p>
           <a [href]="quoteWhatsappUrl()" target="_blank" rel="noopener noreferrer">O WhatsApp não abriu? Abrir novamente ↗</a>
         </div>
       </div>
@@ -383,11 +280,7 @@
       <div class="quote-summary">
         <p class="eyebrow">SEU PEDIDO</p><h1 id="quote-title" tabindex="-1">Finalize seu orçamento.</h1>
         <p>Confira os produtos e informe seus dados. O pedido será aberto no WhatsApp comercial.</p>
-        <div class="selected-list">
-          @for (item of cart(); track item.name) {
-            <div><span>{{ item.name }}</span><span class="quantity-control"><button type="button" (click)="changeProduct(item.name, -1)" [attr.aria-label]="'Diminuir ' + item.name">−</button><b>{{ item.quantity }}</b><button type="button" (click)="changeProduct(item.name, 1)" [attr.aria-label]="'Aumentar ' + item.name">+</button></span></div>
-          }
-        </div>
+        <ng-container *ngTemplateOutlet="doorCart" />
         <strong class="summary-total">{{ selectedCount() }} {{ selectedCount() === 1 ? 'produto' : 'produtos' }} no pedido</strong>
       </div>
       <form class="customer-form" (ngSubmit)="sendQuote()" #budgetForm="ngForm">
@@ -396,7 +289,7 @@
           <label>Nome completo*<input name="quoteName" [(ngModel)]="form.name" required autocomplete="name" quoteField="name" #quoteNameControl="ngModel" [attr.aria-invalid]="quoteNameControl.touched && quoteNameControl.invalid" aria-describedby="quoteNameError" />@if (quoteNameControl.touched && quoteNameControl.invalid) { <small class="field-error" id="quoteNameError" role="status">{{ quoteNameControl.errors?.['quoteField'] }}</small> }</label>
           <label>Telefone*<input name="quotePhone" [(ngModel)]="form.phone" required inputmode="tel" autocomplete="tel" quoteField="phone" #quotePhoneControl="ngModel" [attr.aria-invalid]="quotePhoneControl.touched && quotePhoneControl.invalid" aria-describedby="quotePhoneError" type="tel" />@if (quotePhoneControl.touched && quotePhoneControl.invalid) { <small class="field-error" id="quotePhoneError" role="status">{{ quotePhoneControl.errors?.['quoteField'] }}</small> }</label>
           <label>E-mail*<input name="quoteEmail" [(ngModel)]="form.email" required type="email" autocomplete="email" quoteField="email" #quoteEmailControl="ngModel" [attr.aria-invalid]="quoteEmailControl.touched && quoteEmailControl.invalid" aria-describedby="quoteEmailError" autocapitalize="none" spellcheck="false" />@if (quoteEmailControl.touched && quoteEmailControl.invalid) { <small class="field-error" id="quoteEmailError" role="status">{{ quoteEmailControl.errors?.['quoteField'] }}</small> }</label>
-          <label>Empresa<input name="quoteCompany" [(ngModel)]="form.company" autocomplete="organization" quoteField="company" #quoteCompanyControl="ngModel" [attr.aria-invalid]="quoteCompanyControl.touched && quoteCompanyControl.invalid" aria-describedby="quoteCompanyError" />@if (quoteCompanyControl.touched && quoteCompanyControl.invalid) { <small class="field-error" id="quoteCompanyError" role="status">{{ quoteCompanyControl.errors?.['quoteField'] }}</small> }</label>
+          <label>CNPJ da empresa*<input name="quoteCnpj" [(ngModel)]="form.cnpj" required type="text" maxlength="18" autocapitalize="characters" spellcheck="false" placeholder="00.000.000/0001-00" quoteField="cnpj" #quoteCnpjControl="ngModel" [attr.aria-invalid]="quoteCnpjControl.touched && quoteCnpjControl.invalid" aria-describedby="quoteCnpjError" />@if (quoteCnpjControl.touched && quoteCnpjControl.invalid) { <small class="field-error" id="quoteCnpjError" role="status">{{ quoteCnpjControl.errors?.['quoteField'] || 'Informe o CNPJ da empresa.' }}</small> }</label><label>Empresa<input name="quoteCompany" [(ngModel)]="form.company" autocomplete="organization" quoteField="company" #quoteCompanyControl="ngModel" [attr.aria-invalid]="quoteCompanyControl.touched && quoteCompanyControl.invalid" aria-describedby="quoteCompanyError" />@if (quoteCompanyControl.touched && quoteCompanyControl.invalid) { <small class="field-error" id="quoteCompanyError" role="status">{{ quoteCompanyControl.errors?.['quoteField'] }}</small> }</label>
         </div>
         <label>Mensagem<textarea name="quoteMessage" [(ngModel)]="form.budget" rows="5" placeholder="Informe medidas, cidade, prazo ou outras observações." quoteField="budget" #quoteMessageControl="ngModel" [attr.aria-invalid]="quoteMessageControl.touched && quoteMessageControl.invalid" aria-describedby="quoteMessageError"></textarea>@if (quoteMessageControl.touched && quoteMessageControl.invalid) { <small class="field-error" id="quoteMessageError" role="status">{{ quoteMessageControl.errors?.['quoteField'] }}</small> }</label>
         <app-privacy-policy policyId="quote-privacy" />
@@ -408,7 +301,7 @@
     }
   </section>
 }
-<footer [attr.inert]="quotePage() || selectedDoor() ? '' : null">
+<footer [attr.inert]="quotePage() ? '' : null">
   <div class="footer-main">
     <div class="footer-identity"><a class="footer-brand" href="#inicio" aria-label="Mega Brasil - início"><img width="1225" height="1284" src="/assets/images/hero/hero.transp.webp" alt="Mega Brasil Indústria" /></a><p>Soluções em proteção contra incêndio para projetos industriais e comerciais.</p><div class="footer-socials"><a class="social-instagram" href="https://www.instagram.com/megabrasil_industria?igsi=ZGZzYTBwMTJ3M2Rj" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram da Mega Brasil"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle class="social-dot" cx="17.4" cy="6.7" r="1"></circle></svg></a><a class="social-linkedin" href="https://www.linkedin.com/company/grupo-mega-brasil/" target="_blank" rel="noopener noreferrer" aria-label="Abrir LinkedIn da Mega Brasil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 2H3.55C2.69 2 2 2.68 2 3.52v16.96c0 .84.69 1.52 1.55 1.52h16.9c.86 0 1.55-.68 1.55-1.52V3.52c0-.84-.69-1.52-1.55-1.52ZM7.93 18.75H4.98V9.2h2.95v9.55ZM6.45 7.9a1.71 1.71 0 1 1 0-3.42 1.71 1.71 0 0 1 0 3.42ZM19 18.75h-2.95V14.1c0-1.11-.02-2.54-1.55-2.54-1.55 0-1.79 1.21-1.79 2.46v4.73H9.76V9.2h2.83v1.31h.04c.39-.75 1.36-1.55 2.8-1.55 2.99 0 3.57 1.97 3.57 4.53v5.26Z"></path></svg></a><a class="social-facebook" href="https://www.facebook.com/share/18PdYGjxpk/" target="_blank" rel="noopener noreferrer" aria-label="Abrir Facebook da Mega Brasil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.23.2 2.23.2v2.46h-1.25c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12Z"></path></svg></a></div></div>
     <div class="footer-contact">

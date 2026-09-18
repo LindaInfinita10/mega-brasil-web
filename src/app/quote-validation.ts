@@ -1,8 +1,27 @@
-export type QuoteField = 'name' | 'phone' | 'email' | 'company' | 'budget' | 'deadline';
-export const quoteFields: QuoteField[] = ['name', 'phone', 'email', 'company', 'budget', 'deadline'];
+export type QuoteField = 'name' | 'phone' | 'email' | 'company' | 'cnpj' | 'budget' | 'deadline';
+export const quoteFields: QuoteField[] = ['name', 'phone', 'email', 'company', 'cnpj', 'budget', 'deadline'];
+
+// Receita Federal: ASCII - 48 and modulo 11, for numeric and alphanumeric CNPJ.
+export function validCnpj(value: string): boolean {
+  if (!/^(?:[A-Z0-9]{12}\d{2}|[A-Z0-9]{2}\.[A-Z0-9]{3}\.[A-Z0-9]{3}\/[A-Z0-9]{4}-\d{2})$/.test(value)) return false;
+  const raw = value.replace(/[./-]/g, '');
+  if (/^(\d)\1{13}$/.test(raw)) return false;
+  const digit = (base: string) => {
+    let weight = base.length - 7;
+    const sum = [...base].reduce((total, char) => {
+      const next = total + (char.charCodeAt(0) - 48) * weight;
+      weight = weight === 2 ? 9 : weight - 1;
+      return next;
+    }, 0);
+    const remainder = sum % 11;
+    return remainder < 2 ? 0 : 11 - remainder;
+  };
+  return digit(raw.slice(0, 12)) === Number(raw[12]) && digit(raw.slice(0, 13)) === Number(raw[13]);
+}
 
 export function normalizeQuoteField(field: QuoteField, value: string): string {
   const text = value.normalize('NFC').trim();
+  if (field === 'cnpj') return text.toUpperCase();
   return field === 'name' || field === 'company' ? text.replace(/ +/g, ' ') : text;
 }
 
@@ -14,7 +33,10 @@ export function quoteFieldError(field: QuoteField, raw: unknown): string | null 
     return 'Remova os caracteres de controle ou invisíveis deste campo.';
   }
   const text = normalizeQuoteField(field, rawText);
-  if (field === 'name') {
+  if (field === 'cnpj') {
+    if (!text) return 'Informe o CNPJ da empresa para solicitar o orçamento.';
+    if (!validCnpj(text)) return 'Informe um CNPJ válido, com os 14 caracteres e dígitos verificadores corretos.';
+  } else if (field === 'name') {
     if (!text) return 'Informe seu nome completo.';
     if (text.length > 120) return 'Use no máximo 120 caracteres no nome.';
     if (!/^[\p{L}\p{M} .’'\-]+$/u.test(text) || (text.match(/\p{L}/gu)?.length ?? 0) < 2) {

@@ -2,6 +2,13 @@ import { TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
 import { App } from './app';
 
+function addDoor(app: App, model: 'P90' | 'P120' = 'P90') {
+  app['changeDoorModel'](model);
+  app['changeDoorHardware']('Fechadura de sobrepor');
+  app['saveDoor']();
+}
+
+
 describe('Launch navigation and privacy', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({ imports: [App] }).compileComponents();
@@ -13,20 +20,22 @@ describe('Launch navigation and privacy', () => {
     document.body.classList.remove('quote-open');
   });
 
-  it('moves focus into details, isolates the background and restores the opener', async () => {
+  it('opens the configured cart and restores focus on close', async () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const root: HTMLElement = fixture.nativeElement;
-    const opener = root.querySelectorAll<HTMLButtonElement>('.mega-door-options .door-detail-link')[2];
+    addDoor(fixture.componentInstance);
+    fixture.detectChanges();
+    const opener = root.querySelector<HTMLButtonElement>('.cart-checkout')!;
     opener.focus();
     opener.click();
     fixture.detectChanges();
     await fixture.whenStable();
-    expect(document.activeElement?.id).toBe('door-title');
+    expect(document.activeElement?.id).toBe('quote-title');
     expect(root.querySelector('main')?.hasAttribute('inert')).toBe(true);
     expect(root.querySelector('[role="dialog"]')?.getAttribute('aria-modal')).toBe('true');
     // Close directly to keep this regression independent of scrolling timers.
-    fixture.componentInstance['closeDoorDetail']();
+    fixture.componentInstance['closeQuotePage']();
     fixture.detectChanges();
     await fixture.whenStable();
     expect(root.querySelector('main')?.hasAttribute('inert')).toBe(false);
@@ -36,11 +45,12 @@ describe('Launch navigation and privacy', () => {
   it('wraps keyboard focus inside the panel and closes with Escape', async () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
-    fixture.componentInstance['openDoorDetail']('P90');
+    addDoor(fixture.componentInstance);
+    fixture.componentInstance['openQuotePage']();
     fixture.detectChanges();
     await fixture.whenStable();
     vi.spyOn(HTMLElement.prototype, 'getClientRects').mockReturnValue([{ width: 20, height: 20 }] as unknown as DOMRectList);
-    const panel: HTMLElement = fixture.nativeElement.querySelector('.door-page');
+    const panel: HTMLElement = fixture.nativeElement.querySelector('.quote-page');
     const controls = Array.from(panel.querySelectorAll<HTMLElement>('a[href], button, [tabindex="0"]')).filter(el => !el.matches(':disabled, [tabindex="-1"]'));
     controls.at(-1)!.focus();
     controls.at(-1)!.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true }));
@@ -49,30 +59,29 @@ describe('Launch navigation and privacy', () => {
     expect(document.activeElement).toBe(controls.at(-1));
     panel.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
     fixture.detectChanges();
-    expect(fixture.componentInstance['selectedDoor']()).toBeNull();
+    expect(fixture.componentInstance['quotePage']()).toBe(false);
   });
 
-  it('changes the selected component with arrow keys and keeps one tab stop', async () => {
+  it('shows all components without tabs or technical-sheet links', () => {
     const fixture = TestBed.createComponent(App);
-    fixture.componentInstance['openDoorDetail']('P120');
     fixture.detectChanges();
-    await fixture.whenStable();
     const root: HTMLElement = fixture.nativeElement;
-    root.querySelector('#component-tab-0')!.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
-    fixture.detectChanges();
-    expect(document.activeElement?.id).toBe('component-tab-1');
-    expect(root.querySelectorAll('[role="tab"][tabindex="0"]')).toHaveLength(1);
-    expect(root.querySelector('[role="tabpanel"]')?.getAttribute('aria-labelledby')).toBe('component-tab-1');
+    expect(root.querySelector('#door-configurator')).not.toBeNull();
+    expect(root.querySelectorAll('input[name=doorHardware]')).toHaveLength(2);
+    expect(root.querySelector('[role="tablist"]')).toBeNull();
+    expect(root.querySelector('a[href$=".pdf"]')).toBeNull();
+    expect(root.textContent).not.toContain('Ver ficha técnica');
   });
 
-  it('offers the same policy in both forms and opens it from consent', async () => {
+  it('opens the quote policy from the final consent field', async () => {
     const fixture = TestBed.createComponent(App);
-    fixture.componentInstance['addProduct']('MegaShield P90');
+    addDoor(fixture.componentInstance, 'P90');
     fixture.componentInstance['openQuotePage']();
     fixture.detectChanges();
     await fixture.whenStable();
     const root: HTMLElement = fixture.nativeElement;
-    expect(root.querySelector('#contact-privacy')?.textContent).toBe(root.querySelector('#quote-privacy')?.textContent);
+    expect(root.querySelector('#contact-privacy')).toBeNull();
+    expect(root.querySelector('#quote-privacy')).not.toBeNull();
     root.querySelector<HTMLAnchorElement>('.consent-field a')!.click();
     expect(root.querySelector<HTMLDetailsElement>('#quote-privacy')?.open).toBe(true);
     expect(document.activeElement).toBe(root.querySelector('#quote-privacy summary'));

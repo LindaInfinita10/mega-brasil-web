@@ -59,7 +59,7 @@ async function main() {
   const output = path.resolve('dist/mega-brasil-web/browser');
   const htmlPath = path.join(output, 'index.html');
   const result = generateSeo(await readFile(htmlPath, 'utf8'), process.env.SITE_URL);
-  if (!result.html.includes('Onde o fogo') || !result.html.includes('Classificação pretendida P120')) {
+  if (!result.html.includes('Onde o fogo') || !result.html.includes('MegaShield P120') || !result.html.includes('door-configurator')) {
     throw new Error('O HTML de produção não contém o conteúdo pré-renderizado esperado.');
   }
   await writeFile(htmlPath, result.html);
