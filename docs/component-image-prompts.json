@@ -1,0 +1,62 @@
+{
+  "mode": "Built-in image_gen",
+  "note": "Generic illustrative assets, not manufacturer photographs.",
+  "prompts": [
+    {
+      "name": "dobradica-mola",
+      "prompt": "Use case: product-mockup. Create one square realistic studio product illustration for a fire-door hardware catalog. Subject: a silver adjustable spring door hinge, two rectangular mounting leaves with screw holes and a central cylindrical spring barrel (Dobradiça de mola). Single complete isolated object, 3/4 view, centered occupying 70 percent of canvas, warm off-white background #eeede9, soft natural shadow, detailed brushed steel. No letters, logos, watermark, diagram or additional items. Generic illustrative product, not a brand replica."
+    },
+    {
+      "name": "dobradica-helicoidal",
+      "prompt": "Use case: product-mockup. One square realistic studio product illustration for fire-door component catalog. Subject: a silver helical rising butt door hinge with two mounting leaves and central cam barrel. Centered complete product occupies 70% of frame with safe margins, warm off-white background #eeede9, soft shadow, finely detailed realistic materials, three-quarter view. No text, logos, watermark, labels, diagrams or decorative shapes. Generic illustration, not exact branded replica. Match neutral premium industrial catalog photography."
+    },
+    {
+      "name": "fechadura-simples",
+      "prompt": "Use case: product-mockup. One square realistic studio product illustration for fire-door component catalog. Subject: a surface mounted fire door latch lock, dark rectangular metal case, silver lever handle and separate keeper, without key cylinder. Centered complete product occupies 70% of frame with safe margins, warm off-white background #eeede9, soft shadow, finely detailed realistic materials, three-quarter view. No text, logos, watermark, labels, diagrams or decorative shapes. Generic illustration, not exact branded replica. Match neutral premium industrial catalog photography."
+    },
+    {
+      "name": "fechadura-chave",
+      "prompt": "Use case: product-mockup. One square realistic studio product illustration for fire-door component catalog. Subject: a surface mounted fire door latch lock, dark rectangular metal case, silver lever handle and visible round key cylinder, separate keeper. Centered complete product occupies 70% of frame with safe margins, warm off-white background #eeede9, soft shadow, finely detailed realistic materials, three-quarter view. No text, logos, watermark, labels, diagrams or decorative shapes. Generic illustration, not exact branded replica. Match neutral premium industrial catalog photography."
+    },
+    {
+      "name": "mola-pp2200",
+      "prompt": "Use case: product-mockup. One square realistic studio product illustration for fire-door component catalog. Subject: a generic silver overhead hydraulic door closer, rectangular housing and articulated two-piece arm, compact style. Centered complete product occupies 70% of frame with safe margins, warm off-white background #eeede9, soft shadow, finely detailed realistic materials, three-quarter view. No text, logos, watermark, labels, diagrams or decorative shapes. Generic illustration, not exact branded replica. Match neutral premium industrial catalog photography."
+    },
+    {
+      "name": "mola-2234",
+      "prompt": "Use case: product-mockup. One square realistic studio product illustration for fire-door component catalog. Subject: a generic silver overhead hydraulic door closer, elongated rounded rectangular housing and folded articulated arm. Centered complete product occupies 70% of frame with safe margins, warm off-white background #eeede9, soft shadow, finely detailed realistic materials, three-quarter view. No text, logos, watermark, labels, diagrams or decorative shapes. Generic illustration, not exact branded replica. Match neutral premium industrial catalog photography."
+    },
+    {
+      "name": "barra-simples",
+      "prompt": "Use case: product-mockup. One square realistic studio product illustration for fire-door component catalog. Subject: a single horizontal silver tubular panic exit bar with two dark end brackets and small key cylinder, complete hardware detached from door. Centered complete product occupies 70% of frame with safe margins, warm off-white background #eeede9, soft shadow, finely detailed realistic materials, three-quarter view. No text, logos, watermark, labels, diagrams or decorative shapes. Generic illustration, not exact branded replica. Match neutral premium industrial catalog photography."
+    },
+    {
+      "name": "barra-dupla",
+      "prompt": "Use case: product-mockup. One square realistic studio product illustration for fire-door component catalog. Subject: a matched pair of silver horizontal tubular panic exit bars for double-leaf doors with dark end brackets and vertical locking rods, complete hardware detached from doors. Centered complete product occupies 70% of frame with safe margins, warm off-white background #eeede9, soft shadow, finely detailed realistic materials, three-quarter view. No text, logos, watermark, labels, diagrams or decorative shapes. Generic illustration, not exact branded replica. Match neutral premium industrial catalog photography."
+    },
+    {
+      "name": "parafuso",
+      "prompt": "Use case: product-mockup. One square realistic studio product illustration for fire-door component catalog. Subject: a single short zinc plated hex head washer flange screw, 6 by 12 mm proportions, detailed screw thread. Centered complete product occupies 70% of frame with safe margins, warm off-white background #eeede9, soft shadow, finely detailed realistic materials, three-quarter view. No text, logos, watermark, labels, diagrams or decorative shapes. Generic illustration, not exact branded replica. Match neutral premium industrial catalog photography."
+    },
+    {
+      "name": "rebite",
+      "prompt": "Use case: product-mockup. One square realistic studio product illustration for fire-door component catalog. Subject: a single silver blind pop rivet with flange head and long mandrel stem. Centered complete product occupies 70% of frame with safe margins, warm off-white background #eeede9, soft shadow, finely detailed realistic materials, three-quarter view. No text, logos, watermark, labels, diagrams or decorative shapes. Generic illustration, not exact branded replica. Match neutral premium industrial catalog photography."
+    },
+    {
+      "name": "manta-p90",
+      "prompt": "Use case: product-mockup. One square realistic studio product illustration for fire-door component catalog. Subject: a rectangular sample of pale mineral fiber fire-door insulation blanket, soft fibrous texture with one gently folded corner. Centered complete product occupies 70% of frame with safe margins, warm off-white background #eeede9, soft shadow, finely detailed realistic materials, three-quarter view. No text, logos, watermark, labels, diagrams or decorative shapes. Generic illustration, not exact branded replica. Match neutral premium industrial catalog photography."
+    },
+    {
+      "name": "manta-p120",
+      "prompt": "Use case: product-mockup. One square realistic studio product illustration for fire-door component catalog. Subject: a rectangular thick pale mineral fiber fire-door insulation blanket sample, clearly visible fibrous cut edge. Centered complete product occupies 70% of frame with safe margins, warm off-white background #eeede9, soft shadow, finely detailed realistic materials, three-quarter view. No text, logos, watermark, labels, diagrams or decorative shapes. Generic illustration, not exact branded replica. Match neutral premium industrial catalog photography."
+    },
+    {
+      "name": "chapa-zc-065",
+      "prompt": "Use case: product-mockup. One square realistic studio product illustration for fire-door component catalog. Subject: one thin flat rectangular galvanized steel sheet in perspective, subtle zinc spangle metallic texture, no corrugations. Centered complete product occupies 70% of frame with safe margins, warm off-white background #eeede9, soft shadow, finely detailed realistic materials, three-quarter view. No text, logos, watermark, labels, diagrams or decorative shapes. Generic illustration, not exact branded replica. Match neutral premium industrial catalog photography."
+    },
+    {
+      "name": "chapa-zc-125",
+      "prompt": "Use case: product-mockup. One square realistic studio product illustration for fire-door component catalog. Subject: one rectangular galvanized steel sheet in perspective with visible thin cut edge, subtle zinc spangle metallic texture, no corrugations. Centered complete product occupies 70% of frame with safe margins, warm off-white background #eeede9, soft shadow, finely detailed realistic materials, three-quarter view. No text, logos, watermark, labels, diagrams or decorative shapes. Generic illustration, not exact branded replica. Match neutral premium industrial catalog photography."
+    }
+  ]
+}

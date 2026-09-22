@@ -309,6 +309,13 @@ footer img {
 .mega-heading h2 {
   font-size: clamp(54px, 7vw, 100px);
 }
+.megashield-section > .section-wrap { width: 100%; max-width: none; }
+.megashield-section .mega-heading { max-width: none; width: calc(100% - 80px); margin: 0 40px; text-align: left; }
+.megashield-section .mega-heading h2 { font-size: clamp(44px, 8vw, 160px); text-align: left; }
+.megashield-section .mega-heading p { max-width: 850px; margin-left: 0; }
+@media (max-width: 900px) {
+  .megashield-section .mega-heading { width: calc(100% - 32px); margin-inline: 16px; }
+}
 .mega-product {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
@@ -858,40 +865,29 @@ footer a {
   .catalog-megashield { grid-column: auto; grid-template-columns: 130px 1fr; }
 }
 .hero {
-  background: #3a3c3e;
-}
-.hero-background {
-  background-color: #3a3c3e !important;
-  background-position: center center !important;
-  background-size: auto 100% !important;
-  animation: heroReveal 7s ease-out forwards !important;
-}
-@keyframes heroReveal {
-  0% {
-    background-size: auto 135%;
-  }
-  100% {
-    background-size: auto 100%;
-  }
-}
-@media (max-width: 850px) {
-  .hero-background {
-    background-position: center center !important;
-    background-size: auto 88% !important;
-    animation: heroRevealMobile 7s ease-out forwards !important;
-  }
-  @keyframes heroRevealMobile {
-    0% {
-      background-size: auto 112%;
-    }
-    100% {
-      background-size: auto 88%;
-    }
-  }
+  min-height: max(680px, 100svh);
+  background: #252729;
 }
 .hero::before {
-  content: none;
+  content: '';
+  position: absolute;
+  inset: -28px;
+  z-index: 0;
+  background: url('/assets/images/hero/hero3-ia.webp') center/cover no-repeat;
+  filter: blur(22px);
+  transform: scale(1.04);
+  opacity: .72;
 }
+.hero-background {
+  z-index: 1;
+  background-color: transparent;
+  background-position: center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  animation: none;
+}
+.hero-overlay { z-index: 2; }
+.hero-content { z-index: 3; }
 .door-shopping-layout { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(300px, .8fr); gap: 28px; align-items: start; margin-top: 36px; scroll-margin-top: 30px; }
 .door-configurator { background: #f5f4f1; color: #252729; border-radius: 12px; overflow: hidden; }
 .door-config-heading { padding: 28px; border-bottom: 1px solid #d6d6d2; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
@@ -942,18 +938,6 @@ footer a {
   .door-config-fields label, .door-config-fields legend, .configured-cart-item p, .cart-text-button { font-size: 24px; }
   .door-config-fields small, .cart-helper, .door-finish { font-size: 19px; }
   .configured-cart-item h4 { font-size: 30px; }
-}
-.hero-background {
-  z-index: 1 !important;
-}
-.hero-overlay {
-  z-index: 2 !important;
-}
-.hero-content {
-  z-index: 3 !important;
-}
-.hero-background {
-  background-color: transparent !important;
 }
 .empresa-background {
   overflow: hidden;
@@ -1501,17 +1485,14 @@ input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: #c6302
   .quote-page-wrap { grid-template-columns: minmax(0, 1fr); }
 }
 
-/* Wide screens: retain photographic detail instead of enlarging portrait crops. */
+/* Wide screens keep the sharp poster centered and extend it with contained blur. */
 @media (min-width: 1101px) {
-  .hero { height: clamp(800px, 100vh, 1440px); background: #26282a; }
+  .hero::before { background-image: url('/assets/images/hero/hero-wide-ia.webp'); }
   .hero-background {
-    left: auto;
-    width: min(100%, 1672px);
     background-image: url('/assets/images/hero/hero-wide-ia.webp');
-    background-size: contain !important;
-    animation: none !important;
+    background-size: auto 100%;
   }
-  .hero-overlay { background: linear-gradient(90deg, #26282a 5%, rgba(38,40,42,.88) 28%, rgba(38,40,42,.12) 75%); }
+  .hero-overlay { background: linear-gradient(90deg, rgba(38,40,42,.62), rgba(38,40,42,.22) 50%, rgba(38,40,42,.62)); }
   .empresa-background .empresa-slide {
     inset: 0;
     width: 100%;
@@ -1557,4 +1538,113 @@ input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: #c6302
   .empresa-cards h3 { font-size: 28px; }
   .empresa-cards p { font-size: 22px !important; }
   .mega-heading { max-width: 1050px; }
+}
+
+/* Responsive contract: keep reading widths bounded while allowing controls to grow. */
+html, body { overflow-x: hidden; }
+.hero, .empresa-section, .megashield-section, .catalog-contact-section, footer { overflow: hidden; }
+.component-groups { display: grid; gap: 16px; }
+.component-label { font-size: 14px; font-weight: 800; color: #252729; }
+.door-card-grid { grid-template-columns: minmax(0, 1fr); align-items: start; }
+.door-type-card { display: flex; flex-direction: column; min-width: 0; }
+.door-card-visual { position: relative; flex: 0 0 auto; height: clamp(240px, 28vw, 380px); overflow: hidden; background: #e5e4df; }
+.door-card-visual img { position: absolute; inset: 16px 16px 32px; display: block; width: calc(100% - 32px); height: calc(100% - 48px); object-fit: contain; object-position: center; }
+.door-card-visual span { position: absolute; right: 16px; bottom: 12px; color: #555; font-size: 11px; }
+.door-type-card .door-config-heading { min-height: 112px; }
+.door-type-card .door-config-fields { gap: 12px; }
+.component-groups { gap: 8px; }
+.door-components { line-height: 1.5; color: #595959; }
+.hero-text, .empresa-text, .mega-heading, .contact-section-heading, .quote-page-wrap { min-width: 0; }
+button, input, select, textarea { max-width: 100%; }
+:focus-visible { outline: 3px solid #ff985c; outline-offset: 3px; }
+@media (max-width: 1100px) {
+  .header-inner, .section-wrap, .hero-content { width: min(100% - 40px, 960px); }
+  .main-nav { gap: 20px; }
+  .door-card-grid { grid-template-columns: minmax(0, 1fr); }
+  .hero { min-height: max(680px, 100svh); }
+}
+@media (max-width: 760px) {
+  .site-header { height: 72px; }
+  .header-inner { width: calc(100% - 32px); gap: 12px; }
+  .brand { width: 150px; height: 56px; }
+  .main-nav { display: none; position: absolute; top: 72px; left: 0; right: 0; padding: 16px; flex-direction: column; align-items: stretch; gap: 0; background: #f7f7f5; box-shadow: 0 8px 18px rgba(0,0,0,.16); }
+  .main-nav.open { display: flex; }
+  .main-nav a { padding: 15px 8px; border-bottom: 1px solid #ddd; }
+  .menu-toggle { display: flex; margin-left: auto; }
+  .header-button { padding: 12px 10px; gap: 8px; font-size: 10px; }
+  .header-button-label { display: none; }
+  .hero-content { width: calc(100% - 32px); padding-top: 72px; }
+  .hero-text { max-width: 100%; }
+  .hero h1 { font-size: clamp(42px, 12vw, 68px); letter-spacing: -1px; }
+  .hero h2 { font-size: 23px; }
+  .lead { font-size: 15px; }
+  .empresa-content { width: calc(100% - 32px); padding: 88px 0 52px; }
+  .empresa-text h2, .mega-heading h2, .contact-section-heading h2 { font-size: clamp(38px, 11vw, 64px); letter-spacing: -1px; }
+  .empresa-cards, .product-grid { grid-template-columns: 1fr; }
+  .door-config-heading { align-items: flex-start; flex-direction: column; }
+  .door-config-heading > span { max-width: none; }
+  .door-config-fields, .door-cart-panel { padding: 20px 16px; }
+  .hardware-options label { min-height: 52px; align-items: center; }
+  .door-custom-size { grid-template-columns: 1fr; }
+  .cart-item-actions { gap: 12px; }
+}
+@media (min-width: 1800px) {
+  .header-inner, .section-wrap, .hero-content, .empresa-content { width: min(1760px, calc(100% - 120px)); }
+  .hero-text { max-width: 900px; }
+  .hero h1 { font-size: clamp(80px, 5vw, 132px); }
+  .lead, .empresa-text p, .mega-heading p, .contact-section-heading > p { font-size: clamp(17px, 1.05vw, 24px); }
+  .site-header { height: clamp(88px, 5vw, 112px); }
+  .hero-content { padding-top: clamp(88px, 5vw, 112px); }
+  .door-config-fields, .door-cart-panel { padding: clamp(26px, 2vw, 42px); }
+}
+@media (min-width: 3000px) {
+  .header-inner, .section-wrap, .hero-content, .empresa-content { width: min(2600px, calc(100% - 180px)); }
+  .hero h1 { font-size: clamp(112px, 4vw, 168px); }
+  .hero h2 { font-size: 42px; }
+  .primary-button, .header-button { min-height: 68px; font-size: 17px; }
+  .main-nav a { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+/* Door configurator: equal cards, compact product-style component choices. */
+.door-shopping-layout.door-card-grid { grid-template-columns: minmax(0, 1fr); }
+.door-card-grid > .door-type-card { border-radius: 0; }
+.door-gallery { background: #e5e4df; padding: 16px clamp(8px, 2vw, 32px); min-height: calc(100svh - 88px); display: flex; flex-direction: column; justify-content: center; }
+.door-gallery-images { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(8px, 1.5vw, 24px); width: 100%; margin: auto; }
+.door-gallery .door-card-visual { height: max(240px, calc(100svh - 185px)); }
+.door-gallery .door-card-visual img { inset: 8px; width: calc(100% - 16px); height: calc(100% - 16px); }
+.door-gallery figure { min-width: 0; margin: 0; }
+.door-gallery figcaption { text-align: center; font-size: 15px; font-weight: 600; line-height: 1.4; }
+.door-gallery > p { text-align: center; font-size: 12px; color: #595959; margin: 18px 0 0; }
+@media (max-width: 600px) {
+  .door-gallery { padding: 12px; }
+  .door-gallery-images { gap: 8px; }
+  .door-gallery { min-height: calc(100svh - 72px); }
+  .door-gallery .door-card-visual { height: max(220px, calc(100svh - 190px)); }
+  .door-gallery .door-card-visual img { inset: 8px; width: calc(100% - 16px); height: calc(100% - 16px); }
+  .door-gallery figcaption { font-size: 12px; }
+}
+.door-card-grid > .door-type-card { grid-column: auto; width: 100%; }
+.door-card-grid > .door-cart-panel { grid-column: 1 / -1; width: 100%; }
+
+.component-store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 14px; align-items: stretch; }
+.component-store-card { min-width: 0; border: 1px solid #d0cfca; border-radius: 8px; background: #eeede9; overflow: hidden; }
+.component-store-card.has-selection { border-color: #ab3b06; box-shadow: inset 0 0 0 1px #ab3b06; }
+.component-store-copy { padding: 14px 14px 10px; }
+.component-store-copy h4 { margin: 0 0 5px; color: #252729; font-size: 17px; line-height: 1.3; }
+.component-store-copy small { color: #666; font-size: 12px; line-height: 1.4; }
+.door-config-fields .component-inline-options { display: grid; gap: 8px; padding: 0 10px 12px; margin: 0; border: 0; min-width: 0; }
+.component-option { display: grid; grid-template-columns: 52px 18px minmax(0, 1fr); align-items: center; gap: 8px; min-height: 76px; padding: 8px; border: 1px solid #d0cfca; border-radius: 5px; background: #f8f7f4; cursor: pointer; }
+.component-option img { display: block; width: 52px; height: 52px; object-fit: contain; }
+.component-option span { overflow-wrap: anywhere; font-size: 13px; line-height: 1.4; text-transform: none; }
+.component-option input { width: 18px; height: 18px; accent-color: #a63700; }
+.component-option.chosen { border-color: #a63700; background: #fff0e6; }
+.component-option:focus-within { outline: 2px solid #a63700; outline-offset: 2px; }
+.component-image-note { margin: 0; color: #666; font-size: 12px; line-height: 1.4; }
+@media (max-width: 1100px) { .door-shopping-layout.door-card-grid { grid-template-columns: 1fr; } }
+@media (min-width: 1800px) {
+  .component-store-grid { grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+  .component-option span { font-size: 15px; }
 }

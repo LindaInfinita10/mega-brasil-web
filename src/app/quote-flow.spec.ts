@@ -1,10 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
 import { App } from './app';
+import { DOOR_COMPONENT_OPTIONS } from './door-configuration';
 
 function addDoor(app: App, model: 'P90' | 'P120' = 'P90') {
   app['changeDoorModel'](model);
-  app['changeDoorHardware']('Fechadura de sobrepor');
+  app['draft'].components = ['Dobradiça de mola'];
   app['saveDoor']();
 }
 
@@ -13,6 +14,7 @@ describe('Quote submission', () => {
   let app: App;
   let open: ReturnType<typeof vi.spyOn>;
   beforeEach(async () => {
+    localStorage.clear();
     await TestBed.configureTestingModule({ imports: [App] }).compileComponents();
     app = TestBed.createComponent(App).componentInstance;
     app['form'] = { name: 'João D’Ávila', phone: '+55 (21) 98765-4321', email: 'joao+obra@example.com', company: 'Aço & Cia', cnpj: '11.222.333/0001-81', budget: 'Porta 90 × 210\nObra #2 & acesso + instalação', deadline: '', consent: true };
@@ -26,23 +28,25 @@ describe('Quote submission', () => {
     app['quotePage'].set(true);
     document.body.classList.add('quote-open');
     app['sendQuote']();
-    expect(app['selectedCount']()).toBe(0);
+    expect(app['selectedCount']()).toBe(1);
     expect(app['quotePage']()).toBe(true);
     expect(document.body.classList.contains('quote-open')).toBe(true);
     expect(window.location.hash).not.toBe('#inicio');
     expect(window.scrollTo).not.toHaveBeenCalled();
-    expect(app['form'].name).toBe('');
-    expect(app['form'].consent).toBe(false);
-    expect(app['feedback']()).toContain('Seu orçamento foi enviado com sucesso!');
+    expect(app['form'].name).toContain('João');
+    expect(app['form'].consent).toBe(true);
+    expect(app['feedback']()).toContain('Confirme o envio');
     expect(app['quoteWhatsappUrl']()).toBe(open.mock.calls[0][0]);
     app['sendQuote']();
     expect(open).toHaveBeenCalledTimes(1);
-    app['finishQuote']();
+    app['confirmWhatsappSent']();
     expect(app['quotePage']()).toBe(false);
     expect(document.body.classList.contains('quote-open')).toBe(false);
     expect(window.location.hash).toBe('#inicio');
     expect(window.scrollTo).toHaveBeenLastCalledWith({ top: 0, behavior: 'instant' });
-    expect(app['feedback']()).toBe('');
+    expect(app['selectedCount']()).toBe(0);
+    expect(app['form'].name).toBe('');
+    expect(app['feedback']()).toContain('Envio confirmado por você');
     expect(app['quoteWhatsappUrl']()).toBe('');
   });
 
@@ -57,7 +61,7 @@ describe('Quote submission', () => {
     fixture.detectChanges();
     await fixture.whenStable();
     const page: HTMLElement = fixture.nativeElement;
-    expect(page.querySelector('.quote-page .quote-completion h1')?.textContent).toContain('Seu orçamento foi enviado com sucesso!');
+    expect(page.querySelector('.quote-page .quote-completion h1')?.textContent).toContain('Seu pedido está pronto no WhatsApp');
     expect(page.querySelector('.customer-form')).toBeNull();
     expect(page.querySelector('.selection-tray')).toBeNull();
     expect(page.querySelector('.quote-feedback')).toBeNull();
@@ -104,13 +108,34 @@ describe('Quote submission', () => {
     const text = url.searchParams.get('text')!;
     expect(text).toContain('João D’Ávila'); expect(text).toContain('joao+obra@example.com');
     expect(text).toContain('Aço & Cia'); expect(text).toContain('Porta 90 × 210\nObra #2 & acesso + instalação');
-    expect(text).toContain('PORTA 1'); expect(text).toContain('Modelo: MegaShield P90'); expect(text).toContain('Quantidade: 2');
-    expect(text).toContain('PORTA 2'); expect(text).toContain('Modelo: MegaShield P120'); expect(text).toContain('Quantidade: 1');
-    expect(text).toContain('Fechadura de sobrepor DISAFE'); expect(text).toContain('3 dobradiças de mola G SARDOU');
+    expect(text).not.toMatch(/PORTA \d/);
+    expect(text).toContain('*MegaShield P90*\nQuantidade: 2 unidade(s)');
+    expect(text).toContain('*MegaShield P120*\nQuantidade: 1 unidade(s)');
+    expect(text).toContain('Componentes solicitados:\n• Dobradiça de mola');
+    expect(text).not.toContain('Tipo de acionamento:'); expect(text).toContain('Dobradiça de mola');
   });
   it('removes the product at zero and never adds hidden products', () => {
     app['changeProduct'](app['itemKey'](app['cart']()[0]), -1); app['addProduct']('MegaHose');
     expect(app['selectedCount']()).toBe(0);
+  });
+  it('includes every selected component, dimensions and customer data without claiming delivery', () => {
+    app['cart'].set([]);
+    app['changeDoorModel']('P120');
+    app['changeDoorNominalSize']('100x210');
+    app['draft'].components = DOOR_COMPONENT_OPTIONS.map(option => option.label);
+    app['draft'].quantity = 12;
+    app['finalizeOrder']();
+    app['sendQuote']();
+    const text = new URL(open.mock.calls[0][0] as string).searchParams.get('text')!;
+    expect(text).toContain('*MegaShield P120*\nQuantidade: 12 unidade(s)');
+    expect(text).toContain('100 × 210 cm');
+    for (const option of DOOR_COMPONENT_OPTIONS) expect(text).toContain(`• ${option.label}`);
+    for (const value of [app['form'].name, app['form'].cnpj, app['form'].phone, app['form'].email, app['form'].company, app['form'].budget]) expect(text).toContain(value);
+    expect(app['feedback']()).not.toContain('enviado com sucesso');
+    expect(JSON.parse(localStorage.getItem('mega-brasil-cart')!)[0].quantity).toBe(12);
+    app['confirmWhatsappSent']();
+    expect(window.location.hash).toBe('#inicio');
+    expect(JSON.parse(localStorage.getItem('mega-brasil-cart')!)).toEqual([]);
   });
   it.each([0, -1, 1.5, NaN, Infinity])('blocks corrupt cart quantity %s', quantity => {
     app['cart'].set([{ name: 'MegaShield P90', quantity }]); app['sendQuote']();
@@ -131,6 +156,7 @@ describe('Quote submission', () => {
     expect(open).not.toHaveBeenCalled();
   });
   it('ignores invalid quantity changes', () => {
+    app['cart'].set([{ ...app['cart']()[0], quantity: 1 }]);
     app['changeProduct'](app['itemKey'](app['cart']()[0]), NaN); app['changeProduct'](app['itemKey'](app['cart']()[0]), 0.5);
     expect(app['productQuantity']('MegaShield P90')).toBe(1);
   });

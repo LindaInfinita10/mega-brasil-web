@@ -67,7 +67,13 @@ describe('Launch navigation and privacy', () => {
     fixture.detectChanges();
     const root: HTMLElement = fixture.nativeElement;
     expect(root.querySelector('#door-configurator')).not.toBeNull();
-    expect(root.querySelectorAll('input[name=doorHardware]')).toHaveLength(2);
+    expect(root.querySelectorAll('.door-type-card')).toHaveLength(1);
+    expect(root.querySelectorAll('.door-panorama img')).toHaveLength(1);
+    expect(root.querySelectorAll('input[name="doorActuation"]')).toHaveLength(0);
+    expect(root.querySelectorAll('option[value="P60"]:disabled')).toHaveLength(1);
+    expect(root.querySelectorAll('.component-store-card')).toHaveLength(7);
+    expect(root.querySelectorAll('.component-inline-options input[type="checkbox"]')).toHaveLength(14);
+    expect(root.querySelectorAll('.component-store-button')).toHaveLength(0);
     expect(root.querySelector('[role="tablist"]')).toBeNull();
     expect(root.querySelector('a[href$=".pdf"]')).toBeNull();
     expect(root.textContent).not.toContain('Ver ficha técnica');

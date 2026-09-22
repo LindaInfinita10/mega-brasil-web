@@ -1,6 +1,6 @@
 <ng-template #doorCart>
   <div class="door-cart-heading"><h3>Seu carrinho</h3><span>{{ selectedCount() }} porta(s)</span></div>
-  @if (!cart().length) { <p class="cart-empty">Escolha o modelo, a medida e o acionamento para adicionar sua primeira porta.</p> }
+  @if (!cart().length) { <p class="cart-empty">Escolha o modelo, a medida e os componentes para adicionar sua primeira porta.</p> }
   <div class="configured-cart-items">
     @for (item of cart(); track itemKey(item)) {
       <article class="configured-cart-item">
@@ -10,7 +10,7 @@
       </article>
     }
   </div>
-  <button type="button" class="primary-button cart-checkout" [hidden]="quotePage()" [disabled]="!cart().length" (click)="openQuotePage()">Finalizar orçamento →</button>
+  <button type="button" class="primary-button cart-checkout" [hidden]="quotePage()" [disabled]="!cart().length" (click)="openQuotePage()">Finalizar pedido →</button>
   @if (quotePage()) { <button type="button" class="cart-text-button" (click)="backToProducts()">＋ Adicionar outra porta</button> }
   <small class="cart-helper">Você pode incluir portas com medidas e acionamentos diferentes no mesmo pedido.</small>
 </ng-template>
@@ -157,29 +157,61 @@
           e confiabilidade.
         </p>
       </div>
-      <div class="door-shopping-layout" id="door-configurator">
-        <form class="door-configurator" (ngSubmit)="saveDoor()">
-          <div class="door-config-heading"><div><p class="eyebrow">MONTE SUA PORTA</p><h3>Do seu jeito. No seu orçamento.</h3></div><span>P60 fora de produção</span></div>
-          <div class="door-config-body">
-            <div class="door-config-image"><img width="1086" height="1448" [src]="draft.hardware === 'Fechadura de sobrepor' ? '/assets/images/hero/megashield-macaneta-sem-placa.webp' : '/assets/images/hero/megashield-red.webp'" alt="Ilustração da porta MegaShield e opção de acionamento" /><small>Imagem ilustrativa. Acabamento conforme o modelo.</small></div>
+      <div class="door-shopping-layout door-card-grid" id="door-configurator">
+        @let doorType = activeDoorType;
+          <form class="door-configurator door-type-card" (ngSubmit)="saveDoor(doorType)">
+            <div class="door-config-heading"><div><p class="eyebrow">MONTE SUA PORTA</p><h3>Escolha as medidas e os componentes</h3></div></div>
+            <figure class="door-panorama">
+              <img src="/assets/images/hero/doors-panorama.webp" width="1672" height="941" alt="Duas portas MegaShield lado a lado: fechadura manual e barra antipânico, ambas com três dobradiças" />
+              <figcaption>Imagens ilustrativas · Escolha a fechadura e os demais componentes abaixo.</figcaption>
+            </figure>
+            <div class="configuration-workspace">
             <div class="door-config-fields">
-              <label for="door-model">1. Modelo<select id="door-model" name="doorModel" [ngModel]="draft.model" (ngModelChange)="changeDoorModel($event)"><option value="P90">MegaShield P90</option><option value="P120">MegaShield P120</option></select></label>
-              <label for="door-size">2. Medida do vão livre (largura × altura)<select id="door-size" name="doorSize" [ngModel]="draft.size" (ngModelChange)="changeDoorSize($event)"><option value="standard">{{ doorSizes[draft.model].width }} × {{ doorSizes[draft.model].height }} cm — padrão {{ draft.model }}</option><option value="custom">Outra medida — sob consulta</option></select></label>
-              @if (draft.size === 'custom') {
-                <div class="door-custom-size"><label>Largura (cm)<input name="doorWidth" type="number" min="0.1" max="1000" step="0.1" required [(ngModel)]="draft.width" /></label><label>Altura (cm)<input name="doorHeight" type="number" min="0.1" max="1000" step="0.1" required [(ngModel)]="draft.height" /></label></div>
-                <small>A equipe confirma a viabilidade da medida solicitada.</small>
-              } @else { <small>Vão livre conforme padrão de fabricação. Folha indicada: 90 × 210 cm. Medidas de instalação sujeitas à confirmação técnica.</small> }
-              <fieldset><legend>3. Acionamento</legend><div class="hardware-options">@for (hardware of hardwareOptions; track hardware) { <label [class.chosen]="draft.hardware === hardware"><input type="radio" name="doorHardware" [value]="hardware" [ngModel]="draft.hardware" (ngModelChange)="changeDoorHardware($event)" required /><span>{{ hardware }}</span></label> }</div></fieldset>
-              <label class="door-quantity">4. Quantidade<input name="doorQuantity" type="number" min="1" max="999" step="1" required [(ngModel)]="draft.quantity" /></label>
-              <p class="door-finish">Acabamento: {{ draft.model === 'P120' ? 'galvanizado sem pintura' : 'galvanizado' }}.</p>
-              <p class="door-components">Componentes: {{ draft.components.lock }}; {{ draft.components.hinges }}.</p>
-              <button type="submit" class="primary-button" [disabled]="!draftValid()">{{ editingKey ? 'Salvar alterações' : 'Adicionar ao carrinho' }} <span>＋</span></button>
-              @if (editingKey) { <button type="button" class="cart-text-button" (click)="cancelDoorEdit()">Cancelar edição</button> }
-              <p class="cart-notice" role="status">{{ cartNotice() }}</p>
+              <label [for]="'door-model-' + doorType">Modelo<select [id]="'door-model-' + doorType" [name]="'doorModel-' + doorType" [ngModel]="draftFor(doorType).model" (ngModelChange)="changeDoorModel($event, doorType)"><option value="P60" disabled>MegaShield P60 — Fora de produção</option><option value="P90">MegaShield P90</option><option value="P120">MegaShield P120</option></select></label>
+              <label [for]="'door-size-' + doorType">Dimensões nominais (largura × altura)<select [id]="'door-size-' + doorType" [name]="'doorSize-' + doorType" [ngModel]="draftFor(doorType).size === 'custom' ? 'custom' : draftFor(doorType).width + 'x' + draftFor(doorType).height" (ngModelChange)="$event === 'custom' ? changeDoorSize('custom', doorType) : changeDoorNominalSize($event, doorType)"><option value="80x210">80 × 210 cm</option><option value="90x210">90 × 210 cm</option><option value="100x210">100 × 210 cm</option><option value="custom">Outra medida — sob consulta</option></select></label>
+              @if (draftFor(doorType).size === 'custom') {
+                <div class="door-custom-size"><label>Largura (cm)<input [name]="'doorWidth-' + doorType" type="number" min="0.1" max="1000" step="0.1" required [(ngModel)]="draftFor(doorType).width" /></label><label>Altura (cm)<input [name]="'doorHeight-' + doorType" type="number" min="0.1" max="1000" step="0.1" required [(ngModel)]="draftFor(doorType).height" /></label></div>
+              }
+              <small>Dimensões nominais. Confirmar o vão de instalação com a equipe técnica.</small>
+              <div class="component-groups"><span class="component-label">Componentes solicitados</span><div class="component-store-grid">
+                @for (group of componentGroups; track group) {
+                  <article class="component-store-card" [class.has-selection]="selectedGroupCount(doorType, group) > 0">
+                    <div class="component-store-copy"><h4>{{ group }}</h4><small>{{ selectedGroupCount(doorType, group) ? selectedGroupCount(doorType, group) + ' opção(ões) selecionada(s)' : 'Nenhum selecionado' }}</small></div>
+                      <fieldset class="component-inline-options" [id]="doorType + '-' + group"><legend class="sr-only">{{ group }}</legend>
+                        @for (component of componentOptions; track component.label) { @if (component.group === group) { <label class="component-option" [class.chosen]="isComponentSelected(component.label, doorType)"><img width="56" height="56" [src]="'/assets/images/components/' + componentImageName(component.label)" [alt]="'Imagem ilustrativa: ' + component.label" /><input type="checkbox" [name]="doorType + '-component-' + component.label" [checked]="isComponentSelected(component.label, doorType)" (change)="toggleComponent(component.label, doorType)" /><span>{{ component.label }}</span></label> } }
+                      </fieldset>
+                  </article>
+                }
+              </div><p class="component-image-note">Imagens ilustrativas dos componentes. Aparência e especificações conforme confirmação técnica.</p></div>
+              <label class="door-quantity">Quantidade de portas<input [name]="'doorQuantity-' + doorType" type="number" min="1" max="999" step="1" required [(ngModel)]="draftFor(doorType).quantity" /></label>
+              <p class="door-components">Composição sujeita à confirmação técnica conforme modelo, dimensões e projeto.</p>
+              <button type="submit" class="primary-button" [disabled]="!draftValid(doorType)">{{ editingKey && activeDoorType === doorType ? 'Salvar alterações' : 'Adicionar ao orçamento' }} <span>＋</span></button>
+              @if (editingKey && activeDoorType === doorType) { <button type="button" class="cart-text-button" (click)="cancelDoorEdit()">Cancelar edição</button> }
+              <p class="cart-notice" role="status">{{ activeDoorType === doorType ? cartNotice() : '' }}</p>
             </div>
-          </div>
-        </form>
-        <aside class="door-cart-panel" aria-label="Carrinho de orçamento"><ng-container *ngTemplateOutlet="doorCart" /></aside>
+            <aside class="live-order-list" aria-label="Lista do pedido">
+              <p class="eyebrow">SEU PEDIDO</p><h3>Lista do pedido</h3>
+              <div class="draft-order-summary">
+                <small>CONFIGURAÇÃO ATUAL</small>
+                <h4>MegaShield {{ draft.model }}</h4>
+                <p>{{ draft.width }} × {{ draft.height }} cm · {{ draft.quantity }} porta(s)</p>
+                <ul aria-live="polite">
+                  @for (component of draft.components; track component) {
+                    <li><span>{{ component }}</span><button type="button" (click)="toggleComponent(component)" [attr.aria-label]="'Remover ' + component">×</button></li>
+                  } @empty { <li>Escolha os componentes ao lado.</li> }
+                </ul>
+              </div>
+              @if (cart().length) {
+                <h4>Adicionados ao pedido · {{ selectedCount() }} porta(s)</h4>
+                @for (item of cart(); track itemKey(item)) {
+                  <div class="saved-order-row"><b>{{ item.quantity }} × {{ item.name }}</b><p>{{ configurationText(item) }}</p><button type="button" class="cart-text-button" (click)="editDoor(item)">Editar</button><button type="button" class="cart-text-button" (click)="removeDoor(itemKey(item))">Remover</button></div>
+                }
+              }
+              <button type="button" class="primary-button cart-checkout" [disabled]="!draftValid()" (click)="finalizeOrder()">Finalizar pedido →</button>
+              <small>Confira o pedido e preencha seus dados na próxima etapa. Sem pagamento online.</small>
+            </aside>
+            </div>
+          </form>
       </div>
 
     </div>
@@ -270,9 +302,10 @@
         <div class="quote-completion-card">
           <span class="quote-completion-icon" aria-hidden="true">✓</span>
           <p class="eyebrow">SEU PEDIDO · ETAPA FINAL</p>
-          <h1 id="quote-title" #quoteCompletion tabindex="-1">Seu orçamento foi enviado com sucesso!</h1>
-          <p>Nossa equipe comercial receberá sua solicitação e entrará em contato.</p>
+          <h1 id="quote-title" #quoteCompletion tabindex="-1">Seu pedido está pronto no WhatsApp</h1>
+          <p>Confira a mensagem e toque em Enviar no WhatsApp. Depois, confirme abaixo para concluir.</p>
           <a [href]="quoteWhatsappUrl()" target="_blank" rel="noopener noreferrer">O WhatsApp não abriu? Abrir novamente ↗</a>
+          <button type="button" class="primary-button confirm-whatsapp" (click)="confirmWhatsappSent()">Já enviei pelo WhatsApp · Concluir</button>
         </div>
       </div>
     } @else {
