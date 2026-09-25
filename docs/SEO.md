@@ -13,14 +13,14 @@
 
 ## Configurar o domínio
 
-Ainda não há domínio ou provedor confirmado. `SITE_URL` é uma variável de build, não uma senha. Aceita apenas a origem HTTPS na raiz, sem caminho, porta, usuário ou parâmetros. Escolher uma única forma oficial, com ou sem www.
+Domínio informado pela cliente em 24/09/2026: `megabrasil.ind.br`. Usamos `https://megabrasil.ind.br` como origem canônica; provedor e acesso ainda pendentes. `SITE_URL` é uma variável de build, não uma senha. Aceita apenas a origem HTTPS na raiz, sem caminho, porta, usuário ou parâmetros. Escolher uma única forma oficial, com ou sem www.
 
 Sem `SITE_URL`, `npm run build` gera uma versão de revisão com **noindex, nofollow**, sem canonical, sitemap ou JSON-LD vinculado a domínio. robots.txt permite a leitura para que os buscadores possam encontrar a diretiva noindex; isso não é uma proteção de acesso. Não publicar essa versão como lançamento definitivo.
 
 Quando a empresa confirmar o domínio, no PowerShell:
 
 ```powershell
-$env:SITE_URL = 'https://DOMINIO-APROVADO'
+$env:SITE_URL = 'https://megabrasil.ind.br'
 npm ci
 npm run build
 npm test -- --watch=false
@@ -29,7 +29,7 @@ npm run verify:site
 npm run package:release
 ```
 
-Substituir `DOMINIO-APROVADO` pelo domínio real. Em CI/hosting, cadastrar SITE_URL no ambiente do comando `npm run build`. O script `scripts/seo.mjs` aplica os metadados ao HTML já pré-renderizado. Não executar só `ng build` para entrega final, porque esse comando não executa a etapa SEO.
+Caso o administrador exija outra origem oficial, atualizar `SITE_URL` e gerar novamente. Em CI/hosting, cadastrar SITE_URL no ambiente do comando `npm run build`. O script `scripts/seo.mjs` aplica os metadados ao HTML já pré-renderizado. Não executar só `ng build` para entrega final, porque esse comando não executa a etapa SEO.
 
 Para gerar somente um pacote de revisão:
 

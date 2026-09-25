@@ -4,14 +4,14 @@ Site institucional e catálogo comercial desenvolvido em Angular para apresentar
 
 ## Funcionalidades
 
-- Catálogo responsivo MegaShield P90/P120; P60 visível e indisponível para orçamento.
-- Seleção de produtos e controle de quantidades.
-- Fichas técnicas MegaShield P60, P90 e P120.
-- Explorador visual dos componentes da porta corta-fogo.
+- Configurador MegaShield P90/P120; P60 visível e indisponível para orçamento.
+- Medidas nominais de catálogo, medida sob consulta e controle de quantidade.
+- Seleção individual dos 8 componentes do configurador, sem preços.
+- Lista do pedido com edição, remoção, agrupamento e persistência local.
 - Formulário comercial com consentimento para tratamento de dados.
 - Geração do pedido para o WhatsApp comercial.
 - Mapa, endereços, redes sociais e canais de atendimento.
-- Layout para celular, tablet, desktop, Full HD e televisores 4K.
+- Layout responsivo para celular, tablet, desktop, Full HD e telas 4K, revisado em navegador com viewports simulados.
 - HTML estático pré-renderizado, imagens WebP e configuração SEO por domínio.
 - Política de privacidade compartilhada entre formulários e navegação dos painéis por teclado.
 
@@ -40,6 +40,8 @@ npm run build
 
 Os arquivos otimizados são gerados em `dist/mega-brasil-web/browser`.
 
+O build atual pode emitir um warning de orçamento de CSS; isso não impede a compilação e não foi tratado como erro funcional.
+
 Sem a variável `SITE_URL`, o build é uma versão de revisão com `noindex`. Para o lançamento, configurar a origem HTTPS aprovada e seguir [SEO e publicação](docs/SEO.md). Não é necessário executar um servidor Node em produção.
 
 ## Verificação e pacote
@@ -67,11 +69,12 @@ src/
 
 ## Fluxo do orçamento
 
-1. O visitante seleciona produtos e quantidades.
-2. Informa seus dados e aceita o tratamento de dados.
-3. A aplicação abre o WhatsApp comercial com o pedido preenchido.
+1. O visitante seleciona o modelo, a medida, os componentes e a quantidade.
+2. Clica em Finalizar pedido para salvar a seleção e revisar; nessa tela pode editar, remover ou adicionar outra porta.
+3. Informa seus dados e aceita o tratamento de dados.
+4. A aplicação abre o WhatsApp comercial com o pedido preenchido.
 
-O site não armazena os dados do formulário em banco de dados.
+O site não armazena os dados do formulário em banco de dados. As linhas válidas do pedido são persistidas localmente no navegador para sobreviver a recarregamentos.
 
 ## Documentação
 
@@ -85,6 +88,7 @@ O site não armazena os dados do formulário em banco de dados.
 - [Publicação e entrega](docs/DEPLOYMENT.md)
 - [Conteúdo e manutenção](docs/CONTENT.md)
 - [Histórico de alterações](CHANGELOG.md)
+- [Estado atual do configurador MegaShield](docs/DOOR-CONFIGURATOR.md)
 
 ## Observação legal
 
@@ -93,3 +97,6 @@ Os textos de privacidade precisam ser aprovados pela empresa ou por um profissio
 ## Autoria
 
 Desenvolvido por Pilar Molina.
+
+- [Regras de negócio](docs/BUSINESS-RULES.md)
+- [Dados de hospedagem para publicação](docs/HOSTING-HANDOFF.md)

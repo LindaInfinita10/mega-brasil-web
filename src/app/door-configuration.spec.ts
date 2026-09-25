@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
 import { App } from './app';
-import { DOOR_COMPONENTS, validConfiguration } from './door-configuration';
+import { DOOR_COMPONENTS, COMPONENT_GROUPS, quoteItemText, validConfiguration } from './door-configuration';
 import { quoteFieldError } from './quote-validation';
 
 describe('Configured door cart', () => {
@@ -68,6 +68,54 @@ describe('Configured door cart', () => {
     app['saveDoor']();
     expect(app['cart']()).toHaveLength(2);
     expect(app['cart']().find(item => item.quantity === 3)?.configuration?.components).toEqual(['Fechadura sobrepor simples']);
+  });
+  it('allows another identical door through the explicit add-another action', () => {
+    app['finalizeOrder']();
+    app['addAnotherDoor']();
+    app['draft'].quantity = 2;
+    app['finalizeOrder']();
+    expect(app['cart']()).toHaveLength(1);
+    expect(app['cart']()[0].quantity).toBe(3);
+    app['closeQuotePage'](); app['finalizeOrder']();
+    expect(app['cart']()[0].quantity).toBe(3);
+  });
+  it('offers only the four commercial component categories', () => {
+    expect(COMPONENT_GROUPS).toEqual(['Dobradiças', 'Fechaduras', 'Molas aéreas', 'Barras antipânico']);
+  });
+  it('uses the changed quantity at checkout without duplicating the saved door', () => {
+    app['saveDoor']();
+    app['draft'].quantity = 4;
+    app['finalizeOrder']();
+    expect(app['cart']()).toHaveLength(1);
+    expect(app['cart']()[0].quantity).toBe(4);
+  });
+  it('does not restore a removed saved door on checkout', () => {
+    app['saveDoor']();
+    app['removeDoor'](app['itemKey'](app['cart']()[0]));
+    app['finalizeOrder']();
+    expect(app['cart']()).toEqual([]);
+    expect(app['quotePage']()).toBe(false);
+  });
+  it('keeps saved components independent from an unsaved draft', () => {
+    app['toggleComponent']('Dobradiça de mola');
+    app['saveDoor']();
+    app['draft'].components.push('Barra simples c/ chave');
+    expect(app['cart']()[0].configuration?.components).toEqual(['Dobradiça de mola']);
+  });
+  it('serializes only selected components after editing, merging and removal', () => {
+    app['toggleComponent']('Dobradiça de mola'); app['saveDoor']();
+    app['toggleComponent']('Dobradiça de mola');
+    app['toggleComponent']('Fechadura sobrepor c/ chave'); app['saveDoor']();
+    app['editDoor'](app['cart']()[0]);
+    app['toggleComponent']('Dobradiça de mola');
+    app['toggleComponent']('Fechadura sobrepor c/ chave');
+    app['draft'].quantity = 3; app['saveDoor']();
+    expect(app['cart']()).toHaveLength(1);
+    expect(app['cart']()[0].quantity).toBe(4);
+    const text = quoteItemText(app['cart']()[0]);
+    expect(text).toContain('• Fechadura sobrepor c/ chave');
+    expect(text).not.toMatch(/Dobradiça|Acabamento|Galvanizado|pintura/);
+    expect(JSON.parse(localStorage.getItem('mega-brasil-cart')!)).toEqual(app['cart']());
   });
   it.each(['', '11.222.333/0001-80', '00000000000000'])('blocks WhatsApp with invalid CNPJ %s', cnpj => {
     app['saveDoor']();

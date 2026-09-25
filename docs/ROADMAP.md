@@ -1,19 +1,19 @@
 # Roadmap de lançamento — Mega Brasil
 
-## Atualização de execução — 16/09/2026
+## Atualização de execução — 22/09/2026
 
-**Correções locais e SEO implementados; publicação ainda depende de domínio, hosting e aceite da empresa.** O usuário informou que ainda não dispõe desses dados. Não houve publicação nem envio de mensagens reais.
+**Correções locais e SEO implementados; publicação ainda depende de hosting, acessos e aceite da empresa.** Em 24/09, a cliente informou `megabrasil.ind.br` como domínio. Não houve publicação nem envio de mensagens reais.
 
 | Frente | Situação atual |
 | --- | --- |
 | L-02 — conteúdo de produto | Corrigidos texto compartilhado sobre pintura, classificação pretendida no contato e especificações ilustrativas de P60. Aprovação técnica continua pendente. |
 | L-04 — privacidade | Componente único nos dois formulários e link no rodapé; inclui WhatsApp, Maps e Fonts. Aprovação empresarial continua pendente. |
 | L-05 — teclado | Foco ao abrir/fechar, fundo inerte, ciclo de Tab, Escape e setas no explorador implementados; regressões automatizadas e interação local verificadas. |
-| L-06 — imagens | WebP com dimensões preservadas: 29.715.376 → 2.285.094 bytes nas 15 imagens referenciadas (−92,3%). Originais preservados no código e excluídos do build. Desempenho em rede real continua pendente. |
+| L-06 — imagens | WebP com dimensões preservadas: 29.715.376 → 2.285.094 bytes nas 15 imagens referenciadas (−92,3%). Originais recuperáveis no histórico Git; 41 arquivos obsoletos adicionais removidos do código em 24/09. Desempenho em rede real continua pendente. |
 | Responsividade | Corrigidos desbordes do título MegaShield e do formulário móvel; homepage e orçamento sem excesso de largura nas seis resoluções previstas, no navegador integrado. |
 | SEO | HTML estático, metadados sociais, imagem de compartilhamento, página 404 e gerador de canonical/sitemap/robots/JSON-LD implementados. Domínio ausente mantém noindex; ver [SEO.md](SEO.md). |
-| Instalação e build | Instalação limpa executada; build final aprovado, 1 rota pré-renderizada, bundle inicial 429,89 kB (transferência estimada 102,97 kB). Pacote publicado em potencial tem cerca de 3,18 MB de arquivos, contra 41,12 MB na auditoria anterior. |
-| Testes | 82 testes Angular aprovados em 4 arquivos e 3 testes SEO aprovados. Verificação adicional do HTML, âncoras, recursos e assinatura dos PDFs aprovada. |
+| Instalação e build | Build atual aprovado, com 1 rota pré-renderizada. O build pode emitir warning de orçamento CSS, sem erro funcional. |
+| Testes | 103 testes Angular aprovados em 5 arquivos. A abertura do WhatsApp continua simulada; não houve envio real. |
 | Pacote | Script gera ZIP de revisão e manifesto SHA256, compara cada arquivo extraído com a origem e distingue código com alterações locais de um commit aprovado. |
 
 ### Pendências que permanecem
@@ -21,14 +21,14 @@
 Critérios de aceite e dependências: [backlog de lançamento](BACKLOG.md). Escopo funcional: [histórias de usuário](USER_STORIES.md).
 
 - [ ] Empresa aprovar contatos, conteúdo, alegação CBMERJ, especificações dos memoriais e política de privacidade (L-01/L-03 e aceites de L-02/L-04).
-- [ ] Confirmar domínio/hosting; configurar SITE_URL, DNS, HTTPS, redirects, cache e página 404 com status correto.
+- [ ] SEO preparado para `https://megabrasil.ind.br`; confirmar hosting e configurar DNS, HTTPS, redirects, cache e página 404 com status correto.
 - [ ] Testar recebimento real de orçamento com a equipe comercial; os testes locais não comprovam entrega.
 - [ ] Validar links externos e contas oficiais com a empresa; executar Chrome/Edge e celulares reais, contraste completo e desempenho em rede móvel.
 - [ ] Fechar avaliação do botão Voltar do navegador: os painéis atuais não são rotas independentes; seus botões próprios e Escape foram verificados.
 - [ ] Configurar Search Console, enviar sitemap e validar SEO no domínio publicado.
 - [ ] Registrar responsável por suporte, commit final aprovado e backup; testar reversão no provedor e concluir aceite pós-publicação.
 
-Evidências e limitações: [validação local](VALIDATION.md). As seções abaixo preservam a auditoria inicial de 15/09 e não substituem o estado atualizado acima.
+Evidências e limitações: [validação local](VALIDATION.md). As seções abaixo preservam auditorias históricas e não substituem o estado atualizado acima.
 
 ## Registro histórico — auditoria inicial
 
@@ -91,10 +91,10 @@ Título, descrição e idioma pt-BR já existem em src/index.html. Não foram en
 - [ ] Após confirmar o domínio, decidir e implementar canonical, sitemap e regras de indexação; definir imagem/texto de compartilhamento social.
 - [ ] Verificar indexação no Google Search Console e enviar sitemap quando criado.
 - [ ] Conferir funcionamento após publicação e definir rotina de revisão dos contatos, documentos e produtos.
-- [ ] Atualizar README e CHANGELOG para refletir com precisão o catálogo restrito e as últimas alterações. REQUIREMENTS registra 73 testes, DEPLOYMENT registra 75; esta revisão registra 78, sem alterar os registros históricos.
+- [ ] Atualizar CHANGELOG quando a próxima versão for aprovada. README, REQUIREMENTS, DEPLOYMENT, CONTENT e VALIDATION já refletem o estado local desta revisão.
 
 SEO e compartilhamento podem ser uma entrega posterior acordada; conteúdo correto, fluxo comercial utilizável, aprovações e configuração de publicação devem estar resolvidos para o lançamento.
 
 ## Fora da primeira versão
 
-Pagamento, cadastro/login, painel administrativo, estoque automático, banco de pedidos, persistência do carrinho e envio automático de e-mail continuam fora do escopo. Reativar P60 ou o catálogo completo exige nova aprovação e revisão das regras de orçamento.
+Pagamento, cadastro/login, painel administrativo, estoque automático, banco de pedidos e envio automático de e-mail continuam fora do escopo. O carrinho atual tem persistência local em `localStorage`; não há persistência em servidor. Reativar P60 ou o catálogo completo exige nova aprovação e revisão das regras de orçamento.

@@ -1,6 +1,6 @@
 # Door images: three aligned hinges
 
-Tool: built-in ImageGen. Original images retained.
+Tool: built-in ImageGen. Obsolete originals are recoverable from Git history; only referenced assets remain in the working tree.
 
 Outputs: `src/assets/images/hero/door-manual-3-hinges.webp` and `src/assets/images/hero/door-panic-3-hinges.webp`.
 

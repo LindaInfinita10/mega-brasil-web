@@ -59,9 +59,6 @@ export class App {
     'Fechaduras': '/assets/images/components/fechadura-simples.webp',
     'Molas aéreas': '/assets/images/components/mola-pp2200.webp',
     'Barras antipânico': '/assets/images/components/barra-simples.webp',
-    'Fixação': '/assets/images/components/parafuso.webp',
-    'Mantas': '/assets/images/components/manta-p90.webp',
-    'Chapas': '/assets/images/components/chapa-zc-065.webp',
   };
   protected readonly itemKey = itemKey;
   protected readonly configurationText = configurationText;
@@ -73,6 +70,7 @@ export class App {
   protected draft = this.drafts.manual;
   private openGroups: Record<DoorActuation, Record<string, boolean>> = { manual: {}, 'panic-bar': {} };
   protected editingKey: string | null = null;
+  private lastSavedDraft: { key: string; quantity: number } | null = null;
   protected cartNotice = signal('');
 
   private restoreCart(): CartItem[] {
@@ -130,7 +128,7 @@ export class App {
   protected saveDoor(type: DoorActuation = this.activeDoorType): void {
     if (!this.draftValid(type)) return;
     const { quantity, actuation: _actuation, hardware: _hardware, ...configuration } = this.drafts[type];
-    const item: CartItem = { name: `MegaShield ${configuration.model}`, quantity, configuration: configuration as DoorConfiguration };
+    const item: CartItem = { name: `MegaShield ${configuration.model}`, quantity, configuration: { ...configuration, components: [...configuration.components] } as DoorConfiguration };
     const remaining = this.cart().filter(row => itemKey(row) !== this.editingKey);
     const match = remaining.find(row => itemKey(row) === itemKey(item));
     if (match && match.quantity + quantity > 999) { this.cartNotice.set('Limite de 999 unidades por configuração.'); return; }
@@ -138,6 +136,7 @@ export class App {
     this.cart.set(match ? remaining.map(row => row === match ? { ...row, quantity: row.quantity + quantity } : row) : [...remaining, item]);
     this.persistCart();
     this.cartNotice.set(this.editingKey ? 'Configuração atualizada no carrinho.' : 'Porta adicionada. Configure outra porta ou finalize seu orçamento.');
+    this.lastSavedDraft = { key: itemKey(item), quantity };
     this.editingKey = null;
   }
   protected editDoor(item: CartItem): void {
@@ -182,9 +181,6 @@ export class App {
       'Fechadura sobrepor simples': 'fechadura-simples.webp', 'Fechadura sobrepor c/ chave': 'fechadura-chave.webp',
       'Mola aérea PP2200 PAIZ': 'mola-pp2200.webp', 'Mola aérea 2234 La Fonte': 'mola-2234.webp',
       'Barra simples c/ chave': 'barra-simples.webp', 'Barra dupla c/ chave': 'barra-dupla.webp',
-      'Parafuso sextavado arruelado 6×12': 'parafuso.webp', 'Rebite': 'rebite.webp',
-      'Manta P90': 'manta-p90.webp', 'Manta P120': 'manta-p120.webp',
-      'Chapa ZC 0,65 × 1000 × 2100 mm': 'chapa-zc-065.webp', 'Chapa ZC 1,25 × 1200 × 2200 mm': 'chapa-zc-125.webp',
     };
     return images[label];
   }
@@ -250,15 +246,24 @@ export class App {
     if (!this.draftValid()) return;
     const { quantity, actuation: _actuation, hardware: _hardware, ...configuration } = this.draft;
     const key = itemKey({ name: `MegaShield ${configuration.model}`, quantity, configuration });
-    if (this.editingKey || !this.cart().some(item => itemKey(item) === key)) {
-      this.saveDoor();
-      if (this.editingKey || !this.cart().some(item => itemKey(item) === key)) return;
+    if (!this.editingKey && this.lastSavedDraft?.key === key) {
+      if (this.lastSavedDraft.quantity !== quantity) {
+        const existing = this.cart().find(item => itemKey(item) === key);
+        if (existing) this.editingKey = key;
+        else this.lastSavedDraft = null;
+      } else {
+        this.openQuotePage();
+        return;
+      }
     }
+    this.saveDoor();
+    if (this.editingKey || !this.cart().some(item => itemKey(item) === key)) return;
     this.openQuotePage();
   }
   protected confirmWhatsappSent(): void {
     if (!this.quoteWhatsappUrl()) return;
     this.cart.set([]);
+    this.lastSavedDraft = null;
     this.persistCart();
     this.draft.components = [];
     this.draft.quantity = 1;
@@ -274,6 +279,14 @@ export class App {
     this.quotePage.set(false);
     this.dismissFeedback();
     document.body.classList.remove('quote-open');
+  }
+
+  protected addAnotherDoor(): void {
+    this.cancelDoorEdit();
+    this.lastSavedDraft = null;
+    this.draft.components = [];
+    this.draft.quantity = 1;
+    this.backToProducts();
   }
 
   protected backToProducts(): void {

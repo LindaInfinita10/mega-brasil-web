@@ -1,7 +1,7 @@
 export type DoorModel = 'P90' | 'P120';
 export type DoorActuation = 'manual' | 'panic-bar';
 export type DoorSize = '80 × 210 cm' | '90 × 210 cm' | '100 × 210 cm';
-export type DoorComponentGroup = 'Dobradiças' | 'Fechaduras' | 'Molas aéreas' | 'Barras antipânico' | 'Fixação' | 'Mantas' | 'Chapas';
+export type DoorComponentGroup = 'Dobradiças' | 'Fechaduras' | 'Molas aéreas' | 'Barras antipânico';
 export interface DoorComponentOption { group: DoorComponentGroup; label: string; }
 export interface DoorConfiguration {
   model: DoorModel;
@@ -28,12 +28,6 @@ export const DOOR_COMPONENT_OPTIONS: DoorComponentOption[] = [
   { group: 'Molas aéreas', label: 'Mola aérea 2234 La Fonte' },
   { group: 'Barras antipânico', label: 'Barra simples c/ chave' },
   { group: 'Barras antipânico', label: 'Barra dupla c/ chave' },
-  { group: 'Fixação', label: 'Parafuso sextavado arruelado 6×12' },
-  { group: 'Fixação', label: 'Rebite' },
-  { group: 'Mantas', label: 'Manta P90' },
-  { group: 'Mantas', label: 'Manta P120' },
-  { group: 'Chapas', label: 'Chapa ZC 0,65 × 1000 × 2100 mm' },
-  { group: 'Chapas', label: 'Chapa ZC 1,25 × 1200 × 2200 mm' },
 ];
 export const COMPONENT_GROUPS = [...new Set(DOOR_COMPONENT_OPTIONS.map(component => component.group))];
 export const DEFAULT_COMPONENTS: string[] = [];
@@ -65,5 +59,5 @@ export function quoteItemText(item: CartItem): string {
   const c = item.configuration;
   if (!c) return `*${item.name}*\nQuantidade: ${item.quantity} unidade(s)`;
   const components = componentLabels(c.components);
-  return `*${item.name}*\nQuantidade: ${item.quantity} unidade(s)\nDimensões nominais (largura × altura): ${c.width} × ${c.height} cm${c.size === 'custom' ? ' — sob consulta' : ''}\nComponentes solicitados:\n${components.length ? components.map(label => `• ${label}`).join('\n') : '• Nenhum componente selecionado'}\nAcabamento: ${c.model === 'P120' ? 'Galvanizado sem pintura' : 'Galvanizado'}`;
+  return `*${item.name}*\nQuantidade: ${item.quantity} unidade(s)\nDimensões nominais (largura × altura): ${c.width} × ${c.height} cm${c.size === 'custom' ? ' — sob consulta' : ''}\nComponentes solicitados:\n${components.length ? components.map(label => `• ${label}`).join('\n') : '• Nenhum componente selecionado'}`;
 }

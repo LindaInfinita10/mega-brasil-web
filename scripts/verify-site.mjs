@@ -1,4 +1,4 @@
-import { readFile, access } from 'node:fs/promises';
+import { readFile, access, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { JSDOM } from 'jsdom';
@@ -23,6 +23,14 @@ for (const element of doc.querySelectorAll('[src], [href]')) {
   }
   if (url === '/') continue;
   localPaths.add(url.replace(/^\//, '').split('?')[0]);
+}
+// Include component filename maps and compiled CSS backgrounds, not only static DOM URLs.
+const source = await readFile('src/app/app.ts', 'utf8');
+for (const match of source.matchAll(/['"]([^'"/]+\.webp)['"]/g)) localPaths.add(`assets/images/components/${match[1]}`);
+for (const file of await readdir(output)) {
+  if (!/\.(css|js)$/.test(file)) continue;
+  const content = await readFile(path.join(output, file), 'utf8');
+  for (const match of content.matchAll(/\/assets\/images\/[a-zA-Z0-9_./-]+\.(?:webp|svg|png|jpe?g)/g)) localPaths.add(match[0].slice(1));
 }
 for (const file of localPaths) await access(path.join(output, file));
 const canonical = doc.querySelector('link[rel="canonical"]')?.getAttribute('href');

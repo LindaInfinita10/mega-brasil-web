@@ -108,7 +108,7 @@ describe('Quote submission', () => {
     const text = url.searchParams.get('text')!;
     expect(text).toContain('João D’Ávila'); expect(text).toContain('joao+obra@example.com');
     expect(text).toContain('Aço & Cia'); expect(text).toContain('Porta 90 × 210\nObra #2 & acesso + instalação');
-    expect(text).not.toMatch(/PORTA \d/);
+    expect(text).not.toMatch(/PORTA \d|Acabamento|Galvanizado|pintura|Manta|Chapa|Rebite|Parafuso/);
     expect(text).toContain('*MegaShield P90*\nQuantidade: 2 unidade(s)');
     expect(text).toContain('*MegaShield P120*\nQuantidade: 1 unidade(s)');
     expect(text).toContain('Componentes solicitados:\n• Dobradiça de mola');

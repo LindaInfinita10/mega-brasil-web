@@ -1,12 +1,12 @@
 # Publicação e entrega
 
-## Atualização de 16/09/2026
+## Atualização de 22/09/2026
 
 O build agora pré-renderiza a homepage e executa a geração SEO. Antes da publicação definitiva, configurar a variável `SITE_URL` com a origem HTTPS aprovada, conforme [SEO.md](SEO.md). Sem ela, o build é de revisão e mantém `noindex`.
 
 Após build, testes e `npm run verify:site`, executar `npm run package:release` para gerar o ZIP definitivo e seu manifesto SHA256. Para revisão sem domínio, usar `npm run package:release -- --preview`; o resultado é `dist/mega-brasil-preview.zip`, que não deve ser confundido com o pacote definitivo. `npm run build` sozinho não atualiza o ZIP.
 
-Ver [ROADMAP.md](ROADMAP.md) e [VALIDATION.md](VALIDATION.md) para o estado atual. Dados de domínio, hosting e aprovações empresariais continuam indisponíveis. As verificações de 11/09 e 14/09 abaixo são históricas.
+Ver [ROADMAP.md](ROADMAP.md) e [VALIDATION.md](VALIDATION.md) para o estado atual. Domínio informado em 24/09: `megabrasil.ind.br`; hosting e acessos ainda indisponíveis. As verificações anteriores abaixo são históricas.
 
 Consultar os [requisitos funcionais e não funcionais](REQUIREMENTS.md) para os critérios de aceitação, evidências e verificações pendentes. Este checklist deve ser preenchido para a versão que será publicada.
 
@@ -20,7 +20,7 @@ Consultar os [requisitos funcionais e não funcionais](REQUIREMENTS.md) para os 
 ## Processo de publicação
 
 1. Usar a versão aprovada da branch `main` e executar `npm ci`.
-2. Executar `npm run build`.
+2. Configurar `SITE_URL` com o domínio HTTPS aprovado e executar `npm run build`, testes e `npm run verify:site`.
 3. Publicar `dist/mega-brasil-web/browser`.
 4. Configurar o domínio e HTTPS.
 5. Configurar a página `404.html` com status HTTP 404 para URLs inexistentes. A navegação atual usa âncoras; não é necessário fallback de todas as URLs para `index.html`.
@@ -46,11 +46,11 @@ O pacote local `dist/mega-brasil-site.zip` contém os arquivos de produção na 
 3. Ativar HTTPS no provedor. Preservar registros de e-mail (MX/TXT) ao configurar o DNS.
 4. Conferir a página inicial, `#megashield`, os detalhes de P90/P120 e os links `/documents/memorial-descritivo-p90.pdf` e `/documents/memorial-descritivo-p120.pdf`.
 5. Testar o formulário e o retorno aos modelos. A navegação atual usa âncoras; não requer regras de reescrita para essas seções.
-6. Ao abrir o pedido no WhatsApp, verificar a etapa final dentro da tela de orçamento, com carrinho e formulário limpos. O botão “Voltar ao início” fecha essa etapa e retorna a `#inicio`, sem bandeja de orçamento. O envio deve ser confirmado no WhatsApp; o site não confirma entrega. A etapa final permite reabrir o mesmo pedido se a nova aba for bloqueada.
+6. Ao abrir o pedido no WhatsApp, verificar a etapa final dentro da tela de orçamento, com carrinho e formulário preservados até clicar em “Já enviei pelo WhatsApp · Concluir”. O botão “Voltar ao início” fecha essa etapa e retorna a `#inicio`, sem bandeja de orçamento. O envio deve ser confirmado no WhatsApp; o site não confirma entrega. A etapa final permite reabrir o mesmo pedido se a nova aba for bloqueada.
 
-O pacote considera instalação na raiz do domínio. Domínio, provedor, DNS e HTTPS ainda dependem dos dados da hospedagem; não estão configurados por este preparo.
+O pacote considera instalação na raiz do domínio. O SEO está preparado para `https://megabrasil.ind.br`; provedor, DNS e HTTPS dependem dos acessos e não foram configurados por este preparo.
 
-Verificação local em 14/09/2026: build de produção e 75 testes aprovados; marcadores P90/P120 ajustados à imagem, com revisão visual de P120 em desktop e celular. Essa verificação não substitui o teste no domínio após o upload.
+Verificação local em 22/09/2026: build aprovado e 103 testes aprovados. O build pode apresentar warning de orçamento CSS. A revisão visual usou navegador com viewports simulados de 390, 644, 768, 1440, 1920 e 3840 px; não substitui teste no domínio, em dispositivos físicos ou em navegadores de Smart TV.
 
 ## Checklist funcional
 

@@ -30,7 +30,7 @@ Os dados ficam em `src/app/app.ts` e as imagens em `src/assets/images/products`.
 
 O texto compartilhado está em `src/app/privacy-policy.component.ts`. Ele descreve formulário, WhatsApp, mapa e fontes externas com base no comportamento atual; não representa aprovação da empresa. A empresa ainda precisa confirmar o canal de atendimento aos titulares e suas práticas após receber as mensagens.
 
-O formulário solicita nome, telefone, e-mail, empresa e mensagem. Os dados são encaminhados ao WhatsApp e não são persistidos pela aplicação. A empresa deve aprovar a Política de Privacidade, a finalidade do tratamento e o canal para solicitações relacionadas à LGPD.
+O formulário solicita nome, telefone, e-mail, CNPJ, empresa e mensagem, além do consentimento. Os dados são encaminhados ao WhatsApp e não são persistidos em banco de dados pela aplicação. As configurações válidas do pedido são persistidas localmente no navegador para permitir recuperação após recarregar. A empresa deve aprovar a Política de Privacidade, a finalidade do tratamento e o canal para solicitações relacionadas à LGPD.
 
 ## Fluxo recomendado
 
@@ -44,6 +44,8 @@ O formulário solicita nome, telefone, e-mail, empresa e mensagem. Os dados são
 
 - P60: fora de produção no momento. Continua visível, mas não pode ser adicionada nem enviada no orçamento. Reativação exige aprovação comercial e alteração da lista de produtos disponíveis em `app.ts`.
 - P90 e P120: disponíveis para orçamento. PDFs originais em `public/documents/memorial-descritivo-p90.pdf` e `public/documents/memorial-descritivo-p120.pdf`, preservados sem alteração.
+- O configurador também oferece as medidas nominais `80 × 210 cm`, `90 × 210 cm` e `100 × 210 cm` para P90 e P120, além de outra medida sob consulta. Essas opções não substituem as medidas de vão livre dos memoriais.
+- O configurador lista 8 componentes em Dobradiças, Fechaduras, Molas aéreas e Barras antipânico. A seleção é uma solicitação sujeita à confirmação técnica, sem preços.
 - O botão “Ver ficha técnica (PDF)” de P90 e P120 abre diretamente o respectivo PDF em outra aba. “Ver detalhes e componentes” mantém a apresentação visual, sem o bloco de documentação técnica entre a porta e seus componentes.
 - Os memoriais MD 01, revisão 00, informam **classificação pretendida**. Não tratar esses documentos como certificados de resistência ao fogo do conjunto.
 - P90: projeto P 90_01/25, 01/02/2025. Vão de ensaio 210 × 90 cm (altura × largura); fabricação 209 × 84 cm. Núcleo de fibra cerâmica: 145 kg/m³.

@@ -1,6 +1,6 @@
 # Imágenes con IA y adaptación a pantallas grandes
 
-Fecha: 2026-09-18. Edición con la herramienta integrada ImageGen; originales conservados.
+Fecha: 2026-09-18. Edición con la herramienta integrada ImageGen; originales recuperables desde Git; versiones antiguas no utilizadas retiradas el 24/09/2026.
 
 ## Archivos finales
 

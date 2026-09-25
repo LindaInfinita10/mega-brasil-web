@@ -15,6 +15,7 @@ Esta Wiki é um ponto de entrada. A documentação detalhada é mantida no repos
 ## Instalação, conteúdo e entrega
 
 - [Visão geral e execução local](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/README.md)
+- [Estado atual do configurador MegaShield](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/DOOR-CONFIGURATOR.md)
 - [Conteúdo comercial e manutenção](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/CONTENT.md)
 - [SEO e configuração do domínio](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/SEO.md)
 - [Publicação, backup e reversão](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/DEPLOYMENT.md)
@@ -29,4 +30,7 @@ Consultar o [guia de contribuição](https://github.com/LindaInfinita10/mega-bra
 
 ## Escopo
 
-P90 e P120 disponíveis para orçamento; P60 visível como fora de produção. Pagamento, cadastro de clientes, estoque automático e banco de pedidos estão fora da primeira versão. O site prepara a mensagem; o visitante confirma seu envio no WhatsApp.
+P90 e P120 disponíveis para orçamento; P60 visível como fora de produção e desabilitado. O configurador oferece medidas nominais e 8 componentes sem preços, e o pedido é persistido localmente no navegador. Pagamento, cadastro de clientes, estoque automático e banco de pedidos estão fora da primeira versão. O site prepara a mensagem; o visitante confirma seu envio no WhatsApp.
+
+- [Regras de negócio](../BUSINESS-RULES.md)
+- [Dados de hospedagem para publicação](../HOSTING-HANDOFF.md)
