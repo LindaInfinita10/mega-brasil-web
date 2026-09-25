@@ -1242,7 +1242,7 @@ footer a {
 .catalog-contact-section { padding: 80px 0; background: #f3f2ee; color: #252729; }
 .contact-section-heading { display: grid; grid-template-columns: 1.15fr .85fr; gap: 60px; align-items: end; margin-bottom: 46px; }
 .contact-section-heading h2 { max-width: 780px; margin: 0; font-family: var(--font-display); font-size: clamp(48px, 5.5vw, 82px); line-height: .92; text-transform: uppercase; }
-.contact-section-heading > p { margin: 0 0 5px; color: #555; font-size: 18px; line-height: 1.6; }
+.contact-section-heading > div > p:not(.eyebrow) { margin: 0 0 5px; color: #555; font-size: 18px; line-height: 1.6; }
 .catalog-contact-layout { display: grid; grid-template-columns: 1.18fr .82fr; gap: 28px; align-items: start; }
 .contact-products-panel { padding: 28px; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.045); }
 .contact-products-title { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 22px; }
@@ -1586,7 +1586,7 @@ button, input, select, textarea { max-width: 100%; }
   .header-inner, .section-wrap, .hero-content, .empresa-content { width: min(1760px, calc(100% - 120px)); }
   .hero-text { max-width: 900px; }
   .hero h1 { font-size: clamp(80px, 5vw, 132px); }
-  .lead, .empresa-text p, .mega-heading p, .contact-section-heading > p { font-size: clamp(17px, 1.05vw, 24px); }
+  .lead, .empresa-text p, .mega-heading p, .contact-section-heading > div > p:not(.eyebrow) { font-size: clamp(17px, 1.05vw, 24px); }
   .site-header { height: clamp(88px, 5vw, 112px); }
   .hero-content { padding-top: clamp(88px, 5vw, 112px); }
   .door-config-fields, .door-cart-panel { padding: clamp(26px, 2vw, 42px); }
@@ -1645,3 +1645,9 @@ button, input, select, textarea { max-width: 100%; }
 
 
 @media (max-width: 620px) { .component-store-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Contact introduction. */
+.footer-company-details { flex-basis: 100%; width: 100%; margin: 0; line-height: 1.6; }
+.footer-company-details strong, .footer-company-details span { display: block; }
+.contact-section-heading { grid-template-columns: 1fr; }
+.contact-section-heading > div > p:not(.eyebrow) { margin: 20px 0 0; max-width: 760px; }

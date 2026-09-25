@@ -1,84 +1,49 @@
 # Publicação e entrega
 
-## Atualização de 22/09/2026
+Atualizado em 25/09/2026. Primeira publicação; não há site anterior a substituir. Domínio informado: https://megabrasil.ind.br. Hosting, DNS, HTTPS e aceites empresariais ainda pendentes.
 
-O build agora pré-renderiza a homepage e executa a geração SEO. Antes da publicação definitiva, configurar a variável `SITE_URL` com a origem HTTPS aprovada, conforme [SEO.md](SEO.md). Sem ela, o build é de revisão e mantém `noindex`.
+## Preparar a versão
 
-Após build, testes e `npm run verify:site`, executar `npm run package:release` para gerar o ZIP definitivo e seu manifesto SHA256. Para revisão sem domínio, usar `npm run package:release -- --preview`; o resultado é `dist/mega-brasil-preview.zip`, que não deve ser confundido com o pacote definitivo. `npm run build` sozinho não atualiza o ZIP.
+Código segue develop → revisão/testes → main. Guardar o commit aprovado e executar na raiz, em PowerShell:
 
-Ver [ROADMAP.md](ROADMAP.md) e [VALIDATION.md](VALIDATION.md) para o estado atual. Domínio informado em 24/09: `megabrasil.ind.br`; hosting e acessos ainda indisponíveis. As verificações anteriores abaixo são históricas.
+```powershell
+npm ci
+npm test -- --watch=false
+npm run test:seo
+$env:SITE_URL = 'https://megabrasil.ind.br'
+npm run build
+npm run verify:site
+npm run package:release
+```
 
-Consultar os [requisitos funcionais e não funcionais](REQUIREMENTS.md) para os critérios de aceitação, evidências e verificações pendentes. Este checklist deve ser preenchido para a versão que será publicada.
+Interromper se qualquer comando falhar. Gerar o pacote após o commit, com árvore limpa, para o manifesto identificar a versão. Build sozinho não atualiza ZIP. Sem SITE_URL o resultado é revisão/noindex.
 
-## Pré-requisitos
+Validação local: 113 testes Angular, 3 SEO, build e 30 recursos verificados. Warning CSS de 48 kB ante limite de aviso de 45 kB, abaixo do limite de erro de 50 kB. Ver [VALIDATION.md](VALIDATION.md).
 
-- Domínio e provedor de DNS confirmados.
-- Hospedagem definida.
-- Dados comerciais e textos legais aprovados.
-- Acesso autorizado ao DNS, sem salvar senhas no repositório.
+## Upload manual
 
-## Processo de publicação
+1. Confirmar pasta pública do domínio com o provedor (exemplo: public_html).
+2. Extrair **o conteúdo** de dist/mega-brasil-site.zip nessa pasta. Alternativamente copiar **todos os arquivos e subpastas dentro de** dist/mega-brasil-web/browser.
+3. index.html deve ficar diretamente na pasta pública, sem uma pasta browser intermediária.
+4. Ativar HTTPS e redirecionamento HTTP/www para a origem oficial. Alterar somente DNS necessário ao site; preservar registros de e-mail.
+5. Configurar 404.html com status HTTP 404 para endereços inexistentes. As seções usam âncoras e não precisam de fallback universal.
+6. Guardar ZIP e manifesto SHA256 desta publicação. Nas próximas atualizações, guardar também a versão anterior para restauração.
 
-1. Usar a versão aprovada da branch `main` e executar `npm ci`.
-2. Configurar `SITE_URL` com o domínio HTTPS aprovado e executar `npm run build`, testes e `npm run verify:site`.
-3. Publicar `dist/mega-brasil-web/browser`.
-4. Configurar o domínio e HTTPS.
-5. Configurar a página `404.html` com status HTTP 404 para URLs inexistentes. A navegação atual usa âncoras; não é necessário fallback de todas as URLs para `index.html`.
+Não publicar node_modules, .git, código-fonte ou documentos internos. Não usar ng serve em produção. O site é estático, sem banco de dados ou Node no hosting. Instalação em subpasta requer revisão de caminhos e base URL.
 
-## Configuração do provedor
+## Testes após publicação
 
-- Branch de produção: `main`. Continuar o desenvolvimento em `develop` e integrar somente versões revisadas.
-- Diretório do projeto: raiz do repositório.
-- Instalação: `npm ci`.
-- Build: `npm run build`.
-- Diretório a publicar: `dist/mega-brasil-web/browser`.
-- Hospedagem estática; não executar `ng serve` em produção nem publicar `node_modules` ou a pasta `.git`.
-- A configuração atual considera o site na raiz do domínio. Publicação em subpasta exige revisar os caminhos das imagens e a base da aplicação.
+- [ ] HTTPS, origem preferida, respostas 200/404 e imagens/PDFs.
+- [ ] Chrome, Edge, celular físico; telas de 360, 768, 1366, 1920, 2560 e 3840 px conforme matriz acordada.
+- [ ] Menu Contato chega à seção de contatos; telefone, mapa, redes e e-mail.
+- [ ] Montar pedido P90/P120, editar/remover e validar consentimento.
+- [ ] Encaminhar ao WhatsApp: carrinho e formulário limpam imediatamente; confirmar envio no WhatsApp e recebimento com o comercial. A página não detecta entrega.
+- [ ] Reabrir mensagem pela etapa final, concluir, voltar e recarregar: carrinho vazio.
+- [ ] Canonical, robots, sitemap e dados estruturados no domínio; verificar Search Console.
+- [ ] Registrar data, commit, aprovador e responsável por suporte em [OWNER-HANDOFF.md](OWNER-HANDOFF.md).
 
-A presença da branch `main` no GitHub não publica o site automaticamente. O provedor e o domínio ainda precisam ser configurados, e as verificações manuais abaixo continuam pendentes até seu registro.
+## Restauração
 
-## Upload manual no domínio
+Guardar pacote, manifesto e commit em local controlado pela empresa. Em falha de atualização, republicar o último pacote aprovado e repetir o smoke test. Como esta é a primeira publicação, ainda não existe versão anterior em produção. Testar o procedimento com o provedor antes de considerar LAN-07 concluída.
 
-O pacote local `dist/mega-brasil-site.zip` contém os arquivos de produção na raiz do ZIP, incluindo imagens e os dois PDFs. Ele é gerado após o build e não é versionado no Git.
-
-1. Fazer backup dos arquivos existentes na pasta pública do domínio.
-2. Enviar e extrair o ZIP na pasta pública indicada pelo provedor (por exemplo, `public_html`). O `index.html` deve ficar diretamente nessa pasta, sem uma pasta `browser` intermediária.
-3. Ativar HTTPS no provedor. Preservar registros de e-mail (MX/TXT) ao configurar o DNS.
-4. Conferir a página inicial, `#megashield`, os detalhes de P90/P120 e os links `/documents/memorial-descritivo-p90.pdf` e `/documents/memorial-descritivo-p120.pdf`.
-5. Testar o formulário e o retorno aos modelos. A navegação atual usa âncoras; não requer regras de reescrita para essas seções.
-6. Ao abrir o pedido no WhatsApp, verificar a etapa final dentro da tela de orçamento, com carrinho e formulário preservados até clicar em “Já enviei pelo WhatsApp · Concluir”. O botão “Voltar ao início” fecha essa etapa e retorna a `#inicio`, sem bandeja de orçamento. O envio deve ser confirmado no WhatsApp; o site não confirma entrega. A etapa final permite reabrir o mesmo pedido se a nova aba for bloqueada.
-
-O pacote considera instalação na raiz do domínio. O SEO está preparado para `https://megabrasil.ind.br`; provedor, DNS e HTTPS dependem dos acessos e não foram configurados por este preparo.
-
-Verificação local em 22/09/2026: build aprovado e 103 testes aprovados. O build pode apresentar warning de orçamento CSS. A revisão visual usou navegador com viewports simulados de 390, 644, 768, 1440, 1920 e 3840 px; não substitui teste no domínio, em dispositivos físicos ou em navegadores de Smart TV.
-
-## Checklist funcional
-
-- [ ] Build concluído sem erros.
-- [ ] Produtos e especificações aprovados.
-- [ ] Formulário e consentimento testados.
-- [ ] Mensagem recebida no WhatsApp correto.
-- [ ] Telefone, e-mail, redes sociais e mapas testados.
-- [ ] Navegação e botões de retorno testados.
-- [ ] Política de Privacidade aprovada.
-
-## Telas para validação
-
-- 360 × 800 — celular.
-- 768 × 1024 — tablet.
-- 1366 × 768 — notebook.
-- 1920 × 1080 — Full HD.
-- 2560 × 1440 — QHD.
-- 3840 × 2160 — televisão 4K.
-
-## Pós-publicação
-
-- [ ] Verificar HTTPS e domínio.
-- [ ] Confirmar carregamento de imagens e mapa.
-- [ ] Testar Chrome, Edge e navegador móvel.
-- [ ] Cadastrar o domínio no Google Search Console.
-- [ ] Enviar o sitemap quando disponível.
-
-## Segurança e reversão
-
-Nunca salvar senhas ou tokens no Git. Antes de publicar, criar um commit estável. Se houver problema, republicar o último commit aprovado.
+A documentação e o build não comprovam publicação ou aprovação empresarial. Pendências em [BACKLOG.md](BACKLOG.md).

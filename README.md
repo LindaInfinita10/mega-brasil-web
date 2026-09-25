@@ -7,7 +7,7 @@ Site institucional e catálogo comercial desenvolvido em Angular para apresentar
 - Configurador MegaShield P90/P120; P60 visível e indisponível para orçamento.
 - Medidas nominais de catálogo, medida sob consulta e controle de quantidade.
 - Seleção individual dos 8 componentes do configurador, sem preços.
-- Lista do pedido com edição, remoção, agrupamento e persistência local.
+- Lista do pedido com edição, remoção e agrupamento; inicia vazia e é reiniciada ao abrir WhatsApp.
 - Formulário comercial com consentimento para tratamento de dados.
 - Geração do pedido para o WhatsApp comercial.
 - Mapa, endereços, redes sociais e canais de atendimento.
@@ -74,7 +74,7 @@ src/
 3. Informa seus dados e aceita o tratamento de dados.
 4. A aplicação abre o WhatsApp comercial com o pedido preenchido.
 
-O site não armazena os dados do formulário em banco de dados. As linhas válidas do pedido são persistidas localmente no navegador para sobreviver a recarregamentos.
+O site não armazena os dados do formulário em banco de dados. O carrinho existe somente em memória: abrir ou recarregar inicia em zero, inclusive pedidos ainda não enviados.
 
 ## Documentação
 
@@ -100,3 +100,6 @@ Desenvolvido por Pilar Molina.
 
 - [Regras de negócio](docs/BUSINESS-RULES.md)
 - [Dados de hospedagem para publicação](docs/HOSTING-HANDOFF.md)
+
+- [Entrega ao proprietário após publicação](docs/OWNER-HANDOFF.md)
+- [Instruções simples de upload](ENTREGA-HOSTING.md)

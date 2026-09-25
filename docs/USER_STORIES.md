@@ -1,6 +1,6 @@
 # Histórias de usuário
 
-Escopo: primeira publicação do site institucional Mega Brasil. Estas histórias descrevem funcionalidades existentes e seus aceites; não são um histórico fictício de entregas. Evidência técnica de referência: commit `523333b`, [VALIDATION.md](VALIDATION.md).
+Escopo: primeira publicação do site institucional Mega Brasil. Estas histórias descrevem funcionalidades existentes e seus aceites; não são um histórico fictício de entregas. Evidência técnica de referência: revisão de 25/09/2026, [VALIDATION.md](VALIDATION.md).
 
 **Implementada** significa presente no código. **Testada localmente** não significa aprovada pela empresa nem validada no domínio. As issues de lançamento registram o trabalho restante, conforme [BACKLOG.md](BACKLOG.md).
 
@@ -32,7 +32,7 @@ Estado: implementada e regras testadas localmente. Aceite final do fluxo em disp
 
 Como solicitante, quero informar meus dados e entender seu uso para autorizar conscientemente o atendimento comercial.
 
-Critérios: nome, telefone e e-mail válidos; erros compreensíveis; empresa/mensagem opcionais conforme REQUIREMENTS.md; mesma política acessível nos dois formulários; envio bloqueado sem consentimento.
+Critérios: nome, telefone e e-mail válidos; erros compreensíveis; empresa/mensagem opcionais conforme REQUIREMENTS.md; política acessível no checkout e na seção de contato; envio bloqueado sem consentimento.
 
 Estado: validação, política compartilhada e bloqueios implementados/testados; aprovação empresarial da política pendente. Requisitos: RF-05/RF-06/RNF-06. Acompanhamento: LAN-03/LAN-04/LAN-05.
 
@@ -42,7 +42,7 @@ Como cliente, quero abrir no WhatsApp uma mensagem com meus produtos e dados par
 
 Critérios: número oficial confirmado; mensagem preserva itens, quantidades, acentos e observações; visitante confirma envio no WhatsApp; site não afirma entrega; permite reabrir o pedido e voltar ao início.
 
-Estado: preparação e conclusão testadas com abertura simulada. Recebimento real ainda não comprovado. Requisito: RF-07. Acompanhamento: LAN-05.
+Estado: preparação e conclusão testadas automaticamente; mensagem P90 observada como Entregado em 25/09/2026, às 11:05. Carrinho reiniciado e sem recuperação entre visitas. Requisito: RF-07. Acompanhamento: LAN-05.
 
 ## HU-06 — Navegar em diferentes dispositivos
 

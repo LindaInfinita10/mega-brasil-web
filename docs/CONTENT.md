@@ -30,7 +30,7 @@ Os dados ficam em `src/app/app.ts` e as imagens em `src/assets/images/products`.
 
 O texto compartilhado está em `src/app/privacy-policy.component.ts`. Ele descreve formulário, WhatsApp, mapa e fontes externas com base no comportamento atual; não representa aprovação da empresa. A empresa ainda precisa confirmar o canal de atendimento aos titulares e suas práticas após receber as mensagens.
 
-O formulário solicita nome, telefone, e-mail, CNPJ, empresa e mensagem, além do consentimento. Os dados são encaminhados ao WhatsApp e não são persistidos em banco de dados pela aplicação. As configurações válidas do pedido são persistidas localmente no navegador para permitir recuperação após recarregar. A empresa deve aprovar a Política de Privacidade, a finalidade do tratamento e o canal para solicitações relacionadas à LGPD.
+O formulário solicita nome, telefone, e-mail, CNPJ, empresa e mensagem, além do consentimento. Os dados são encaminhados ao WhatsApp e não são persistidos em banco de dados pela aplicação. O carrinho não é persistido: abrir ou recarregar o site inicia um pedido vazio. A empresa deve aprovar a Política de Privacidade, a finalidade do tratamento e o canal para solicitações relacionadas à LGPD.
 
 ## Fluxo recomendado
 
@@ -56,3 +56,7 @@ O formulário solicita nome, telefone, e-mail, CNPJ, empresa e mensagem, além d
 ### Pontos a confirmar com a equipe técnica
 
 Os PDFs recebidos têm duas páginas cada e citam desenhos anexos que não estão incluídos. Confirmar esses desenhos, as dimensões finais de instalação e eventuais opções de acessórios. No P120, a seção 04 traz a designação 27x1000x2100 mm e também espessura nominal de 50 mm; confirmar a composição do isolante. A massa na seção 08 está em branco, por isso o resumo usa o valor da seção 03a com sua origem identificada. A documentação não especifica barra antipânico nem vedação intumescente: não prometer esses itens com base nas ilustrações.
+
+## Identificação empresarial — 25/09/2026
+
+Footer: Mega Brasil Industria Contra Incendio LTDA — CNPJ 33.113.651/0001-47. O site https://www.megabrasil.net/ confirma a matriz na Rua Teixeira de Souza, 116, Duque de Caxias. O CNPJ não aparece no conteúdo consultado do site anterior; foi encontrado em https://casadosdados.com.br/solucao/cnpj/mega-brasil-industria-contra-incendio-ltda-33113651000147 e corroborado por https://cnpj.biz/33113651000147, com nome, endereço e domínio de e-mail correspondentes. Não foi emitido comprovante oficial da Receita Federal.

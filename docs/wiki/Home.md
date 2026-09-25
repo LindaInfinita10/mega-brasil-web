@@ -30,7 +30,9 @@ Consultar o [guia de contribuição](https://github.com/LindaInfinita10/mega-bra
 
 ## Escopo
 
-P90 e P120 disponíveis para orçamento; P60 visível como fora de produção e desabilitado. O configurador oferece medidas nominais e 8 componentes sem preços, e o pedido é persistido localmente no navegador. Pagamento, cadastro de clientes, estoque automático e banco de pedidos estão fora da primeira versão. O site prepara a mensagem; o visitante confirma seu envio no WhatsApp.
+P90 e P120 disponíveis para orçamento; P60 visível como fora de produção e desabilitado. O configurador oferece medidas nominais e 8 componentes sem preços, e o pedido fica somente em memória e é reiniciado ao recarregar ou abrir WhatsApp. Pagamento, cadastro de clientes, estoque automático e banco de pedidos estão fora da primeira versão. O site prepara a mensagem; o visitante confirma seu envio no WhatsApp.
 
 - [Regras de negócio](../BUSINESS-RULES.md)
 - [Dados de hospedagem para publicação](../HOSTING-HANDOFF.md)
+
+- [Entrega ao proprietário](../OWNER-HANDOFF.md)

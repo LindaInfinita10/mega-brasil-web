@@ -1,6 +1,15 @@
 # Histórico de alterações
 
-## Em desenvolvimento
+## Candidato à publicação — 25/09/2026
+
+- Carrinho sem persistência, limpeza de dados legados e reset ao abrir WhatsApp/concluir.
+- Correção de contato no menu e recriação de pedido removido; estado inicial explicitamente vazio.
+- Texto comercial abaixo do título, referências legais oficiais e CNPJ no footer.
+- Teste real de WhatsApp entregue, 113 regressões e pacote de produção verificável.
+- Documentação de primeira publicação, acessos e entrega ao proprietário atualizada.
+- Hosting, aceite empresarial e verificações no domínio seguem pendentes.
+
+## Histórico anterior
 
 ### Preparação de lançamento — 16/09/2026
 

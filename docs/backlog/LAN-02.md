@@ -1,5 +1,3 @@
-# [LAN-02] Aprovar conteúdo comercial e especificações dos produtos
-
 ## Objetivo
 
 Como visitante, quero consultar informações corretas da empresa e dos modelos disponíveis para escolher um produto e um canal de atendimento confiável.
@@ -15,7 +13,7 @@ Os textos foram ajustados tecnicamente, mas não há aprovação empresarial reg
 
 ## Critérios de aceite
 
-- [ ] Confirmar telefone, WhatsApp, e-mail, três endereços e perfis sociais oficiais.
+- [ ] Confirmar razão social, CNPJ 33.113.651/0001-47, telefone, WhatsApp, e-mail, três endereços e perfis sociais oficiais.
 - [ ] Aprovar textos institucionais, imagens e a alegação de credenciamento CBMERJ.
 - [ ] Confirmar P90/P120 disponíveis, P60 fora de produção e demais produtos ocultos.
 - [ ] Revisar dimensões, isolante P120, acessórios e desenhos ausentes indicados em CONTENT.md.

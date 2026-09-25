@@ -1,12 +1,10 @@
-# [LAN-01] Confirmar domínio, hospedagem e acesso técnico
-
 ## Objetivo
 
 Como responsável pela publicação, quero conhecer o domínio e a hospedagem existentes para instalar o site sem afetar os serviços da empresa.
 
 ## Estado atual
 
-O usuário ainda não dispõe dos dados. Não contratar nem alterar serviços antes da confirmação.
+Domínio informado: https://megabrasil.ind.br. Primeira publicação, sem site anterior a substituir. Hosting, acesso delegado e administrador DNS ainda pendentes.
 
 ## Prioridade e responsável
 
@@ -15,10 +13,10 @@ O usuário ainda não dispõe dos dados. Não contratar nem alterar serviços an
 
 ## Critérios de aceite
 
-- [ ] Confirmar domínio definitivo e variante oficial com ou sem www.
+- [x] Domínio informado para o build: https://megabrasil.ind.br; configurar variante www no provedor.
 - [ ] Identificar provedor de hosting, administrador e pasta de publicação.
 - [ ] Coordenar acesso por convite ou canal seguro; não registrar senhas/tokens nesta issue.
-- [ ] Identificar site existente, registros de e-mail MX/TXT e procedimento para preservá-los.
+- [ ] Identificar registros de e-mail MX/TXT e procedimento para preservá-los.
 - [ ] Registrar responsável técnico e disponibilidade para configurar DNS/HTTPS.
 
 ## Referências

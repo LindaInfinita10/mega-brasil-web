@@ -36,7 +36,7 @@ Após a seleção, a área “Lista do pedido” mostra o modelo, dimensão, qua
 
 “Finalizar pedido” salva diretamente a configuração e abre a revisão, sem botão intermediário “Adicionar ao orçamento”. A revisão oferece “Adicionar outra porta” para incluir outra configuração. Configurações iguais são agrupadas e somam a quantidade; configurações com modelo, medida ou componentes diferentes permanecem como linhas distintas. A lista permite editar ou remover cada linha. Não são exibidos preços, subtotais, totais monetários ou recargos.
 
-O pedido é persistido em `localStorage` sob a chave `mega-brasil-cart` e restaurado ao recarregar quando os dados continuam válidos. A quantidade é atualizada pelos controles do pedido.
+O pedido existe somente em memória durante a visita. Ao abrir ou recarregar a página, começa vazio; a antiga chave `mega-brasil-cart` é removida e nunca lida. Ao abrir a solicitação no WhatsApp, carrinho, formulário e configuração são reiniciados. A quantidade é atualizada pelos controles do pedido.
 
 ### Dados do pedido
 

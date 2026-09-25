@@ -1,5 +1,3 @@
-# [LAN-03] Aprovar a política de privacidade compartilhada
-
 ## Objetivo
 
 Como solicitante de orçamento, quero entender como meus dados são usados antes de autorizar o contato comercial.
@@ -18,7 +16,7 @@ Componente único e bloqueio de consentimento implementados. A revisão de códi
 - [ ] Revisar o texto de src/app/privacy-policy.component.ts e confirmar que corresponde às práticas da empresa.
 - [ ] Confirmar finalidade, canal de solicitações, práticas de guarda/exclusão e atendimento após receber mensagens.
 - [ ] Revisar os serviços externos citados: WhatsApp, Google Maps e Google Fonts.
-- [ ] Confirmar que ambos os formulários e o rodapé oferecem acesso à mesma política.
+- [ ] Confirmar que o checkout único e o rodapé oferecem acesso à mesma política.
 - [ ] Registrar aprovação ou correções e revalidar o bloqueio de envio sem consentimento.
 
 ## Referências

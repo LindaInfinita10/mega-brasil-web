@@ -1,12 +1,10 @@
-# [LAN-04] Concluir aceite em navegadores, dispositivos e acessibilidade
-
 ## Objetivo
 
 Como visitante em celular ou computador, quero navegar e montar meu orçamento sem barreiras de layout ou interação.
 
 ## Estado atual
 
-Há 82 testes Angular e verificação local em navegador integrado; isso não substitui a matriz de dispositivos reais.
+Reaberta em 25/09/2026: 113 testes Angular aprovados e verificações locais no navegador integrado; faltam evidências da matriz física, leitor de tela e desempenho no hosting. Ver docs/VALIDATION.md.
 
 ## Prioridade e responsável
 
@@ -16,7 +14,7 @@ Há 82 testes Angular e verificação local em navegador integrado; isso não su
 ## Critérios de aceite
 
 - [ ] Acordar e registrar navegadores/dispositivos; executar Chrome, Edge e celulares reais escolhidos.
-- [ ] Revisar as seis resoluções de DEPLOYMENT.md e os dois formulários, fichas, menu, quantidades e retornos.
+- [ ] Revisar resoluções de celular, tablet e desktop (incluindo 4K) e o checkout único, fichas, menu, quantidades e retornos.
 - [ ] Verificar teclado, foco, leitor de tela, contraste, erros e preferência de movimento reduzido.
 - [ ] Avaliar o botão Voltar do navegador; registrar decisão sobre os painéis sem rotas próprias e corrigir se necessário.
 - [ ] Testar destinos oficiais de mapas, telefone, e-mail e redes após aprovação dos dados.

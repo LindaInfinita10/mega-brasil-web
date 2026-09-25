@@ -28,13 +28,15 @@ describe('Quote submission', () => {
     app['quotePage'].set(true);
     document.body.classList.add('quote-open');
     app['sendQuote']();
-    expect(app['selectedCount']()).toBe(1);
+    expect(app['selectedCount']()).toBe(0);
+    expect(localStorage.getItem('mega-brasil-cart')).toBeNull();
+    expect(TestBed.createComponent(App).componentInstance['selectedCount']()).toBe(0);
     expect(app['quotePage']()).toBe(true);
     expect(document.body.classList.contains('quote-open')).toBe(true);
     expect(window.location.hash).not.toBe('#inicio');
     expect(window.scrollTo).not.toHaveBeenCalled();
-    expect(app['form'].name).toContain('João');
-    expect(app['form'].consent).toBe(true);
+    expect(app['form'].name).toBe('');
+    expect(app['form'].consent).toBe(false);
     expect(app['feedback']()).toContain('Confirme o envio');
     expect(app['quoteWhatsappUrl']()).toBe(open.mock.calls[0][0]);
     app['sendQuote']();
@@ -83,6 +85,31 @@ describe('Quote submission', () => {
     expect(window.scrollTo).not.toHaveBeenCalled();
   });
 
+  it('starts empty even when a previous version left a valid order in storage', () => {
+    localStorage.setItem('mega-brasil-cart', JSON.stringify(app['cart']()));
+    const fresh = TestBed.createComponent(App).componentInstance;
+    expect(fresh['selectedCount']()).toBe(0);
+    expect(localStorage.getItem('mega-brasil-cart')).toBeNull();
+    expect(fresh['draft'].components).toEqual([]);
+  });
+
+  it('never restores an old order even when legacy storage cannot be removed', () => {
+    localStorage.setItem('mega-brasil-cart', JSON.stringify(app['cart']()));
+    vi.spyOn(Storage.prototype, 'removeItem').mockImplementation(() => { throw new Error('Storage unavailable'); });
+    const fresh = TestBed.createComponent(App).componentInstance;
+    expect(fresh['selectedCount']()).toBe(0);
+    app['sendQuote']();
+    expect(app['selectedCount']()).toBe(0);
+    expect(app['form'].name).toBe('');
+  });
+
+  it('clears a page restored from the browser back-forward cache', () => {
+    app['resetRestoredPage']({ persisted: true } as PageTransitionEvent);
+    expect(app['selectedCount']()).toBe(0);
+    expect(app['form'].name).toBe('');
+    expect(app['quotePage']()).toBe(false);
+  });
+
   it.each([
     ['name', '   '], ['name', 'João123'], ['name', '<script>'],
     ['phone', 'abcdefghijk'], ['phone', '123'],
@@ -98,6 +125,12 @@ describe('Quote submission', () => {
   });
   it('blocks an empty cart', () => {
     app['cart'].set([]); app['sendQuote'](); expect(open).not.toHaveBeenCalled();
+  });
+  it('can finalize the same configuration after removing its saved cart item', () => {
+    app['removeDoor'](app['itemKey'](app['cart']()[0]));
+    app['finalizeOrder']();
+    expect(app['selectedCount']()).toBe(1);
+    expect(app['quotePage']()).toBe(true);
   });
   it('preserves accents, punctuation and line breaks in the encoded WhatsApp message', () => {
     addDoor(app, 'P90'); addDoor(app, 'P120'); app['sendQuote']();
@@ -123,6 +156,7 @@ describe('Quote submission', () => {
     app['changeDoorModel']('P120');
     app['changeDoorNominalSize']('100x210');
     app['draft'].components = DOOR_COMPONENT_OPTIONS.map(option => option.label);
+    const customer = { ...app['form'] };
     app['draft'].quantity = 12;
     app['finalizeOrder']();
     app['sendQuote']();
@@ -130,12 +164,16 @@ describe('Quote submission', () => {
     expect(text).toContain('*MegaShield P120*\nQuantidade: 12 unidade(s)');
     expect(text).toContain('100 × 210 cm');
     for (const option of DOOR_COMPONENT_OPTIONS) expect(text).toContain(`• ${option.label}`);
-    for (const value of [app['form'].name, app['form'].cnpj, app['form'].phone, app['form'].email, app['form'].company, app['form'].budget]) expect(text).toContain(value);
+    for (const value of [customer.name, customer.cnpj, customer.phone, customer.email, customer.company, customer.budget]) expect(text).toContain(value);
     expect(app['feedback']()).not.toContain('enviado com sucesso');
-    expect(JSON.parse(localStorage.getItem('mega-brasil-cart')!)[0].quantity).toBe(12);
+    expect(localStorage.getItem('mega-brasil-cart')).toBeNull();
+    expect(app['draft'].model).toBe('P90');
+    expect(app['draft'].width).toBe(80);
+    expect(app['draft'].quantity).toBe(1);
+    expect(app['editingKey']).toBeNull();
     app['confirmWhatsappSent']();
     expect(window.location.hash).toBe('#inicio');
-    expect(JSON.parse(localStorage.getItem('mega-brasil-cart')!)).toEqual([]);
+    expect(localStorage.getItem('mega-brasil-cart')).toBeNull();
   });
   it.each([0, -1, 1.5, NaN, Infinity])('blocks corrupt cart quantity %s', quantity => {
     app['cart'].set([{ name: 'MegaShield P90', quantity }]); app['sendQuote']();

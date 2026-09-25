@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, ElementRef, QueryList, ViewChild, ViewChildren, signal } from '@angular/core';
+import { Component, ElementRef, HostListener, QueryList, ViewChild, ViewChildren, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { QuoteFieldDirective } from './quote-field.directive';
 import { PanelFocusDirective } from './panel-focus.directive';
@@ -26,6 +26,7 @@ export class App {
   }
 
   protected finishQuote(): void {
+    this.resetOrder();
     this.closeQuotePage();
     window.history.replaceState(null, '', '#inicio');
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -46,7 +47,8 @@ export class App {
     deadline: '',
     consent: false,
   };
-  protected cart = signal<CartItem[]>(this.restoreCart());
+  protected cart = signal<CartItem[]>([]);
+  protected readonly configurationStarted = signal(false);
   protected readonly doorSizes = DOOR_SIZES;
   protected readonly nominalSizes = DOOR_SIZES.P90;
   protected readonly componentGroups = COMPONENT_GROUPS;
@@ -73,15 +75,22 @@ export class App {
   private lastSavedDraft: { key: string; quantity: number } | null = null;
   protected cartNotice = signal('');
 
-  private restoreCart(): CartItem[] {
-    if (typeof localStorage === 'undefined') return [];
-    try {
-      const saved: unknown = JSON.parse(localStorage.getItem('mega-brasil-cart') || '[]');
-      return Array.isArray(saved) ? saved.filter((item): item is CartItem => validConfiguration((item as CartItem).configuration) && Number.isSafeInteger((item as CartItem).quantity) && (item as CartItem).quantity > 0 && (item as CartItem).quantity <= 999) : [];
-    } catch { return []; }
+  constructor() {
+    this.clearLegacyCart();
   }
-  private persistCart(): void {
-    if (typeof localStorage !== 'undefined') localStorage.setItem('mega-brasil-cart', JSON.stringify(this.cart()));
+
+  private clearLegacyCart(): void {
+    try {
+      if (typeof localStorage !== 'undefined') localStorage.removeItem('mega-brasil-cart');
+    } catch { /* Legacy storage is never read, even if the browser prevents removal. */ }
+  }
+
+  @HostListener('window:pageshow', ['$event'])
+  protected resetRestoredPage(event: PageTransitionEvent): void {
+    if (event.persisted) {
+      this.resetOrder();
+      this.closeQuotePage();
+    }
   }
 
   protected selectDoorType(type: DoorActuation): void {
@@ -134,7 +143,6 @@ export class App {
     if (match && match.quantity + quantity > 999) { this.cartNotice.set('Limite de 999 unidades por configuração.'); return; }
     this.dismissFeedback();
     this.cart.set(match ? remaining.map(row => row === match ? { ...row, quantity: row.quantity + quantity } : row) : [...remaining, item]);
-    this.persistCart();
     this.cartNotice.set(this.editingKey ? 'Configuração atualizada no carrinho.' : 'Porta adicionada. Configure outra porta ou finalize seu orçamento.');
     this.lastSavedDraft = { key: itemKey(item), quantity };
     this.editingKey = null;
@@ -152,7 +160,6 @@ export class App {
   protected cancelDoorEdit(): void { this.editingKey = null; this.cartNotice.set(''); }
   protected removeDoor(key: string): void {
     this.cart.set(this.cart().filter(item => itemKey(item) !== key));
-    this.persistCart();
     if (this.editingKey === key) this.cancelDoorEdit();
   }
   protected toggleComponentGroup(type: DoorActuation, group: string): void {
@@ -198,6 +205,15 @@ export class App {
 
   protected closeMobileMenu(): void {
     this.mobileMenuOpen.set(false);
+  }
+  protected goToContact(event: Event): void {
+    event.preventDefault();
+    this.closeMobileMenu();
+    this.closeQuotePage();
+    window.setTimeout(() => {
+      window.history.replaceState(null, '', '#contato');
+      document.getElementById('contato')?.scrollIntoView({ behavior: 'instant', block: 'start' });
+    });
   }
   protected readonly allContactProducts = [
     { name: 'MegaShield P60', title: 'Porta corta-fogo · 60 min', image: '/assets/images/hero/megashield-macaneta-sem-placa.webp' },
@@ -246,7 +262,7 @@ export class App {
     if (!this.draftValid()) return;
     const { quantity, actuation: _actuation, hardware: _hardware, ...configuration } = this.draft;
     const key = itemKey({ name: `MegaShield ${configuration.model}`, quantity, configuration });
-    if (!this.editingKey && this.lastSavedDraft?.key === key) {
+    if (!this.editingKey && this.lastSavedDraft?.key === key && this.cart().some(item => itemKey(item) === key)) {
       if (this.lastSavedDraft.quantity !== quantity) {
         const existing = this.cart().find(item => itemKey(item) === key);
         if (existing) this.editingKey = key;
@@ -260,17 +276,26 @@ export class App {
     if (this.editingKey || !this.cart().some(item => itemKey(item) === key)) return;
     this.openQuotePage();
   }
-  protected confirmWhatsappSent(): void {
-    if (!this.quoteWhatsappUrl()) return;
+  private resetOrder(): void {
     this.cart.set([]);
+    this.configurationStarted.set(false);
     this.lastSavedDraft = null;
-    this.persistCart();
-    this.draft.components = [];
-    this.draft.quantity = 1;
+    this.clearLegacyCart();
+    this.editingKey = null;
+    this.cartNotice.set('');
+    this.openGroups = { manual: {}, 'panic-bar': {} };
+    for (const type of this.doorTypes) {
+      this.drafts[type] = { model: 'P90', actuation: type, size: 'nominal', width: 80, height: 210, hardware: '', components: [...DEFAULT_COMPONENTS], quantity: 1 };
+    }
+    this.selectDoorType('manual');
     this.form = { name: '', company: '', cnpj: '', phone: '', email: '', budget: '', deadline: '', consent: false };
     this.quoteForms?.forEach(form => {
       if (form.controls['contactName'] || form.controls['quoteName']) form.resetForm(this.form);
     });
+  }
+
+  protected confirmWhatsappSent(): void {
+    if (!this.quoteWhatsappUrl()) return;
     this.finishQuote();
     this.feedback.set('Envio confirmado por você. Seu pedido foi enviado pelo WhatsApp. Obrigado!');
   }
@@ -312,7 +337,6 @@ export class App {
           : [itemKey(item) === name ? { ...item, quantity: item.quantity + amount } : item],
       ),
     );
-    this.persistCart();
   }
   protected sendQuote(): void {
     if (this.quoteWhatsappUrl()) return;
@@ -329,6 +353,7 @@ export class App {
       return;
     }
     this.quoteWhatsappUrl.set(url);
+    this.resetOrder();
     this.feedback.set('Pedido preparado. Confirme o envio no WhatsApp.');
     this.closeMobileMenu();
     this.quotePage.set(true);

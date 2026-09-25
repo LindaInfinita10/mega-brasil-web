@@ -8,11 +8,11 @@
 - Finalizar pedido salva a seleção e abre a revisão. Não existe botão intermediário Adicionar ao orçamento. Adicionar outra porta inicia uma nova seleção; configurações iguais somam quantidades. Editar substitui a linha e agrega a outra se a configuração resultante coincidir. Remover exclui a linha.
 - A lista, a revisão final e a mensagem usam os mesmos itens salvos, dimensões, componentes e quantidades. Não acrescentar acabamento, galvanização ou pintura.
 - Alterar somente a quantidade da última configuração salva e finalizar atualiza a linha. Finalizar novamente sem alterações não duplica o pedido. Uma linha removida não é restaurada por finalizar.
-- Carrinho persiste no navegador; dados inválidos ou opções retiradas não são restaurados. Não há banco de pedidos, pagamento, preços ou estoque.
+- Carrinho somente em memória: cada abertura ou recarga começa vazia. Pedidos antigos em localStorage são removidos e nunca restaurados. Não há banco de pedidos, pagamento, preços ou estoque.
 - Revisão do carrinho e dados do cliente ficam na finalização. Contato apresenta canais comerciais e localização.
 - Links “Solicitar orçamento” levam a MegaShield. Contato permanece acessível pela navegação própria.
 - Nome, telefone, e-mail e CNPJ válidos e consentimento são obrigatórios. Empresa e mensagem são opcionais.
-- A abertura do WhatsApp prepara o texto; não comprova envio ou recebimento. O cliente envia no WhatsApp e confirma no site para limpar o pedido.
+- A abertura do WhatsApp prepara o texto; não comprova envio ou recebimento. Ao abrir o WhatsApp, o carrinho, as configurações e o formulário são reiniciados. O link da solicitação continua disponível na etapa final para reabrir a mensagem; o cliente conclui o envio no WhatsApp.
 - A publicação definitiva exige domínio confirmado, HTTPS e build SEO desse domínio; a revisão sem domínio permanece noindex.
 
 Ver [requisitos](REQUIREMENTS.md), [configurador](DOOR-CONFIGURATOR.md) e [publicação](DEPLOYMENT.md).

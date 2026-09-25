@@ -1,12 +1,10 @@
-# [LAN-07] Publicar versão aprovada com backup e plano de reversão
-
 ## Objetivo
 
 Como responsável pelo site, quero publicar uma versão aprovada e recuperável para manter o atendimento disponível.
 
 ## Estado atual
 
-Publicação não autorizada por esta issue sozinha: ela registra o trabalho e o aceite necessário. Hospedagem, domínio e aprovação final permanecem pendentes.
+Publicação não autorizada por esta issue sozinha: ela registra o trabalho e o aceite necessário. Domínio informado: https://megabrasil.ind.br. Hospedagem, acessos e aprovação final permanecem pendentes. Primeira publicação, sem site anterior.
 
 ## Prioridade e responsável
 
@@ -19,7 +17,7 @@ Publicação não autorizada por esta issue sozinha: ela registra o trabalho e o
 - [ ] Integrar alterações primeiro em develop; revisar/testar e abrir PR develop → main para a versão candidata.
 - [ ] Registrar commit aprovado; executar instalação, build, testes Angular, testes SEO e verify:site com SITE_URL correto.
 - [ ] Gerar pacote definitivo e manifesto; verificar arquivos, hashes e ausência de alterações não aprovadas.
-- [ ] Fazer backup do site anterior e documentar/testar restauração no provedor.
+- [ ] Guardar ZIP e manifesto desta primeira publicação; documentar/testar restauração no provedor para futuras atualizações.
 - [ ] Publicar na pasta correta, configurar HTTPS e preservar os registros de e-mail.
 - [ ] Executar smoke test no domínio: homepage, imagens, PDFs, mapa, formulários, WhatsApp e respostas 200/404.
 - [ ] Registrar aceite final, responsável pelo suporte e procedimento de resposta a falhas; acompanhar os passos pós-publicação de SEO.

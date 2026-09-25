@@ -1,12 +1,10 @@
-# [LAN-06] Ativar SEO no domínio definitivo e verificar indexação
-
 ## Objetivo
 
 Como pessoa que procura portas corta-fogo, quero encontrar a página oficial da Mega Brasil com informações e endereço corretos.
 
 ## Estado atual
 
-Gerador SEO e HTML estático implementados. O pacote atual é de revisão, com noindex; não deve ser usado como lançamento.
+Reaberta em 25/09/2026: build local de produção para https://megabrasil.ind.br aprovado, 3 testes SEO e verify:site aprovados. Configuração no servidor, Search Console e indexação ainda pendentes.
 
 ## Prioridade e responsável
 
@@ -15,8 +13,8 @@ Gerador SEO e HTML estático implementados. O pacote atual é de revisão, com n
 
 ## Critérios de aceite
 
-- [ ] Após confirmar o domínio, configurar SITE_URL com a origem HTTPS aprovada e gerar um novo build.
-- [ ] Conferir canonical, sitemap.xml, robots.txt, JSON-LD, Open Graph e imagem social com a mesma origem.
+- [x] Após confirmar o domínio, configurar SITE_URL com a origem HTTPS aprovada e gerar um novo build.
+- [x] Conferir no pacote local canonical, sitemap.xml, robots.txt, JSON-LD, Open Graph e imagem social com a mesma origem.
 - [ ] Confirmar ausência de noindex no HTML de produção e nos cabeçalhos do provedor.
 - [ ] Configurar redirecionamento de HTTP e domínio alternativo para a origem oficial; URLs inexistentes devem devolver 404.
 - [ ] Verificar propriedade no Search Console, enviar sitemap e inspecionar a URL publicada.

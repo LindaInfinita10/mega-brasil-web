@@ -89,12 +89,12 @@ describe('Configured door cart', () => {
     expect(app['cart']()).toHaveLength(1);
     expect(app['cart']()[0].quantity).toBe(4);
   });
-  it('does not restore a removed saved door on checkout', () => {
+  it('allows explicitly finalizing the current configuration again after removal', () => {
     app['saveDoor']();
     app['removeDoor'](app['itemKey'](app['cart']()[0]));
     app['finalizeOrder']();
-    expect(app['cart']()).toEqual([]);
-    expect(app['quotePage']()).toBe(false);
+    expect(app['cart']()).toHaveLength(1);
+    expect(app['quotePage']()).toBe(true);
   });
   it('keeps saved components independent from an unsaved draft', () => {
     app['toggleComponent']('Dobradiça de mola');
@@ -115,7 +115,7 @@ describe('Configured door cart', () => {
     const text = quoteItemText(app['cart']()[0]);
     expect(text).toContain('• Fechadura sobrepor c/ chave');
     expect(text).not.toMatch(/Dobradiça|Acabamento|Galvanizado|pintura/);
-    expect(JSON.parse(localStorage.getItem('mega-brasil-cart')!)).toEqual(app['cart']());
+    expect(localStorage.getItem('mega-brasil-cart')).toBeNull();
   });
   it.each(['', '11.222.333/0001-80', '00000000000000'])('blocks WhatsApp with invalid CNPJ %s', cnpj => {
     app['saveDoor']();

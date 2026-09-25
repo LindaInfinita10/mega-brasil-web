@@ -1,54 +1,42 @@
-# Validação local — 22/09/2026
+# Validação final — 25/09/2026
 
-Versão: estado local atual do repositório. Sem commit de lançamento e sem publicação em domínio.
+Estado: candidato local à primeira publicação; hosting, DNS, HTTPS e aceite empresarial ainda pendentes. A versão entregue é identificada pelo commit e hashes do manifesto gerado depois do commit.
 
-## Verificações executadas
+## Verificações técnicas
 
-- `npm test -- --watch=false`: **103/103 testes aprovados** em 5 arquivos de teste.
-- `npm run build`: concluído com sucesso; uma rota foi pré-renderizada e a etapa SEO foi executada.
-- O build pode emitir um warning de orçamento de CSS. Esse warning não impediu a compilação e não foi tratado como erro funcional.
+- Angular/Vitest: 113 testes em 5 arquivos, cobrindo configurações, quantidades, validação, consentimento, fluxo e reset do pedido.
+- SEO: 3 testes do gerador.
+- Build com SITE_URL=https://megabrasil.ind.br e 1 rota pré-renderizada.
+- verify:site: HTML, idioma, títulos, âncoras, 30 recursos locais, PDFs e SEO de produção.
+- ZIP verificado por CRC e comparação SHA256 de cada arquivo; pacote com 38 arquivos.
+- Aviso não bloqueante: CSS do componente aproximadamente 48 kB, acima do orçamento de aviso de 45 kB e abaixo do limite de erro de 50 kB.
 
-## Funcionalidades verificadas
+## Carrito e fluxo
 
-- P60 aparece no seletor como fora de produção, desabilitado e bloqueado pela validação.
-- P90 e P120 permanecem disponíveis.
-- As medidas nominais `80 × 210 cm`, `90 × 210 cm` e `100 × 210 cm` são aceitas para os dois modelos.
-- Medida personalizada sob consulta, largura, altura e quantidade são validadas.
-- As 8 opções de componentes aparecem sem seleção padrão e podem ser selecionadas ou removidas individualmente.
-- Configurações iguais são agrupadas; configurações diferentes permanecem separadas.
-- Editar, remover, alterar quantidade e restaurar o pedido após recarregar usam o `localStorage` do navegador.
-- A tela de finalização valida dados do cliente, CNPJ, consentimento e pedido não vazio.
-- A mensagem do orçamento é preparada para o WhatsApp comercial com modelo, dimensão, componentes, quantidade e dados do cliente.
-- A abertura do WhatsApp é simulada nos testes; não houve envio ou recebimento real.
-- A etapa final permite confirmar o envio, limpar o pedido e retornar à página inicial.
+- Carrinho somente em memória; cada abertura/recarga começa vazia e remove a chave herdada mega-brasil-cart sem lê-la.
+- Ao abrir a solicitação no WhatsApp, reinicia carrinho, configuração e formulário; mantém o link na etapa final para reabrir a mensagem.
+- Voltar ao início também reinicia o pedido; restaurar página pelo cache de navegação reinicia o estado.
+- Pedido não enviado também é descartado ao recarregar, por decisão da cliente.
+- Navegador integrado: adicionar porta abre checkout com 1 produto; recarregar mostra 0 porta(s) no carrinho e Seu carrinho está vazio, sem porta prearmada no resumo.
+- Cobertos por regressão: pedido legado válido, remoção de storage bloqueada, bfcache, envio inválido, erro ao abrir WhatsApp e recriação de configuração removida.
 
-## Revisão visual no navegador
+## Navegador e WhatsApp real
 
-A revisão foi feita no navegador integrado com viewports simulados de:
-
-- 390 px — mobile.
-- 644 px — largura intermediária.
-- 768 px — tablet.
-- 1440 px — desktop.
-- 1920 px — Full HD.
-- 3840 px — tela 4K simulada.
-
-Também foi verificado zoom de 200% em viewport móvel e ausência de rolagem horizontal indevida. Não foi usado telefone, tablet, televisão ou outro dispositivo físico. A revisão não certifica compatibilidade com Chrome, Edge, Safari ou navegadores específicos de Smart TV.
-
-## Acessibilidade verificada
-
-- Foco visível nos controles.
-- Rótulos associados aos campos.
-- `aria-label` para ações de quantidade, edição e remoção.
-- Estados de formulário e mensagens de erro.
-- Foco na tela de conclusão do pedido.
-- Navegação de painéis e do fluxo de orçamento coberta pelos testes existentes.
-
-Isso não constitui declaração de conformidade WCAG nem substitui auditoria com leitor de tela, contraste e dispositivos reais.
+- Navegador integrado em Windows: configuração, checkout, e-mail inválido bloqueado, dados válidos habilitados, remoção/recriação, pedido vazio, contato e retorno.
+- Contato e footer inspecionados em desktop e viewport móvel; não equivalem a testes em aparelhos físicos.
+- Envio de teste autorizado pela cliente. Em 25/09/2026, mensagem P90 com 1 unidade, 80 × 210 cm, dobradiça de mola e fechadura sobrepor simples observada no chat +55 21 97871-5555 com estado Entregado às 11:05. Conteúdo completo, títulos, acentos, lista e observação de teste conferidos. Nenhuma mensagem duplicada enviada.
+- P120, múltiplas quantidades e codificação cobertos pelos testes automatizados; não se afirma um segundo envio real P120 nem confirmação verbal do destinatário.
+- A prova real de WhatsApp ocorreu antes da última simplificação da persistência; o texto e o destino não mudaram. Reset final coberto por regressões e navegação local.
 
 ## Limites e pendências
 
-- O envio e o recebimento reais no WhatsApp continuam pendentes de coordenação com o comercial.
-- Domínio, HTTPS, hospedagem, Search Console, backups e reversão não foram validados nesta revisão.
-- A distinção entre fechadura manual e barra antipânico é visual no panorama; o campo de acionamento não é preservado atualmente como parte separada da configuração persistida ou da mensagem enviada. Ver [DOOR-CONFIGURATOR.md](DOOR-CONFIGURATOR.md).
-- As imagens dos componentes são ilustrações identificadas como ilustrativas, não fotografias ou certificações dos modelos comerciais.
+- Não há publicação nem verificação no domínio, TLS, cabeçalhos, redirects, 404 do hosting ou indexação.
+- Chrome da captura da cliente não estava acessível à automação. O navegador integrado possui armazenamento independente. A versão final deixa de restaurar pedidos em qualquer navegador.
+- Matriz Chrome/Edge/aparelhos reais, leitor de tela, contraste completo e desempenho em rede móvel continuam em LAN-04.
+- mailto depende de aplicativo configurado; não há confirmação de entrega de e-mail ou chamada telefônica.
+- Aprovações comercial/técnica e de privacidade continuam em LAN-02/LAN-03.
+- Evidência cadastral do CNPJ em CONTENT.md; confirmar dados com a empresa antes da publicação.
+
+## Limpeza do projeto
+
+Removidos scripts temporários de edição, capturas e extrações de PDFs da pasta tmp, além dos ZIPs de revisão antigos. A lista de 41 recursos obsoletos removidos anteriormente está em ASSET-CLEANUP.json; os originais permanecem recuperáveis pelo histórico Git. As imagens restantes possuem referências no código, incluindo mapas dinâmicos. Mantidos dependências, cache de desenvolvimento, testes, documentação e pacote final necessários ao trabalho. Dependências/cache e dist são ignorados pelo Git.

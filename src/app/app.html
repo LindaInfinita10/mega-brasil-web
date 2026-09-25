@@ -40,7 +40,7 @@
       ><a href="#empresa" (click)="closeMobileMenu()">Empresa</a
       ><a href="#megashield" (click)="closeMobileMenu()">MegaShield</a
       ><a href="#produtos" [hidden]="!showFullCatalog" (click)="closeMobileMenu()">Produtos</a
-      ><a href="#contato" (click)="closeMobileMenu()">Contato</a>
+      ><a href="#contato" (click)="goToContact($event)">Contato</a>
     </nav>
     <button
       class="menu-toggle"
@@ -158,7 +158,7 @@
       </div>
       <div class="door-shopping-layout door-card-grid" id="door-configurator">
         @let doorType = activeDoorType;
-          <form class="door-configurator door-type-card" (ngSubmit)="finalizeOrder()">
+          <form class="door-configurator door-type-card" (change)="configurationStarted.set(true)" (ngSubmit)="finalizeOrder()">
             <div class="door-config-heading"><div><p class="eyebrow">MONTE SUA PORTA</p><h3>Escolha as medidas e os componentes</h3></div></div>
             <figure class="door-panorama">
               <img src="/assets/images/hero/doors-panorama.webp" width="1672" height="941" alt="Duas portas MegaShield lado a lado: fechadura manual e barra antipânico, ambas com três dobradiças" />
@@ -189,8 +189,11 @@
             </div>
             <aside class="live-order-list" aria-label="Lista do pedido">
               <p class="eyebrow">SEU PEDIDO</p><h3>Lista do pedido</h3>
+              <p class="cart-count" aria-live="polite">{{ selectedCount() }} porta(s) no carrinho</p>
+              @if (!cart().length) { <p class="cart-empty">Seu carrinho está vazio.</p> }
+              @if (configurationStarted() || cart().length) {
               <div class="draft-order-summary">
-                <small>CONFIGURAÇÃO ATUAL</small>
+                <small>PORTA EM CONFIGURAÇÃO</small>
                 <h4>MegaShield {{ draft.model }}</h4>
                 <p>{{ draft.width }} × {{ draft.height }} cm · {{ draft.quantity }} porta(s)</p>
                 <ul aria-live="polite">
@@ -199,6 +202,7 @@
                   } @empty { <li>Escolha os componentes ao lado.</li> }
                 </ul>
               </div>
+              }
               @if (cart().length) {
                 <h4>Adicionados ao pedido · {{ selectedCount() }} porta(s)</h4>
                 @for (item of cart(); track itemKey(item)) {
@@ -259,7 +263,7 @@
   }
   <section id="contato" class="catalog-contact-section">
     <div class="section-wrap">
-      <div class="contact-section-heading"><div><p class="eyebrow">CONTATO COMERCIAL</p><h2>Vamos conversar?</h2></div><p>Fale com nossa equipe comercial para tirar dúvidas e encontrar a solução para seu projeto.</p></div>
+      <div class="contact-section-heading"><div><p class="eyebrow">CONTATO COMERCIAL</p><h2>Vamos conversar?</h2><p>Fale com nossa equipe comercial para tirar dúvidas e encontrar a solução para seu projeto.</p></div></div>
       <div class="contact-channels">
         <div class="channel-side">
           <div class="channel-heading"><h3>Fale com nossa equipe.</h3><p>Escolha como prefere entrar em contato.</p></div>
@@ -287,7 +291,7 @@
           <a href="#inicio" (click)="closeQuotePage()">Início</a>
           <a href="#empresa" (click)="closeQuotePage()">Empresa</a>
           <a href="#megashield" (click)="closeQuotePage()">MegaShield</a>
-          <a href="https://wa.me/5521978715555" target="_blank" rel="noopener noreferrer">Contato</a>
+          <a href="#contato" (click)="goToContact($event)">Contato</a>
         </nav>
         @if (quoteWhatsappUrl()) {
           <button class="header-button quote-back-button" type="button" (click)="finishQuote()">Voltar ao início <span>→</span></button>
@@ -302,7 +306,7 @@
           <span class="quote-completion-icon" aria-hidden="true">✓</span>
           <p class="eyebrow">SEU PEDIDO · ETAPA FINAL</p>
           <h1 id="quote-title" #quoteCompletion tabindex="-1">Seu pedido está pronto no WhatsApp</h1>
-          <p>Confira a mensagem e toque em Enviar no WhatsApp. Depois, confirme abaixo para concluir.</p>
+          <p>Confira a mensagem e toque em Enviar no WhatsApp. Seu carrinho já foi limpo para um novo pedido. Depois de enviar, toque em Concluir.</p>
           <a [href]="quoteWhatsappUrl()" target="_blank" rel="noopener noreferrer">O WhatsApp não abriu? Abrir novamente ↗</a>
           <button type="button" class="primary-button confirm-whatsapp" (click)="confirmWhatsappSent()">Já enviei pelo WhatsApp · Concluir</button>
         </div>
@@ -350,12 +354,14 @@
     <div class="footer-legal-links">
       <h3>Informações legais</h3>
       <a href="#contact-privacy" (click)="showPrivacy($event, 'contact-privacy')">Política de Privacidade</a>
-      <a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm" target="_blank" rel="noopener noreferrer">Privacidade — Marco Civil da Internet</a>
-      <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener noreferrer">Proteção de dados — LGPD</a>
-      <a href="https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm" target="_blank" rel="noopener noreferrer">Código de Defesa do Consumidor</a>
+      <a href="https://www.gov.br/ufcg/pt-br/acesso-a-informacao/lei-geral-de-protecao-de-dados/legislacao" target="_blank" rel="noopener noreferrer">Privacidade — Marco Civil da Internet</a>
+      <a href="https://www.gov.br/int/pt-br/acesso-a-informacao/lgpd/legislacao" target="_blank" rel="noopener noreferrer">Proteção de dados — LGPD</a>
+      <a href="https://www.consumidor.gov.br/pages/conteudo/publico/102" target="_blank" rel="noopener noreferrer">Código de Defesa do Consumidor</a>
+      <a href="https://www.cbmerj.rj.gov.br/notas-tecnicas/" target="_blank" rel="noopener noreferrer">Segurança contra incêndio — Legislação RJ</a>
     </div>
   </div>
   <div class="footer-bottom">
+    <p class="footer-company-details"><strong>Mega Brasil Industria Contra Incendio LTDA</strong><span>CNPJ: 33.113.651/0001-47</span></p>
     <span>© {{ 2026 }} Mega Brasil Indústria. Todos os direitos reservados.</span>
     <a class="developer-credit" href="https://wa.me/5521992877821?text=Ol%C3%A1%20Pilar%2C%20vi%20o%20site%20da%20Mega%20Brasil%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" rel="noopener noreferrer">Site desenvolvido por <strong>Pilar Molina</strong></a>
     <a href="#inicio">Voltar ao topo ↑</a>
@@ -454,6 +460,8 @@
   .footer-addresses h3 { margin-bottom: 8px; }
   .footer-bottom {
     display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
     justify-content: space-between;
     width: min(1440px, calc(100% - 80px));
     margin: auto;
