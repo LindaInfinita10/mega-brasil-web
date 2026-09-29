@@ -1,6 +1,6 @@
 # Backlog de lançamento
 
-Revisão de 25/09/2026. Código: develop → revisão/testes → main. Evidências em [VALIDATION.md](VALIDATION.md).
+Revisão de 29/09/2026. Código: develop → revisão/testes → main. Evidências em [VALIDATION.md](VALIDATION.md).
 
 | Issue | Trabalho | Estado de aceite |
 | --- | --- | --- |

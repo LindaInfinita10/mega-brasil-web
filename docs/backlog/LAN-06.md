@@ -4,7 +4,7 @@ Como pessoa que procura portas corta-fogo, quero encontrar a página oficial da 
 
 ## Estado atual
 
-Reaberta em 25/09/2026: build local de produção para https://megabrasil.ind.br aprovado, 3 testes SEO e verify:site aprovados. Configuração no servidor, Search Console e indexação ainda pendentes.
+Reaberta em 25/09/2026; verificações repetidas em 29/09/2026: build local de produção para https://megabrasil.ind.br aprovado, 3 testes SEO e verify:site aprovados. Configuração no servidor, Search Console e indexação ainda pendentes.
 
 ## Prioridade e responsável
 
@@ -24,8 +24,8 @@ Reaberta em 25/09/2026: build local de produção para https://megabrasil.ind.br
 ## Referências
 
 - Requisitos e histórias: RNF-03, RNF-05; HU-07.
-- [Documentação de referência](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/SEO.md).
-- [Histórias de usuário](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/USER_STORIES.md).
-- [Roadmap](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/ROADMAP.md).
+- [Documentação de referência](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/SEO.md).
+- [Histórias de usuário](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/USER_STORIES.md).
+- [Roadmap](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/ROADMAP.md).
 
 Fechar somente com os critérios atendidos e evidência registrada. Alterações de código/documentação seguem develop → revisão/testes → main.

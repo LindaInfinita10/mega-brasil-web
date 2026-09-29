@@ -1,5 +1,17 @@
 # Histórico de alterações
 
+## Correções do catálogo — 29/09/2026
+
+- P60 disponível como Somente sob encomenda.
+- Barras simples e dupla com escolha individual Com chave/Sem chave.
+- Pintura com amostras visuais, desmarcação por clique e Outra cor validada.
+- Chave e pintura preservadas na edição, resumo, orçamento e mensagem de WhatsApp.
+- Footer com unidades 1 e 2, email comercial@megabrasil.net e denominação legal incluindo pânico.
+- Ajustes institucionais e política de privacidade inicialmente recolhida.
+- 117 testes Angular e 3 de SEO aprovados; build e pacote de produção verificados.
+- README, requisitos, regras, conteúdo e backlog sincronizados. Publicação no hosting permanece pendente.
+
+
 ## Candidato à publicação — 25/09/2026
 
 - Carrinho sem persistência, limpeza de dados legados e reset ao abrir WhatsApp/concluir.

@@ -14,9 +14,9 @@ Publicação não autorizada por esta issue sozinha: ela registra o trabalho e o
 ## Critérios de aceite
 
 - [ ] Fechar os aceites de conteúdo, privacidade e validação; confirmar domínio e hosting.
-- [ ] Integrar alterações primeiro em develop; revisar/testar e abrir PR develop → main para a versão candidata.
-- [ ] Registrar commit aprovado; executar instalação, build, testes Angular, testes SEO e verify:site com SITE_URL correto.
-- [ ] Gerar pacote definitivo e manifesto; verificar arquivos, hashes e ausência de alterações não aprovadas.
+- [x] Revisar/testar em develop e integrar em main por fast-forward com push direto, excepcionalmente autorizado pela responsável em 29/09/2026.
+- [x] Código 1d6691b validado: build, 117 testes Angular, 3 testes SEO e verify:site com SITE_URL=https://megabrasil.ind.br; dependências existentes utilizadas. A revisão documental posterior não altera o código.
+- [x] Gerar pacote candidato e manifesto com 38 arquivos, CRC e SHA256 verificados; identificação final no manifesto. Aceite empresarial definitivo permanece pendente.
 - [ ] Guardar ZIP e manifesto desta primeira publicação; documentar/testar restauração no provedor para futuras atualizações.
 - [ ] Publicar na pasta correta, configurar HTTPS e preservar os registros de e-mail.
 - [ ] Executar smoke test no domínio: homepage, imagens, PDFs, mapa, formulários, WhatsApp e respostas 200/404.
@@ -25,8 +25,8 @@ Publicação não autorizada por esta issue sozinha: ela registra o trabalho e o
 ## Referências
 
 - Requisitos e histórias: RNF-05, RNF-07 a RNF-09; HU-08.
-- [Documentação de referência](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/DEPLOYMENT.md).
-- [Histórias de usuário](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/USER_STORIES.md).
-- [Roadmap](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/ROADMAP.md).
+- [Documentação de referência](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/DEPLOYMENT.md).
+- [Histórias de usuário](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/USER_STORIES.md).
+- [Roadmap](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/ROADMAP.md).
 
 Fechar somente com os critérios atendidos e evidência registrada. Alterações de código/documentação seguem develop → revisão/testes → main.

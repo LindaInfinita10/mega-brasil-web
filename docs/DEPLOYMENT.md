@@ -1,6 +1,6 @@
 # Publicação e entrega
 
-Atualizado em 25/09/2026. Primeira publicação; não há site anterior a substituir. Domínio informado: https://megabrasil.ind.br. Hosting, DNS, HTTPS e aceites empresariais ainda pendentes.
+Atualizado em 29/09/2026. Primeira publicação; não há site anterior a substituir. Domínio informado: https://megabrasil.ind.br. Hosting, DNS, HTTPS e aceites empresariais ainda pendentes.
 
 ## Preparar a versão
 
@@ -18,7 +18,7 @@ npm run package:release
 
 Interromper se qualquer comando falhar. Gerar o pacote após o commit, com árvore limpa, para o manifesto identificar a versão. Build sozinho não atualiza ZIP. Sem SITE_URL o resultado é revisão/noindex.
 
-Validação local: 113 testes Angular, 3 SEO, build e 30 recursos verificados. Warning CSS de 48 kB ante limite de aviso de 45 kB, abaixo do limite de erro de 50 kB. Ver [VALIDATION.md](VALIDATION.md).
+Validação local: 117 testes Angular, 3 SEO, build e 30 recursos verificados. Warning CSS de 48,81 kB ante limite de aviso de 45 kB, abaixo do limite de erro de 50 kB. Ver [VALIDATION.md](VALIDATION.md).
 
 ## Upload manual
 

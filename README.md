@@ -4,9 +4,9 @@ Site institucional e catálogo comercial desenvolvido em Angular para apresentar
 
 ## Funcionalidades
 
-- Configurador MegaShield P90/P120; P60 visível e indisponível para orçamento.
+- Configurador MegaShield P60/P90/P120; P60 disponível como “Somente sob encomenda”.
 - Medidas nominais de catálogo, medida sob consulta e controle de quantidade.
-- Seleção individual dos 8 componentes do configurador, sem preços.
+- Seleção dos 8 componentes existentes, com Com chave/Sem chave para cada barra antipânico, e Pintura opcional: Cor vermelha, Outra cor personalizada ou Tinta intumescente. Sem preços.
 - Lista do pedido com edição, remoção e agrupamento; inicia vazia e é reiniciada ao abrir WhatsApp.
 - Formulário comercial com consentimento para tratamento de dados.
 - Geração do pedido para o WhatsApp comercial.

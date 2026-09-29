@@ -1,6 +1,6 @@
 # Histórias de usuário
 
-Escopo: primeira publicação do site institucional Mega Brasil. Estas histórias descrevem funcionalidades existentes e seus aceites; não são um histórico fictício de entregas. Evidência técnica de referência: revisão de 25/09/2026, [VALIDATION.md](VALIDATION.md).
+Escopo: primeira publicação do site institucional Mega Brasil. Estas histórias descrevem funcionalidades existentes e seus aceites; não são um histórico fictício de entregas. Evidência técnica de referência: revisão de 29/09/2026, [VALIDATION.md](VALIDATION.md).
 
 **Implementada** significa presente no código. **Testada localmente** não significa aprovada pela empresa nem validada no domínio. As issues de lançamento registram o trabalho restante, conforme [BACKLOG.md](BACKLOG.md).
 
@@ -8,7 +8,7 @@ Escopo: primeira publicação do site institucional Mega Brasil. Estas história
 
 Como visitante, quero conhecer a empresa, suas unidades e canais de atendimento para entrar em contato com confiança.
 
-Critérios: apresentação e três endereços visíveis; telefone, e-mail, WhatsApp, mapas e redes apontam aos destinos oficiais; textos e imagens aprovados.
+Critérios: apresentação e endereços das unidades 1 e 2 visíveis; telefone, e-mail, WhatsApp, mapas e redes apontam aos destinos oficiais; textos e imagens aprovados.
 
 Estado: implementada; aprovação de conteúdo e validação dos destinos pendentes. Requisitos: RF-01/RF-08. Acompanhamento: LAN-02/LAN-04.
 
@@ -16,7 +16,7 @@ Estado: implementada; aprovação de conteúdo e validação dos destinos penden
 
 Como comprador, quero consultar os modelos disponíveis, seus memoriais e componentes para avaliar a adequação ao meu projeto.
 
-Critérios: P90/P120 disponíveis; PDFs corretos abrem separadamente; componentes podem ser consultados por teclado; P60 identificada como fora de produção e bloqueada para orçamento; classificação pretendida e imagens ilustrativas não confundidas com certificação.
+Critérios: P60/P90/P120 disponíveis; PDFs preservados como recursos, sem links no configurador atual; componentes podem ser consultados por teclado; P60 identificada como Somente sob encomenda; classificação pretendida e imagens ilustrativas não confundidas com certificação.
 
 Estado: implementada; bloqueios testados, recursos locais conferidos. Aprovação técnica dos memoriais e aceite em dispositivos reais pendentes. Requisitos: RF-02/RF-03. Acompanhamento: LAN-02/LAN-04.
 
@@ -24,7 +24,7 @@ Estado: implementada; bloqueios testados, recursos locais conferidos. Aprovaçã
 
 Como comprador, quero selecionar produtos e quantidades para solicitar um orçamento com os itens de que preciso.
 
-Critérios: adicionar P90/P120; aumentar/reduzir quantidades; remover ao chegar a zero; atualizar contagem; bloquear produtos indisponíveis, quantidades inválidas e envio vazio.
+Critérios: adicionar P60/P90/P120; preservar chave por barra e pintura personalizada; aumentar/reduzir quantidades; remover ao chegar a zero; atualizar contagem; bloquear produtos indisponíveis, quantidades inválidas e envio vazio.
 
 Estado: implementada e regras testadas localmente. Aceite final do fluxo em dispositivos reais pendente. Requisito: RF-04. Acompanhamento: LAN-04/LAN-05.
 
@@ -48,7 +48,7 @@ Estado: preparação e conclusão testadas automaticamente; mensagem P90 observa
 
 Como visitante, inclusive quem usa teclado ou tecnologia assistiva, quero navegar no site e no orçamento com conteúdo legível e controles acessíveis.
 
-Critérios: menu e retornos funcionais; foco visível e dentro do painel ativo; fechamento por Escape; navegação dos componentes por setas; preferência de movimento reduzido respeitada; sem desbordes ou sobreposições nas telas acordadas.
+Critérios: menu e retornos funcionais; foco visível e dentro do painel ativo; fechamento por Escape; navegação dos componentes por Tab e seleção por Espaço; preferência de movimento reduzido respeitada; sem desbordes ou sobreposições nas telas acordadas.
 
 Estado: melhorias implementadas e verificações locais registradas. Matriz de navegadores, dispositivos físicos, contraste completo, leitor de tela, desempenho e decisão sobre Voltar do navegador pendentes. Requisitos: RF-09/RNF-01 a RNF-04. Acompanhamento: LAN-04.
 

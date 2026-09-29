@@ -4,7 +4,7 @@ Como visitante em celular ou computador, quero navegar e montar meu orçamento s
 
 ## Estado atual
 
-Reaberta em 25/09/2026: 113 testes Angular aprovados e verificações locais no navegador integrado; faltam evidências da matriz física, leitor de tela e desempenho no hosting. Ver docs/VALIDATION.md.
+Reaberta em 25/09/2026: 117 testes Angular aprovados na revisão de 29/09/2026 e verificações locais no navegador integrado; faltam evidências da matriz física, leitor de tela e desempenho no hosting. Ver docs/VALIDATION.md.
 
 ## Prioridade e responsável
 
@@ -24,8 +24,8 @@ Reaberta em 25/09/2026: 113 testes Angular aprovados e verificações locais no 
 ## Referências
 
 - Requisitos e histórias: RF-04, RF-05, RF-09, RNF-01 a RNF-04; HU-02 a HU-06.
-- [Documentação de referência](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/VALIDATION.md).
-- [Histórias de usuário](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/USER_STORIES.md).
-- [Roadmap](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/ROADMAP.md).
+- [Documentação de referência](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/VALIDATION.md).
+- [Histórias de usuário](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/USER_STORIES.md).
+- [Roadmap](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/ROADMAP.md).
 
 Fechar somente com os critérios atendidos e evidência registrada. Alterações de código/documentação seguem develop → revisão/testes → main.

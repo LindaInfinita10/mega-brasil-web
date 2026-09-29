@@ -6,8 +6,8 @@ O site apresenta o configurador MegaShield na seção `#megashield`. O bloco atu
 
 O configurador permite selecionar:
 
-- Modelo MegaShield P90 ou P120.
-- P60 visível no seletor como `MegaShield P60 — Fora de produção`, desabilitado e não aceito pela validação.
+- Modelo MegaShield P60, P90 ou P120.
+- P60 disponível no seletor como `MegaShield P60 — Somente sob encomenda`, aceita no carrinho e no orçamento.
 - Dimensões nominais de catálogo: `80 × 210 cm`, `90 × 210 cm` e `100 × 210 cm`.
 - `Outra medida — sob consulta`, com largura e altura personalizadas.
 - Quantidade de portas entre 1 e 999.
@@ -17,14 +17,15 @@ O texto exibido para as medidas orienta: “Dimensões nominais. Confirmar o vã
 
 ## Componentes
 
-As 8 opções atuais são exibidas em categorias no formulário. As seleções começam vazias e podem ser marcadas ou desmarcadas individualmente. Cada opção possui miniatura, nome completo e texto alternativo indicando que a imagem é ilustrativa.
+Os 8 acessórios existentes e a categoria Pintura são exibidos em categorias no formulário. As seleções começam vazias e podem ser marcadas ou desmarcadas individualmente. Cada opção possui miniatura, nome completo e texto alternativo indicando que a imagem é ilustrativa.
 
 Categorias e opções:
 
 - **Dobradiças:** Dobradiça de mola; Dobradiça helicoidal.
 - **Fechaduras:** Fechadura sobrepor simples; Fechadura sobrepor c/ chave.
 - **Molas aéreas:** Mola aérea PP2200 PAIZ; Mola aérea 2234 La Fonte.
-- **Barras antipânico:** Barra simples c/ chave; Barra dupla c/ chave.
+- **Barras antipânico:** Barra antipânico simples; Barra antipânico dupla. Cada barra selecionada oferece Com chave (padrão anterior) ou Sem chave, vinculada à própria barra.
+- **Pintura:** Cor vermelha; Outra cor; Tinta intumescente. Uma opção por porta, com amostra visual e possibilidade de desmarcar com outro clique. Outra cor mostra “Especifique a cor desejada” e exige texto não vazio após remover espaços. Não existe Cor verde fixa nem botão adicional de remoção dentro da categoria.
 
 O formulário informa: “Composição sujeita à confirmação técnica conforme modelo, dimensões e projeto.” Não há matriz de compatibilidade implementada; o código não filtra combinações por modelo, dimensão ou tipo de acionamento.
 
@@ -34,7 +35,7 @@ As imagens dos componentes ficam em `src/assets/images/components`. São ilustra
 
 Após a seleção, a área “Lista do pedido” mostra o modelo, dimensão, quantidade e componentes da configuração ativa. Cada componente pode ser removido diretamente dessa lista.
 
-“Finalizar pedido” salva diretamente a configuração e abre a revisão, sem botão intermediário “Adicionar ao orçamento”. A revisão oferece “Adicionar outra porta” para incluir outra configuração. Configurações iguais são agrupadas e somam a quantidade; configurações com modelo, medida ou componentes diferentes permanecem como linhas distintas. A lista permite editar ou remover cada linha. Não são exibidos preços, subtotais, totais monetários ou recargos.
+“Finalizar pedido” salva diretamente a configuração e abre a revisão, sem botão intermediário “Adicionar ao orçamento”. A revisão oferece “Adicionar outra porta” para incluir outra configuração. Configurações iguais são agrupadas e somam a quantidade; configurações com modelo, medida, componentes, chave ou pintura diferentes permanecem como linhas distintas. A lista permite editar ou remover cada linha. Não são exibidos preços, subtotais, totais monetários ou recargos.
 
 O pedido existe somente em memória durante a visita. Ao abrir ou recarregar a página, começa vazio; a antiga chave `mega-brasil-cart` é removida e nunca lida. Ao abrir a solicitação no WhatsApp, carrinho, formulário e configuração são reiniciados. A quantidade é atualizada pelos controles do pedido.
 
@@ -62,8 +63,8 @@ A tela de conclusão usa um cabeçalho próprio com a marca, navegação para In
 
 ## Validações e acessibilidade
 
-- P60 é bloqueado no seletor e também na validação do pedido.
-- P90 e P120 são os únicos modelos aceitos para orçamento.
+- P60 permanece selecionável e válida como pedido sob encomenda.
+- P60, P90 e P120 são aceitos para orçamento.
 - Medidas nominais precisam corresponder às três opções de catálogo; medidas personalizadas precisam ser positivas e ter no máximo 1000 cm por dimensão.
 - Quantidades precisam ser inteiras, positivas e no máximo 999.
 - Nome, telefone, e-mail, CNPJ, empresa e mensagem passam por validação de formato, tamanho e caracteres de controle.
@@ -74,8 +75,8 @@ A tela de conclusão usa um cabeçalho próprio com a marca, navegação para In
 
 O CSS usa Grid, Flexbox, `clamp()` e limites de largura para mobile, tablet, desktop, Full HD e telas grandes. O configurador e a lista do pedido reorganizam-se em uma coluna quando o espaço não comporta duas áreas. A revisão em navegador usou viewports de 390, 644, 768, 1440, 1920 e 3840 px, sem teste em televisão física ou navegador específico de Smart TV.
 
-## Regras revisadas em 24/09/2026
+## Regras revisadas em 29/09/2026
 
-Somente dobradiças, fechaduras, molas aéreas e barras antipânico são selecionáveis. Fixação, mantas e chapas foram retiradas. O resumo e o WhatsApp não acrescentam acabamento, galvanização ou pintura. Dados antigos com opções retiradas são inválidos e não são restaurados; o cliente deve configurar novamente.
+Dobradiças, fechaduras, molas aéreas, barras antipânico e pintura são selecionáveis. Fixação, mantas e chapas foram retiradas. O resumo, orçamento e WhatsApp incluem chave e pintura solicitadas, inclusive “Pintura: Outra cor — Azul”; não acrescentam acabamento ou galvanização automaticamente. Dados antigos com opções retiradas são inválidos e não são restaurados; o cliente deve configurar novamente.
 
 Ao finalizar, alterações de quantidade da última configuração salva são aplicadas sem duplicar a linha. Reabrir o pedido sem mudanças não adiciona unidades; uma linha removida não reaparece automaticamente. Alterações de componentes criam outra configuração, salvo quando o cliente usa Editar.

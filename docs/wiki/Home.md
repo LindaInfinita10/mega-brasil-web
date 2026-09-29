@@ -2,37 +2,37 @@
 
 Site institucional e catálogo MegaShield com solicitação de orçamento por WhatsApp.
 
-Esta Wiki é um ponto de entrada. A documentação detalhada é mantida no repositório, junto com o código, para evitar versões divergentes. Os links abaixo apontam para `develop`; o conteúdo aprovado para entrega é integrado posteriormente a `main`.
+Esta Wiki é um ponto de entrada. A documentação detalhada é mantida no repositório, junto com o código, para evitar versões divergentes. Os links abaixo apontam para `main`, versão candidata à entrega; o desenvolvimento continua em `develop`.
 
 ## Planejamento e acompanhamento
 
-- [Roadmap e estado do lançamento](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/ROADMAP.md)
-- [Backlog e issues de lançamento](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/BACKLOG.md)
-- [Histórias de usuário](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/USER_STORIES.md)
-- [Requisitos e critérios de aceite](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/REQUIREMENTS.md)
+- [Roadmap e estado do lançamento](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/ROADMAP.md)
+- [Backlog e issues de lançamento](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/BACKLOG.md)
+- [Histórias de usuário](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/USER_STORIES.md)
+- [Requisitos e critérios de aceite](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/REQUIREMENTS.md)
 - [Issues abertas](https://github.com/LindaInfinita10/mega-brasil-web/issues)
 
 ## Instalação, conteúdo e entrega
 
-- [Visão geral e execução local](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/README.md)
-- [Estado atual do configurador MegaShield](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/DOOR-CONFIGURATOR.md)
-- [Conteúdo comercial e manutenção](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/CONTENT.md)
-- [SEO e configuração do domínio](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/SEO.md)
-- [Publicação, backup e reversão](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/DEPLOYMENT.md)
-- [Evidências de validação e limites](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/VALIDATION.md)
-- [Histórico de alterações](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/CHANGELOG.md)
+- [Visão geral e execução local](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/README.md)
+- [Estado atual do configurador MegaShield](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/DOOR-CONFIGURATOR.md)
+- [Conteúdo comercial e manutenção](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/CONTENT.md)
+- [SEO e configuração do domínio](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/SEO.md)
+- [Publicação, backup e reversão](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/DEPLOYMENT.md)
+- [Evidências de validação e limites](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/VALIDATION.md)
+- [Histórico de alterações](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/CHANGELOG.md)
 
 ## Fluxo de trabalho
 
-**Issue/história → develop → revisão e testes → pull request para main → publicação aprovada.**
+**Issue/história → develop → revisão e testes → main → publicação aprovada.** PR é o fluxo padrão; o push direto desta entrega foi solicitado pela responsável.
 
-Consultar o [guia de contribuição](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/CONTRIBUTING.md). A Wiki e as issues são recursos compartilhados do repositório; não pertencem a uma branch. Os arquivos de documentação e templates seguem o fluxo de branches.
+Consultar o [guia de contribuição](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/CONTRIBUTING.md). A Wiki e as issues são recursos compartilhados do repositório; não pertencem a uma branch. Os arquivos de documentação e templates seguem o fluxo de branches.
 
 ## Escopo
 
-P90 e P120 disponíveis para orçamento; P60 visível como fora de produção e desabilitado. O configurador oferece medidas nominais e 8 componentes sem preços, e o pedido fica somente em memória e é reiniciado ao recarregar ou abrir WhatsApp. Pagamento, cadastro de clientes, estoque automático e banco de pedidos estão fora da primeira versão. O site prepara a mensagem; o visitante confirma seu envio no WhatsApp.
+P60, P90 e P120 disponíveis para orçamento; P60 identificada como Somente sob encomenda. O configurador oferece medidas nominais e 8 acessórios, chave por barra e Pintura personalizada sem preços, e o pedido fica somente em memória e é reiniciado ao recarregar ou abrir WhatsApp. Pagamento, cadastro de clientes, estoque automático e banco de pedidos estão fora da primeira versão. O site prepara a mensagem; o visitante confirma seu envio no WhatsApp.
 
-- [Regras de negócio](../BUSINESS-RULES.md)
-- [Dados de hospedagem para publicação](../HOSTING-HANDOFF.md)
+- [Regras de negócio](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/BUSINESS-RULES.md)
+- [Dados de hospedagem para publicação](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/HOSTING-HANDOFF.md)
 
-- [Entrega ao proprietário](../OWNER-HANDOFF.md)
+- [Entrega ao proprietário](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/OWNER-HANDOFF.md)

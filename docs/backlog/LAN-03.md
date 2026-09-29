@@ -4,7 +4,7 @@ Como solicitante de orçamento, quero entender como meus dados são usados antes
 
 ## Estado atual
 
-Componente único e bloqueio de consentimento implementados. A revisão de código não equivale a aprovação da política.
+Componente único e bloqueio de consentimento implementados. A política inicia recolhida no contato e no checkout, acessível pelo título e links de privacidade. A revisão de código não equivale a aprovação da política.
 
 ## Prioridade e responsável
 
@@ -22,8 +22,8 @@ Componente único e bloqueio de consentimento implementados. A revisão de códi
 ## Referências
 
 - Requisitos e histórias: RF-06, RNF-06; HU-04.
-- [Documentação de referência](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/CONTENT.md).
-- [Histórias de usuário](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/USER_STORIES.md).
-- [Roadmap](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/ROADMAP.md).
+- [Documentação de referência](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/CONTENT.md).
+- [Histórias de usuário](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/USER_STORIES.md).
+- [Roadmap](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/ROADMAP.md).
 
 Fechar somente com os critérios atendidos e evidência registrada. Alterações de código/documentação seguem develop → revisão/testes → main.

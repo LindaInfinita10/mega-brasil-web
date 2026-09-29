@@ -8,7 +8,7 @@
 4. Abrir pull request **de `develop` para `main`** quando a versão estiver pronta para revisão final.
 5. Integrar em `main` somente após revisão, verificações e aceite correspondente.
 
-Não usar push direto em `main` como fluxo normal. Sincronizar branches não publica o site automaticamente. Não há proteção de branches configurada por este documento.
+Não usar push direto em `main` como fluxo normal. Exceção autorizada pela responsável em 29/09/2026: integrar esta versão de `develop` por fast-forward e fazer push direto em `main`, após as verificações. Sincronizar branches não publica o site automaticamente. Não há proteção de branches configurada por este documento.
 
 ## Issues e histórias
 

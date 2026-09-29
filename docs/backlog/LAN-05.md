@@ -11,4 +11,8 @@ Validar entrega real do orçamento no WhatsApp comercial.
 
 A entrega real ocorreu antes da simplificação final do armazenamento do carrinho; destino e montagem da mensagem não mudaram. P120 e quantidades diferentes têm cobertura simulada, não entrega real. “Entregado” confirma o estado do WhatsApp, não uma resposta humana do comercial. Os antigos critérios de dois formulários foram substituídos pelo checkout único vigente. Repetir o smoke test no domínio publicado em #8 e validar dispositivos reais em #5.
 
-[Evidências e limites](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/VALIDATION.md).
+[Evidências e limites](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/VALIDATION.md).
+
+## Atualização de 29/09/2026
+
+117 testes Angular aprovados, incluindo P60, chave por barra e pintura personalizada no texto do WhatsApp. As novas opções não tiveram novo envio real. O registro histórico acima permanece restrito ao teste de 25/09; repetir o smoke test após publicação em LAN-07.

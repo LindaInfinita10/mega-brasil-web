@@ -1,15 +1,15 @@
-# Validação final — 25/09/2026
+# Validação final — 29/09/2026
 
 Estado: candidato local à primeira publicação; hosting, DNS, HTTPS e aceite empresarial ainda pendentes. A versão entregue é identificada pelo commit e hashes do manifesto gerado depois do commit.
 
 ## Verificações técnicas
 
-- Angular/Vitest: 113 testes em 5 arquivos, cobrindo configurações, quantidades, validação, consentimento, fluxo e reset do pedido.
+- Angular/Vitest: 117 testes em 6 arquivos, cobrindo configurações, quantidades, validação, consentimento, fluxo e reset do pedido.
 - SEO: 3 testes do gerador.
 - Build com SITE_URL=https://megabrasil.ind.br e 1 rota pré-renderizada.
 - verify:site: HTML, idioma, títulos, âncoras, 30 recursos locais, PDFs e SEO de produção.
 - ZIP verificado por CRC e comparação SHA256 de cada arquivo; pacote com 38 arquivos.
-- Aviso não bloqueante: CSS do componente aproximadamente 48 kB, acima do orçamento de aviso de 45 kB e abaixo do limite de erro de 50 kB.
+- Aviso não bloqueante: CSS do componente 48,81 kB, acima do orçamento de aviso de 45 kB e abaixo do limite de erro de 50 kB.
 
 ## Carrito e fluxo
 
@@ -40,3 +40,7 @@ Estado: candidato local à primeira publicação; hosting, DNS, HTTPS e aceite e
 ## Limpeza do projeto
 
 Removidos scripts temporários de edição, capturas e extrações de PDFs da pasta tmp, além dos ZIPs de revisão antigos. A lista de 41 recursos obsoletos removidos anteriormente está em ASSET-CLEANUP.json; os originais permanecem recuperáveis pelo histórico Git. As imagens restantes possuem referências no código, incluindo mapas dinâmicos. Mantidos dependências, cache de desenvolvimento, testes, documentação e pacote final necessários ao trabalho. Dependências/cache e dist são ignorados pelo Git.
+
+## Correções de 29/09/2026
+
+P60 sob encomenda, barras simples/dupla com ou sem chave e três opções de pintura verificadas no resumo, orçamento e URL do WhatsApp. Outra cor exige texto não vazio, mantém o valor ao editar e diferencia configurações no carrinho. Amostras de cor e desmarcação por clique verificadas; nenhum novo envio real foi realizado. Footer mantém unidades 1 e 2, remove unidade 3 e inclui comercial@megabrasil.net. O link oficial CBMERJ foi consultado e mantido com o texto Segurança contra incêndio e pânico. Revisão local em desktop e viewport móvel; não substitui o aceite em dispositivos físicos.

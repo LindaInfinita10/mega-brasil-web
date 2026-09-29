@@ -22,8 +22,8 @@ Domínio informado: https://megabrasil.ind.br. Primeira publicação, sem site a
 ## Referências
 
 - Requisitos e histórias: RNF-05, RNF-08; HU-08.
-- [Documentação de referência](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/DEPLOYMENT.md).
-- [Histórias de usuário](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/USER_STORIES.md).
-- [Roadmap](https://github.com/LindaInfinita10/mega-brasil-web/blob/develop/docs/ROADMAP.md).
+- [Documentação de referência](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/DEPLOYMENT.md).
+- [Histórias de usuário](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/USER_STORIES.md).
+- [Roadmap](https://github.com/LindaInfinita10/mega-brasil-web/blob/main/docs/ROADMAP.md).
 
 Fechar somente com os critérios atendidos e evidência registrada. Alterações de código/documentação seguem develop → revisão/testes → main.

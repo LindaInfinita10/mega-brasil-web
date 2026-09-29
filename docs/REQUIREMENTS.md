@@ -1,12 +1,12 @@
 # Requisitos do site Mega Brasil Indústria
 
-Data da revisão: 25/09/2026. Escopo atual do código local; ver docs/CONTENT.md e docs/DOOR-CONFIGURATOR.md.
+Data da revisão: 29/09/2026. Escopo atual do código local; ver docs/CONTENT.md e docs/DOOR-CONFIGURATOR.md.
 
 Este documento reúne o escopo atual, os critérios de aceitação e as verificações pendentes para a primeira publicação. Os critérios ainda não verificados são uma proposta de aceite; não representam aprovação da empresa nem certificação de qualidade.
 
 ## Objetivo e escopo
 
-Apresentar a Mega Brasil Indústria e seus canais comerciais, permitir a consulta dos modelos MegaShield e preparar solicitações de orçamento pelo WhatsApp. Nesta etapa, somente MegaShield P90 e P120 ficam disponíveis para orçamento. P60 permanece visível, fora de produção e com inclusão no orçamento bloqueada. Os demais produtos permanecem no código para futura reativação.
+Apresentar a Mega Brasil Indústria e seus canais comerciais, permitir a consulta dos modelos MegaShield e preparar solicitações de orçamento pelo WhatsApp. MegaShield P60, P90 e P120 estão disponíveis para orçamento; P60 é identificada como “Somente sob encomenda”. Os demais produtos permanecem no código para futura reativação.
 
 Não fazem parte do escopo atual: pagamento on-line, cadastro de clientes, painel administrativo, controle automático de estoque, banco de dados de pedidos ou envio automático de e-mail. O visitante confirma o envio da mensagem no WhatsApp; abrir o aplicativo não comprova a entrega do pedido. O carrinho fica somente em memória e é reiniciado ao abrir/recarregar ou encaminhar ao WhatsApp; os dados do formulário não são persistidos em banco de dados.
 
@@ -20,13 +20,13 @@ Não fazem parte do escopo atual: pagamento on-line, cadastro de clientes, paine
 
 | ID | Requisito | Critério de aceitação | Estado e verificação pendente |
 | --- | --- | --- | --- |
-| RF-01 | Apresentar a empresa e suas unidades. | Exibir apresentação, imagens e os endereços das três unidades, com dados aprovados pela empresa. | Implementado; aprovação comercial pendente. |
-| RF-02 | Limitar a oferta aos modelos MegaShield. | Exibir P90 e P120 como modelos selecionáveis; manter P60 visível no seletor como fora de produção e desabilitado. Impedir P60 e produtos ocultos de entrar no orçamento. | Implementado; bloqueios testados. Os memoriais permanecem em `public/documents`, mas não há link de PDF renderizado no configurador atual. |
-| RF-03 | Consultar detalhes e componentes das portas. | O configurador mostra o panorama ilustrativo e permite selecionar individualmente os 8 componentes por categoria, sem preços. | Implementado; imagens são ilustrativas e a confirmação técnica continua necessária. |
+| RF-01 | Apresentar a empresa e suas unidades. | Exibir apresentação, imagens e os endereços das unidades 1 e 2, com dados aprovados pela empresa. | Implementado; aprovação comercial pendente. |
+| RF-02 | Limitar a oferta aos modelos MegaShield. | Exibir P60, P90 e P120 como selecionáveis, com P60 “Somente sob encomenda”. Impedir produtos ocultos de entrar no orçamento. | Implementado; bloqueios testados. Os memoriais permanecem em `public/documents`, mas não há link de PDF renderizado no configurador atual. |
+| RF-03 | Consultar detalhes e componentes das portas. | O configurador mostra o panorama ilustrativo e permite selecionar individualmente os 8 acessórios por categoria, chave por barra e Pintura opcional com cor personalizada obrigatória quando escolhida Outra cor, sem preços. | Implementado; imagens são ilustrativas e a confirmação técnica continua necessária. |
 | RF-04 | Montar o orçamento. | Adicionar modelos disponíveis, medidas nominais ou sob consulta, componentes e quantidades; editar, remover, agrupar configurações iguais, reiniciar o pedido após encaminhar e nunca restaurar pedidos anteriores e impedir quantidades inválidas ou pedido vazio. | Implementado e coberto pelos testes locais. |
 | RF-05 | Coletar e validar os dados de contato. | Exigir nome, telefone e e-mail válidos segundo as regras abaixo; apresentar erros e impedir a preparação do pedido com dados inválidos. | Validação e bloqueio de envio testados; conferir mensagens e foco na interface. |
 | RF-06 | Solicitar consentimento. | Disponibilizar o texto de privacidade no fluxo de orçamento e impedir o envio sem a confirmação do usuário. | Bloqueio testado; conteúdo e apresentação final pendentes de aprovação. |
-| RF-07 | Preparar a mensagem para o WhatsApp comercial. | Abrir o número comercial configurado com dados do cliente, itens e quantidades, preservando acentos, pontuação e quebras de linha. O usuário conclui o envio no WhatsApp. | Construção da mensagem testada; envio e recebimento reais pendentes. |
+| RF-07 | Preparar a mensagem para o WhatsApp comercial. | Abrir o número comercial configurado com dados do cliente, itens e quantidades, preservando acentos, pontuação e quebras de linha. O usuário conclui o envio no WhatsApp. | Mensagem testada; envio real P90 registrado em 25/09/2026. Novas opções validadas por testes, sem novo envio real. |
 | RF-08 | Disponibilizar canais de atendimento. | Links de telefone, e-mail, Instagram, LinkedIn, Facebook e mapas devem abrir os destinos oficiais aprovados. O link de e-mail abre o aplicativo de e-mail do visitante. | Implementado; validar todos os destinos manualmente. |
 | RF-09 | Permitir navegação entre as seções. | Menu, menu móvel e botões de retorno devem levar à seção esperada, permitindo continuar a consulta e o orçamento. | Implementado; validação manual pendente. |
 
@@ -50,7 +50,7 @@ Referência: `src/app/quote-validation.ts`.
 | RNF-04 | Acessibilidade. | Executar o fluxo principal por teclado, com foco visível, rótulos nos campos, erros compreensíveis, estados de formulário e alternativas textuais nas imagens relevantes. | Implementação e testes locais presentes; não há declaração de conformidade com um padrão de acessibilidade. |
 | RNF-05 | Transporte e configuração seguros. | Domínio definitivo com HTTPS válido, recursos sem conteúdo misto e ausência de credenciais nos arquivos publicados. | Configuração e inspeção da hospedagem pendentes. |
 | RNF-06 | Tratamento dos dados do formulário. | Manter o fluxo sem banco de dados próprio de clientes; encaminhar os dados ao WhatsApp somente por ação do usuário e com consentimento. Revisar o texto de privacidade e os serviços externos usados, incluindo mapa e WhatsApp. | Fluxo implementado; revisão e aprovação da empresa pendentes. Não constitui declaração de conformidade legal. |
-| RNF-07 | Build e manutenção. | Gerar a versão de produção com `npm run build`, executar `npm test -- --watch=false` sem falhas e manter código e instruções de publicação versionados. | Verificado em 25/09/2026: build concluído e 113 testes aprovados. O build pode emitir warning de orçamento CSS, sem erro funcional. |
+| RNF-07 | Build e manutenção. | Gerar a versão de produção com `npm run build`, executar `npm test -- --watch=false` sem falhas e manter código e instruções de publicação versionados. | Verificado em 29/09/2026: build concluído e 117 testes aprovados. O build pode emitir warning de orçamento CSS, sem erro funcional. |
 | RNF-08 | Disponibilidade. | Definir com o responsável pela hospedagem a disponibilidade esperada, o canal de suporte e o procedimento de resposta a falhas. Verificar domínio e recursos após publicar. | Hospedagem, responsáveis e metas ainda não definidos. |
 | RNF-09 | Recuperação de publicação. | Identificar o commit publicado e conservar uma versão anterior recuperável; documentar e testar como republicá-la no provedor escolhido. | Histórico disponível no GitHub; procedimento no provedor e teste de reversão pendentes. |
 
@@ -59,7 +59,7 @@ Referência: `src/app/quote-validation.ts`.
 - `src/app/app.spec.ts`: criação da aplicação e conteúdo do título principal.
 - `src/app/quote-validation.spec.ts`: regras de validação dos campos.
 - `src/app/quote-flow.spec.ts`: bloqueios de envio, consentimento, carrinho e conteúdo da mensagem; a abertura de janela é simulada e não envia mensagens reais.
-- Build concluído e 113 testes aprovados em 25/09/2026 para o estado local documentado nesta revisão.
+- Build concluído e 117 testes aprovados em 29/09/2026 para o estado local documentado nesta revisão.
 
 Essas evidências não confirmam recebimento no WhatsApp, aprovação dos produtos, acessibilidade, desempenho em rede móvel, compatibilidade completa ou disponibilidade em produção.
 
@@ -80,6 +80,6 @@ Usar também o checklist de [Publicação e entrega](DEPLOYMENT.md). Registrar c
 
 Ao alterar o escopo, atualizar os requisitos afetados, seus critérios, evidências e pendências. Uma futura reativação de produtos exige revisar RF-02, RF-04 e RF-07, além da aprovação comercial. Este documento deve acompanhar a versão do código; a aprovação final ainda não foi registrada.
 
-## Revisão de 24/09/2026
+## Revisão de 29/09/2026
 
-Os critérios atuais seguem [BUSINESS-RULES.md](BUSINESS-RULES.md): quatro categorias, oito opções, nenhum acabamento automático no pedido; links de orçamento em MegaShield; revisão do carrinho somente na finalização e contato reorganizado. Os dados de domínio e acesso estão detalhados em [HOSTING-HANDOFF.md](HOSTING-HANDOFF.md).
+Os critérios atuais seguem [BUSINESS-RULES.md](BUSINESS-RULES.md): cinco categorias, oito acessórios existentes mais pintura opcional e chave por barra, nenhum acabamento automático no pedido; links de orçamento em MegaShield; revisão do carrinho somente na finalização e contato reorganizado. Os dados de domínio e acesso estão detalhados em [HOSTING-HANDOFF.md](HOSTING-HANDOFF.md).
