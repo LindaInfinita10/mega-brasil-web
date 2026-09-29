@@ -978,50 +978,30 @@ footer a {
     transform: scale(1.07);
   }
 }
+.empresa-cards { gap: 20px; margin-top: 48px; }
 .empresa-cards article {
   position: relative;
-  min-height: 210px;
-  padding: 28px !important;
-  border: 1px solid rgba(255, 255, 255, 0.22) !important;
-  border-radius: 12px;
-  background: linear-gradient(145deg, rgba(75, 78, 81, 0.78), rgba(36, 38, 40, 0.82)) !important;
-  box-shadow: 0 15px 34px rgba(0, 0, 0, 0.2);
-  transition:
-    transform 0.28s ease,
-    border-color 0.28s ease,
-    background 0.28s ease;
+  min-width: 0;
+  min-height: 260px;
+  padding: clamp(24px, 2.4vw, 36px);
+  border: 1px solid #55585a;
+  border-top: 3px solid var(--orange);
+  border-radius: 6px;
+  background: #292c2f;
+  backdrop-filter: none;
+  box-shadow: 0 8px 24px #0000001a;
 }
-.empresa-cards article:hover {
-  transform: translateY(-8px);
-  border-color: rgba(244, 81, 0, 0.85) !important;
-  background: linear-gradient(145deg, rgba(92, 95, 98, 0.86), rgba(43, 45, 47, 0.9)) !important;
-}
-.empresa-cards h3 {
-  margin: 16px 0 12px !important;
-  letter-spacing: 0.8px;
-}
-.empresa-cards p {
-  font-size: 14px !important;
-  line-height: 1.6 !important;
-}
-.card-icon {
-  display: grid;
-  place-items: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 12px;
-  background: rgba(244, 81, 0, 0.16);
-  border: 1px solid rgba(244, 81, 0, 0.52);
-  color: #ff7027;
-}
-.card-icon svg {
-  width: 24px;
-  height: 24px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.7;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.principle-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+.principle-label { color: #c5c8ca; font-size: 11px; line-height: 1.5; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; }
+.empresa-cards h3 { margin: 0 0 16px; color: #fff; font-family: var(--font-display); font-size: clamp(30px, 2.5vw, 38px); font-weight: 600; line-height: 1.1; letter-spacing: .3px; text-transform: uppercase; }
+.empresa-cards p { max-width: 40ch; margin: 0; color: #e0e2e3; font-size: clamp(16px, 1.1vw, 19px); line-height: 1.7; }
+.empresa-cards .card-icon { display: grid; place-items: center; flex: 0 0 42px; width: 42px; height: 42px; border: 1px solid #ffffff1f; border-radius: 50%; background: #ffffff06; color: #ff914d; }
+.empresa-cards .card-icon svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+@media (max-width: 850px) {
+  .empresa-cards { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .empresa-cards article { min-height: 0; padding: 24px; }
+  .principle-heading { margin-bottom: 16px; }
+  .empresa-cards p { max-width: 65ch; }
 }
 .catalogo-novo {
   padding: 100px 0;
@@ -1529,8 +1509,8 @@ input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: #c6302
   .empresa-text { max-width: 1050px; }
   .empresa-text h2, .mega-heading h2, .contact-section-heading h2 { font-size: 112px; }
   .empresa-text p, .mega-heading p, .mega-product-info p { font-size: 26px; }
-  .empresa-cards h3 { font-size: 28px; }
-  .empresa-cards p { font-size: 22px !important; }
+  .empresa-cards h3 { font-size: 42px; }
+  .empresa-cards p { font-size: 22px; }
   .mega-heading { max-width: 1050px; }
 }
 
@@ -1631,6 +1611,10 @@ button, input, select, textarea { max-width: 100%; }
 .component-store-copy small { color: #666; font-size: 12px; line-height: 1.4; }
 .door-config-fields .component-inline-options { display: grid; gap: 8px; padding: 0 10px 12px; margin: 0; border: 0; min-width: 0; }
 .component-option { display: grid; grid-template-columns: 52px 18px minmax(0, 1fr); align-items: center; gap: 8px; min-height: 76px; padding: 8px; border: 1px solid #d0cfca; border-radius: 5px; background: #f8f7f4; cursor: pointer; }
+.painting-swatch { display: block; width: 52px; height: 52px; border: 1px solid #d0cfca; border-radius: 5px; }
+.painting-swatch-red { background: #c62828; }
+.painting-swatch-custom { background: conic-gradient(#c62828, #edb72f, #429968, #3478b8, #8558a6, #c62828); }
+.painting-swatch-intumescent { background: repeating-linear-gradient(135deg, #e8e7e2 0 6px, #f8f7f4 6px 12px); }
 .component-option img { display: block; width: 52px; height: 52px; object-fit: contain; }
 .component-option span { overflow-wrap: anywhere; font-size: 13px; line-height: 1.4; text-transform: none; }
 .component-option input { width: 18px; height: 18px; accent-color: #a63700; }

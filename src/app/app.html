@@ -108,41 +108,36 @@
           atendimento em todo o Brasil.
         </p>
       </div>
-      <div class="empresa-cards">
-        <article>
-          <div class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4" />
-            </svg>
+      <div class="empresa-cards" aria-label="Princípios da Mega Brasil">
+        <article aria-labelledby="empresa-missao">
+          <div class="principle-heading">
+            <span class="principle-label">O que nos move</span>
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="13" r="8" /><circle cx="11" cy="13" r="4" /><path d="m11 13 9-9M16 4h4v4" /></svg>
+            </span>
           </div>
-          <h3>MISSÃO</h3>
-          <p>
-            Oferecer soluções contra incêndio com excelência, inovação e compromisso com a vida.
-          </p>
+          <h3 id="empresa-missao">Missão</h3>
+          <p>Oferecer soluções contra incêndio com excelência, inovação e compromisso com a vida.</p>
         </article>
-        <article>
-          <div class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="8" />
-              <circle cx="12" cy="12" r="3" />
-            </svg>
+        <article aria-labelledby="empresa-visao">
+          <div class="principle-heading">
+            <span class="principle-label">Onde queremos chegar</span>
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" /><circle cx="12" cy="12" r="3" /></svg>
+            </span>
           </div>
-          <h3>VISÃO</h3>
-          <p>
-            Ser referência nacional em soluções contra incêndio, com qualidade, tecnologia e
-            confiança.
-          </p>
+          <h3 id="empresa-visao">Visão</h3>
+          <p>Ser referência nacional em soluções contra incêndio, com qualidade, tecnologia e confiança.</p>
         </article>
-        <article>
-          <div class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7l7-4zM9 12l2 2 4-4" />
-            </svg>
+        <article aria-labelledby="empresa-valores">
+          <div class="principle-heading">
+            <span class="principle-label">Como atuamos</span>
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="m12 3 7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7l7-4Z" /><path d="m9 12 2 2 4-4" /></svg>
+            </span>
           </div>
-          <h3>VALORES</h3>
-          <p>
-            Ética, excelência, inovação e responsabilidade com a proteção de vidas e patrimônios.
-          </p>
+          <h3 id="empresa-valores">Valores</h3>
+          <p>Ética, excelência, inovação e responsabilidade com a proteção de vidas e patrimônios.</p>
         </article>
       </div>
     </div>
@@ -166,7 +161,7 @@
             </figure>
             <div class="configuration-workspace">
             <div class="door-config-fields">
-              <label [for]="'door-model-' + doorType">Modelo<select [id]="'door-model-' + doorType" [name]="'doorModel-' + doorType" [ngModel]="draftFor(doorType).model" (ngModelChange)="changeDoorModel($event, doorType)"><option value="P60" disabled>MegaShield P60 — Fora de produção</option><option value="P90">MegaShield P90</option><option value="P120">MegaShield P120</option></select></label>
+              <label [for]="'door-model-' + doorType">Modelo<select [id]="'door-model-' + doorType" [name]="'doorModel-' + doorType" [ngModel]="draftFor(doorType).model" (ngModelChange)="changeDoorModel($event, doorType)"><option value="P60">MegaShield P60 — Somente sob encomenda</option><option value="P90">MegaShield P90</option><option value="P120">MegaShield P120</option></select></label>
               <label [for]="'door-size-' + doorType">Dimensões nominais (largura × altura)<select [id]="'door-size-' + doorType" [name]="'doorSize-' + doorType" [ngModel]="draftFor(doorType).size === 'custom' ? 'custom' : draftFor(doorType).width + 'x' + draftFor(doorType).height" (ngModelChange)="$event === 'custom' ? changeDoorSize('custom', doorType) : changeDoorNominalSize($event, doorType)"><option value="80x210">80 × 210 cm</option><option value="90x210">90 × 210 cm</option><option value="100x210">100 × 210 cm</option><option value="custom">Outra medida — sob consulta</option></select></label>
               @if (draftFor(doorType).size === 'custom') {
                 <div class="door-custom-size"><label>Largura (cm)<input [name]="'doorWidth-' + doorType" type="number" min="0.1" max="1000" step="0.1" required [(ngModel)]="draftFor(doorType).width" /></label><label>Altura (cm)<input [name]="'doorHeight-' + doorType" type="number" min="0.1" max="1000" step="0.1" required [(ngModel)]="draftFor(doorType).height" /></label></div>
@@ -177,7 +172,22 @@
                   <article class="component-store-card" [class.has-selection]="selectedGroupCount(doorType, group) > 0">
                     <div class="component-store-copy"><h4>{{ group }}</h4><small>{{ selectedGroupCount(doorType, group) ? selectedGroupCount(doorType, group) + ' opção(ões) selecionada(s)' : 'Nenhum selecionado' }}</small></div>
                       <fieldset class="component-inline-options" [id]="doorType + '-' + group"><legend class="sr-only">{{ group }}</legend>
-                        @for (component of componentOptions; track component.label) { @if (component.group === group) { <label class="component-option" [class.chosen]="isComponentSelected(component.label, doorType)"><img width="56" height="56" [src]="'/assets/images/components/' + componentImageName(component.label)" [alt]="'Imagem ilustrativa: ' + component.label" /><input type="checkbox" [name]="doorType + '-component-' + component.label" [checked]="isComponentSelected(component.label, doorType)" (change)="toggleComponent(component.label, doorType)" /><span>{{ component.label }}</span></label> } }
+                        @for (component of componentOptions; track component.label) { @if (component.group === group) { <label class="component-option" [class.chosen]="isComponentSelected(component.label, doorType)"><img width="56" height="56" [src]="'/assets/images/components/' + componentImageName(component.label)" [alt]="'Imagem ilustrativa: ' + component.label.replace(' c/ chave', component.group === 'Barras antipânico' ? '' : ' c/ chave')" /><input type="checkbox" [name]="doorType + '-component-' + component.label" [checked]="isComponentSelected(component.label, doorType)" (change)="toggleComponent(component.label, doorType)" /><span>{{ component.label.replace('Barra ', 'Barra antipânico ').replace(' c/ chave', component.group === 'Barras antipânico' ? '' : ' c/ chave') }}</span></label>
+                          @if (component.group === 'Barras antipânico' && isComponentSelected(component.label, doorType)) {
+                            <label>{{ component.label.replace(' c/ chave', '') }} — Chave
+                              <select [name]="doorType + '-key-' + component.label" [ngModel]="draftFor(doorType).panicBarKeys?.[component.label] ?? 'Com chave'" (ngModelChange)="setBarKey(component.label, $event, doorType)"><option>Com chave</option><option>Sem chave</option></select>
+                            </label>
+                          }
+                        } }
+                        @if (group === 'Pintura') {
+                          @for (painting of paintingOptions; track painting) {
+                            <label class="component-option painting-option" [class.chosen]="draftFor(doorType).painting === painting"><span class="painting-swatch" [class.painting-swatch-red]="painting === 'Cor vermelha'" [class.painting-swatch-custom]="painting === 'Outra cor'" [class.painting-swatch-intumescent]="painting === 'Tinta intumescente'" aria-hidden="true"></span><input type="checkbox" [name]="doorType + '-painting-' + painting" [checked]="draftFor(doorType).painting === painting" (change)="draftFor(doorType).painting = draftFor(doorType).painting === painting ? undefined : painting" /><span>{{ painting }}</span></label>
+                          }
+                          @if (draftFor(doorType).painting === 'Outra cor') {
+                            <label>Especifique a cor desejada<input [name]="doorType + '-custom-color'" placeholder="Especifique a cor desejada" required pattern=".*\S.*" [(ngModel)]="draftFor(doorType).customColor" /></label>
+                            @if (!draftFor(doorType).customColor?.trim()) { <small role="status">Informe a cor desejada para finalizar o pedido.</small> }
+                          }
+                        }
                       </fieldset>
                   </article>
                 }
@@ -198,8 +208,9 @@
                 <p>{{ draft.width }} × {{ draft.height }} cm · {{ draft.quantity }} porta(s)</p>
                 <ul aria-live="polite">
                   @for (component of draft.components; track component) {
-                    <li><span>{{ component }}</span><button type="button" (click)="toggleComponent(component)" [attr.aria-label]="'Remover ' + component">×</button></li>
-                  } @empty { <li>Escolha os componentes ao lado.</li> }
+                    <li><span>{{ componentText(draft, component) }}</span><button type="button" (click)="toggleComponent(component)" [attr.aria-label]="'Remover ' + componentText(draft, component)">×</button></li>
+                  } @empty { @if (!draft.painting) { <li>Escolha os componentes ao lado.</li> } }
+                  @if (draft.painting) { <li><span>{{ paintingText(draft) }}</span><button type="button" (click)="draft.painting = undefined" aria-label="Remover pintura">×</button></li> }
                 </ul>
               </div>
               }
@@ -273,11 +284,11 @@
             <a class="channel-card" href="mailto:comercial@megabrasilindustria.net?subject=Contato%20comercial%20-%20Mega%20Brasil" aria-label="Enviar e-mail para comercial@megabrasilindustria.net"><span class="channel-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg></span><small>E-mail</small><strong>comercial@megabrasilindustria.net</strong><em>Enviar e-mail →</em></a>
             <p class="channel-coverage">Atendimento a projetos em todo o Brasil.</p>
           </div>
-          <div class="address-cards" hidden><a href="https://www.google.com/maps/search/?api=1&query=Rua+Teixeira+de+Souza+116+Vila+Maria+Helena+Duque+de+Caxias+RJ" target="_blank" rel="noopener noreferrer"><small>Unidade 1 · Matriz</small><strong>Rua Teixeira de Souza, 116</strong><span>Vila Maria Helena · Duque de Caxias — RJ</span><em>Abrir no Google Maps →</em></a><a href="https://www.google.com/maps/search/?api=1&query=Avenida+das+Am%C3%A9ricas+12900+Americas+Avenue+Business+Square+Barra+da+Tijuca+RJ" target="_blank" rel="noopener noreferrer"><small>Unidade 2 · Área administrativa</small><strong>Avenida das Américas, 12.900</strong><span>Américas Avenue Business Square · Ala Brasil · Salas 212, 213, 214 e 215 · Barra da Tijuca — RJ</span><em>Abrir no Google Maps →</em></a><a href="https://www.google.com/maps/search/?api=1&query=Avenida+Juscelino+Kubitscheck+1455+Edificio+The+City+Sao+Paulo+SP" target="_blank" rel="noopener noreferrer"><small>Unidade 3 · São Paulo</small><strong>Avenida Juscelino Kubitscheck, 1.455</strong><span>Edifício The City · São Paulo — SP</span><em>Abrir no Google Maps →</em></a></div>
+          <div class="address-cards" hidden><a href="https://www.google.com/maps/search/?api=1&query=Rua+Teixeira+de+Souza+116+Vila+Maria+Helena+Duque+de+Caxias+RJ" target="_blank" rel="noopener noreferrer"><small>Unidade 1 · Matriz</small><strong>Rua Teixeira de Souza, 116</strong><span>Vila Maria Helena · Duque de Caxias — RJ</span><em>Abrir no Google Maps →</em></a><a href="https://www.google.com/maps/search/?api=1&query=Avenida+das+Am%C3%A9ricas+12900+Americas+Avenue+Business+Square+Barra+da+Tijuca+RJ" target="_blank" rel="noopener noreferrer"><small>Unidade 2 · Área administrativa</small><strong>Avenida das Américas, 12.900</strong><span>Américas Avenue Business Square · Ala Brasil · Salas 212, 213, 214 e 215 · Barra da Tijuca — RJ</span><em>Abrir no Google Maps →</em></a></div>
         </div>
         <div class="contact-map"><div class="map-heading"><p class="eyebrow">NOSSA MATRIZ</p><h3>Duque de Caxias · RJ</h3><p>Rua Teixeira de Souza, 116 · Vila Maria Helena</p></div><iframe title="Mapa da matriz Mega Brasil Indústria" src="https://www.google.com/maps?q=Rua%20Teixeira%20de%20Souza%20116%20Duque%20de%20Caxias%20RJ&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><a href="https://www.google.com/maps/search/?api=1&query=Rua+Teixeira+de+Souza+116+Vila+Maria+Helena+Duque+de+Caxias+RJ" target="_blank" rel="noopener noreferrer">Ver rota até a matriz <span>→</span></a></div>
       </div>
-      @if (!quotePage()) { <app-privacy-policy class="contact-privacy" policyId="contact-privacy" [expanded]="true" /> }
+      @if (!quotePage()) { <app-privacy-policy class="contact-privacy" policyId="contact-privacy" /> }
     </div>
   </section>
 </main>
@@ -342,10 +353,11 @@
     <div class="footer-identity"><a class="footer-brand" href="#inicio" aria-label="Mega Brasil - início"><img width="1225" height="1284" src="/assets/images/hero/hero.transp.webp" alt="Mega Brasil Indústria" /></a><p>Soluções em proteção contra incêndio para projetos industriais e comerciais.</p><div class="footer-socials"><a class="social-instagram" href="https://www.instagram.com/megabrasil_industria?igsi=ZGZzYTBwMTJ3M2Rj" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram da Mega Brasil"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle class="social-dot" cx="17.4" cy="6.7" r="1"></circle></svg></a><a class="social-linkedin" href="https://www.linkedin.com/company/grupo-mega-brasil/" target="_blank" rel="noopener noreferrer" aria-label="Abrir LinkedIn da Mega Brasil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 2H3.55C2.69 2 2 2.68 2 3.52v16.96c0 .84.69 1.52 1.55 1.52h16.9c.86 0 1.55-.68 1.55-1.52V3.52c0-.84-.69-1.52-1.55-1.52ZM7.93 18.75H4.98V9.2h2.95v9.55ZM6.45 7.9a1.71 1.71 0 1 1 0-3.42 1.71 1.71 0 0 1 0 3.42ZM19 18.75h-2.95V14.1c0-1.11-.02-2.54-1.55-2.54-1.55 0-1.79 1.21-1.79 2.46v4.73H9.76V9.2h2.83v1.31h.04c.39-.75 1.36-1.55 2.8-1.55 2.99 0 3.57 1.97 3.57 4.53v5.26Z"></path></svg></a><a class="social-facebook" href="https://www.facebook.com/share/18PdYGjxpk/" target="_blank" rel="noopener noreferrer" aria-label="Abrir Facebook da Mega Brasil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.23.2 2.23.2v2.46h-1.25c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12Z"></path></svg></a></div></div>
     <div class="footer-contact">
       <h3>Contato comercial</h3>
+      <a href="mailto:comercial@megabrasil.net">comercial@megabrasil.net</a>
       <a class="footer-whatsapp" href="https://wa.me/5521978715555" target="_blank" rel="noopener noreferrer">+55 21 97871-5555</a>
       <a href="mailto:comercial@megabrasilindustria.net?subject=Contato%20comercial%20-%20Mega%20Brasil" aria-label="Enviar e-mail para comercial@megabrasilindustria.net">comercial@megabrasilindustria.net</a>
     </div>
-    <address class="footer-addresses"><div><h3>Unidade 1 · Matriz</h3><a href="https://www.google.com/maps/search/?api=1&query=Rua+Teixeira+de+Souza+116+Vila+Maria+Helena+Duque+de+Caxias+RJ" target="_blank" rel="noopener noreferrer">Rua Teixeira de Souza, 116<br />Vila Maria Helena<br />Duque de Caxias — RJ</a></div><div><h3>Unidade 2 · Área administrativa</h3><a href="https://www.google.com/maps/search/?api=1&query=Avenida+das+Am%C3%A9ricas+12900+Americas+Avenue+Business+Square+Barra+da+Tijuca+RJ" target="_blank" rel="noopener noreferrer">Avenida das Américas, 12.900<br />Américas Avenue Business Square<br />Ala Brasil · Salas 212, 213, 214 e 215<br />Barra da Tijuca — RJ</a></div><div><h3>Unidade 3 · São Paulo</h3><a href="https://www.google.com/maps/search/?api=1&query=Avenida+Juscelino+Kubitscheck+1455+Edificio+The+City+Sao+Paulo+SP" target="_blank" rel="noopener noreferrer">Avenida Juscelino Kubitscheck, 1.455<br />Edifício The City<br />São Paulo — SP</a></div></address>
+    <address class="footer-addresses"><div><h3>Unidade 1 · Matriz</h3><a href="https://www.google.com/maps/search/?api=1&query=Rua+Teixeira+de+Souza+116+Vila+Maria+Helena+Duque+de+Caxias+RJ" target="_blank" rel="noopener noreferrer">Rua Teixeira de Souza, 116<br />Vila Maria Helena<br />Duque de Caxias — RJ</a></div><div><h3>Unidade 2 · Área administrativa</h3><a href="https://www.google.com/maps/search/?api=1&query=Avenida+das+Am%C3%A9ricas+12900+Americas+Avenue+Business+Square+Barra+da+Tijuca+RJ" target="_blank" rel="noopener noreferrer">Avenida das Américas, 12.900<br />Américas Avenue Business Square<br />Ala Brasil · Salas 212, 213, 214 e 215<br />Barra da Tijuca — RJ</a></div></address>
     <div class="footer-navigation">
       <h3>Institucional</h3>
       <a href="#empresa">A empresa</a><a href="#megashield">Produtos</a
@@ -357,7 +369,7 @@
       <a href="https://www.gov.br/ufcg/pt-br/acesso-a-informacao/lei-geral-de-protecao-de-dados/legislacao" target="_blank" rel="noopener noreferrer">Privacidade — Marco Civil da Internet</a>
       <a href="https://www.gov.br/int/pt-br/acesso-a-informacao/lgpd/legislacao" target="_blank" rel="noopener noreferrer">Proteção de dados — LGPD</a>
       <a href="https://www.consumidor.gov.br/pages/conteudo/publico/102" target="_blank" rel="noopener noreferrer">Código de Defesa do Consumidor</a>
-      <a href="https://www.cbmerj.rj.gov.br/notas-tecnicas/" target="_blank" rel="noopener noreferrer">Segurança contra incêndio — Legislação RJ</a>
+      <a href="https://www.cbmerj.rj.gov.br/notas-tecnicas/" target="_blank" rel="noopener noreferrer">Segurança contra incêndio e pânico — Legislação RJ</a>
     </div>
   </div>
   <div class="footer-bottom">

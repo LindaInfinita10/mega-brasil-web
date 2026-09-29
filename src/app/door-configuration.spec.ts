@@ -60,7 +60,7 @@ describe('Configured door cart', () => {
     app['saveDoor']();
     expect(app['cart']()).toHaveLength(2);
     expect(app['cart']()[1].configuration?.actuation).toBeUndefined();
-    expect(app['configurationText'](app['cart']()[1])).toContain('Barra simples c/ chave');
+    expect(app['configurationText'](app['cart']()[1])).toContain('Barra antipânico simples — Com chave');
     expect(app['configurationText'](app['cart']()[1])).not.toContain('fechadura manual');
     app['editDoor'](app['cart']()[0]);
     expect(app['draft'].components).toEqual(['Fechadura sobrepor simples']);
@@ -79,8 +79,8 @@ describe('Configured door cart', () => {
     app['closeQuotePage'](); app['finalizeOrder']();
     expect(app['cart']()[0].quantity).toBe(3);
   });
-  it('offers only the four commercial component categories', () => {
-    expect(COMPONENT_GROUPS).toEqual(['Dobradiças', 'Fechaduras', 'Molas aéreas', 'Barras antipânico']);
+  it('preserves the commercial component categories and adds painting', () => {
+    expect(COMPONENT_GROUPS).toEqual(['Dobradiças', 'Fechaduras', 'Molas aéreas', 'Barras antipânico', 'Pintura']);
   });
   it('uses the changed quantity at checkout without duplicating the saved door', () => {
     app['saveDoor']();

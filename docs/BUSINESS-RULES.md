@@ -17,4 +17,4 @@
 
 Ver [requisitos](REQUIREMENTS.md), [configurador](DOOR-CONFIGURATOR.md) e [publicação](DEPLOYMENT.md).
 
-- Contato apresenta links diretos para WhatsApp, telefone e e-mail; o site não inicia contato automaticamente. A política de privacidade aparece aberta em Contato e pode ser expandida na finalização.
+- Contato apresenta links diretos para WhatsApp, telefone e e-mail; o site não inicia contato automaticamente. A política de privacidade inicia recolhida em Contato e na finalização; o visitante pode abri-la pelo título ou pelos links de privacidade.

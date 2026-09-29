@@ -5,7 +5,7 @@ import { QuoteFieldDirective } from './quote-field.directive';
 import { PanelFocusDirective } from './panel-focus.directive';
 import { PrivacyPolicyComponent } from './privacy-policy.component';
 import { normalizeQuoteField, quoteFieldError, quoteFields } from './quote-validation';
-import { CartItem, DoorActuation, DoorConfiguration, DoorModel, COMPONENT_GROUPS, DEFAULT_COMPONENTS, DOOR_COMPONENT_OPTIONS, DOOR_SIZES, itemKey, configurationText, quoteItemText, validConfiguration } from './door-configuration';
+import { CartItem, DoorActuation, DoorConfiguration, DoorModel, COMPONENT_GROUPS, DEFAULT_COMPONENTS, DOOR_COMPONENT_OPTIONS, DOOR_SIZES, itemKey, configurationText, quoteItemText, validConfiguration, PAINTING_OPTIONS, componentText, paintingText } from './door-configuration';
 
 @Component({
   selector: 'app-root',
@@ -51,6 +51,9 @@ export class App {
   protected readonly configurationStarted = signal(false);
   protected readonly doorSizes = DOOR_SIZES;
   protected readonly nominalSizes = DOOR_SIZES.P90;
+  protected readonly paintingOptions = PAINTING_OPTIONS;
+  protected readonly componentText = componentText;
+  protected readonly paintingText = paintingText;
   protected readonly componentGroups = COMPONENT_GROUPS;
   protected readonly componentOptions = DOOR_COMPONENT_OPTIONS;
   protected readonly doorTypes: DoorActuation[] = ['manual', 'panic-bar'];
@@ -64,7 +67,7 @@ export class App {
   };
   protected readonly itemKey = itemKey;
   protected readonly configurationText = configurationText;
-  protected drafts: Record<DoorActuation, { model: DoorModel; actuation: DoorActuation; size: 'nominal' | 'standard' | 'custom'; width: number; height: number; hardware?: string; components: string[]; quantity: number }> = {
+  protected drafts: Record<DoorActuation, { model: DoorModel; actuation: DoorActuation; size: 'nominal' | 'standard' | 'custom'; width: number; height: number; hardware?: string; panicBarKeys?: DoorConfiguration['panicBarKeys']; painting?: DoorConfiguration['painting']; customColor?: string; components: string[]; quantity: number }> = {
     manual: { model: 'P90', actuation: 'manual', size: 'nominal', width: 80, height: 210, hardware: '', components: [...DEFAULT_COMPONENTS], quantity: 1 },
     'panic-bar': { model: 'P90', actuation: 'panic-bar', size: 'nominal', width: 80, height: 210, hardware: '', components: [...DEFAULT_COMPONENTS], quantity: 1 },
   };
@@ -104,7 +107,7 @@ export class App {
     this.selectDoorType(type);
   }
   protected changeDoorModel(model: DoorModel, type: DoorActuation = this.activeDoorType): void {
-    if (model !== 'P90' && model !== 'P120') return;
+    if (model !== 'P60' && model !== 'P90' && model !== 'P120') return;
     const draft = this.drafts[type];
     draft.model = model;
     if (draft.size === 'nominal') Object.assign(draft, DOOR_SIZES[model][0]);
@@ -124,6 +127,9 @@ export class App {
     const draft = this.drafts[type];
     draft.components = draft.components.includes(component) ? draft.components.filter(selected => selected !== component) : [...draft.components, component];
   }
+  protected setBarKey(component: string, value: 'Com chave' | 'Sem chave', type: DoorActuation): void {
+    this.drafts[type].panicBarKeys = { ...this.drafts[type].panicBarKeys, [component]: value };
+  }
   protected isComponentSelected(component: string, type: DoorActuation = this.activeDoorType): boolean {
     return this.drafts[type].components.includes(component);
   }
@@ -137,7 +143,7 @@ export class App {
   protected saveDoor(type: DoorActuation = this.activeDoorType): void {
     if (!this.draftValid(type)) return;
     const { quantity, actuation: _actuation, hardware: _hardware, ...configuration } = this.drafts[type];
-    const item: CartItem = { name: `MegaShield ${configuration.model}`, quantity, configuration: { ...configuration, components: [...configuration.components] } as DoorConfiguration };
+    const item: CartItem = { name: `MegaShield ${configuration.model}`, quantity, configuration: { ...configuration, components: [...configuration.components], panicBarKeys: { ...configuration.panicBarKeys }, customColor: configuration.customColor?.trim() } as DoorConfiguration };
     const remaining = this.cart().filter(row => itemKey(row) !== this.editingKey);
     const match = remaining.find(row => itemKey(row) === itemKey(item));
     if (match && match.quantity + quantity > 999) { this.cartNotice.set('Limite de 999 unidades por configuração.'); return; }
@@ -151,7 +157,7 @@ export class App {
     if (!item.configuration) return;
     const components = Array.isArray(item.configuration.components) ? [...item.configuration.components] : [item.configuration.components.lock, item.configuration.components.hinges];
     const type = 'manual';
-    this.drafts[type] = { ...this.drafts[type], ...item.configuration, actuation: type, components, quantity: item.quantity };
+    this.drafts[type] = { ...this.drafts[type], ...item.configuration, actuation: type, components, panicBarKeys: { ...item.configuration.panicBarKeys }, painting: item.configuration.painting, customColor: item.configuration.customColor, quantity: item.quantity };
     this.selectDoorType(type);
     this.editingKey = itemKey(item);
     this.closeQuotePage();
@@ -171,10 +177,12 @@ export class App {
   }
   protected isComponentGroupOpen(type: DoorActuation, group: string): boolean { return !!this.openGroups[type][group]; }
   protected selectedGroupSummary(type: DoorActuation, group: string): string {
+    if (group === 'Pintura') return paintingText(this.drafts[type]) || 'Selecionar';
     const selected = this.drafts[type].components.filter(component => this.componentOptions.some(option => option.group === group && option.label === component));
-    return selected.length ? selected.join(', ') : 'Selecionar';
+    return selected.length ? selected.map(label => componentText(this.drafts[type], label)).join(', ') : 'Selecionar';
   }
   protected selectedGroupCount(type: DoorActuation, group: string): number {
+    if (group === 'Pintura') return this.drafts[type].painting ? 1 : 0;
     return this.drafts[type].components.filter(component => this.componentOptions.some(option => option.group === group && option.label === component)).length;
   }
   protected componentCover(type: DoorActuation, group: string): string {
@@ -227,9 +235,9 @@ export class App {
     { name: 'MegaFoam', title: 'Gerador de espuma', image: '/assets/images/products/megafoam-hd.webp' },
     { name: 'MegaSprink', title: 'Sprinklers', image: '/assets/images/products/megasprink-hd.webp' },
   ];
-  protected readonly contactProducts = this.allContactProducts.filter(product => ['MegaShield P90', 'MegaShield P120'].includes(product.name));
+  protected readonly contactProducts = this.allContactProducts.filter(product => ['MegaShield P60', 'MegaShield P90', 'MegaShield P120'].includes(product.name));
   protected readonly showFullCatalog = false;
-  protected startDoorQuote(model: 'P90' | 'P120'): void {
+  protected startDoorQuote(model: DoorModel): void {
     this.editingKey = null;
     this.changeDoorModel(model);
     this.closeQuotePage();
@@ -310,6 +318,9 @@ export class App {
     this.cancelDoorEdit();
     this.lastSavedDraft = null;
     this.draft.components = [];
+    this.draft.panicBarKeys = {};
+    this.draft.painting = undefined;
+    this.draft.customColor = undefined;
     this.draft.quantity = 1;
     this.backToProducts();
   }
@@ -324,7 +335,7 @@ export class App {
 
   protected addProduct(name: string): void {
     if (!this.contactProducts.some(product => product.name === name)) return;
-    this.startDoorQuote(name.endsWith('P120') ? 'P120' : 'P90');
+    this.startDoorQuote(name.endsWith('P60') ? 'P60' : name.endsWith('P120') ? 'P120' : 'P90');
   }
   protected changeProduct(name: string, amount: number): void {
     if (amount !== 1 && amount !== -1) return;

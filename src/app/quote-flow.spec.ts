@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
 import { App } from './app';
-import { DOOR_COMPONENT_OPTIONS } from './door-configuration';
+import { DOOR_COMPONENT_OPTIONS, componentText } from './door-configuration';
 
 function addDoor(app: App, model: 'P90' | 'P120' = 'P90') {
   app['changeDoorModel'](model);
@@ -163,7 +163,7 @@ describe('Quote submission', () => {
     const text = new URL(open.mock.calls[0][0] as string).searchParams.get('text')!;
     expect(text).toContain('*MegaShield P120*\nQuantidade: 12 unidade(s)');
     expect(text).toContain('100 × 210 cm');
-    for (const option of DOOR_COMPONENT_OPTIONS) expect(text).toContain(`• ${option.label}`);
+    for (const option of DOOR_COMPONENT_OPTIONS) expect(text).toContain(`• ${componentText(app['draft'], option.label)}`);
     for (const value of [customer.name, customer.cnpj, customer.phone, customer.email, customer.company, customer.budget]) expect(text).toContain(value);
     expect(app['feedback']()).not.toContain('enviado com sucesso');
     expect(localStorage.getItem('mega-brasil-cart')).toBeNull();
@@ -183,12 +183,16 @@ describe('Quote submission', () => {
     app['cart'].set([{ name: 'MegaHose', quantity: 1 }]); app['sendQuote']();
     expect(open).not.toHaveBeenCalled();
   });
-  it('keeps P60 unavailable in the catalog and blocks direct additions', () => {
-    expect(app['contactProducts'].map(product => product.name)).toEqual(['MegaShield P90', 'MegaShield P120']);
+  it('allows P60 to be selected and requested from the catalog', () => {
+    expect(app['contactProducts'].map(product => product.name)).toEqual(['MegaShield P60', 'MegaShield P90', 'MegaShield P120']);
     app['addProduct']('MegaShield P60');
-    expect(app['productQuantity']('MegaShield P60')).toBe(0);
+    expect(app['draft'].model).toBe('P60');
+    app['saveDoor']();
+    expect(app['productQuantity']('MegaShield P60')).toBe(1);
+    app['sendQuote']();
+    expect(new URL(open.mock.calls[0][0] as string).searchParams.get('text')).toContain('*MegaShield P60*');
   });
-  it('blocks a P60 quote even if the cart is manipulated', () => {
+  it('blocks a P60 quote without a configuration', () => {
     app['cart'].set([{ name: 'MegaShield P60', quantity: 1 }]);
     app['sendQuote']();
     expect(open).not.toHaveBeenCalled();
